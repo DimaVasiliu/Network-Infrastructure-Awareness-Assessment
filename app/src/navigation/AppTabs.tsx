@@ -3,6 +3,7 @@ import type { NavigatorScreenParams } from '@react-navigation/native';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
 import { HelpModal } from '../components/HelpModal';
@@ -44,6 +45,16 @@ export type RootTabParamList = {
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const PracticeStack = createNativeStackNavigator<PracticeStackParamList>();
 const MockExamStack = createNativeStackNavigator<MockExamStackParamList>();
+
+type TabIconName = React.ComponentProps<typeof Ionicons>['name'];
+
+const tabIcons: Record<keyof RootTabParamList, { active: TabIconName; inactive: TabIconName }> = {
+  HomeTab: { active: 'home', inactive: 'home-outline' },
+  PracticeTab: { active: 'school', inactive: 'school-outline' },
+  MockExamTab: { active: 'timer', inactive: 'timer-outline' },
+  StatsTab: { active: 'bar-chart', inactive: 'bar-chart-outline' },
+  SettingsTab: { active: 'settings', inactive: 'settings-outline' },
+};
 
 const sectionSlugByName: Record<QuestionSection, string> = {
   'Product Selection': 'product-selection',
@@ -132,13 +143,16 @@ export function AppTabs() {
     <>
       <NavigationContainer linking={linking} theme={navigationTheme}>
         <Tab.Navigator
-          screenOptions={{
+          screenOptions={({ route }) => ({
             headerRight: () => <HelpButton onPress={() => setIsHelpOpen(true)} />,
+            tabBarIcon: ({ color, focused, size }) => (
+              <Ionicons color={color} name={focused ? tabIcons[route.name].active : tabIcons[route.name].inactive} size={size} />
+            ),
             tabBarActiveTintColor: colors.primary,
             tabBarInactiveTintColor: colors.muted,
             tabBarLabelStyle: styles.tabLabel,
             tabBarStyle: styles.tabBar,
-          }}
+          })}
         >
           <Tab.Screen name="HomeTab" component={HomeScreen} options={{ title: 'Home', tabBarLabel: 'Home' }} />
           <Tab.Screen
