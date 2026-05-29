@@ -18,4 +18,5 @@ export type Question = {
   choices: Record<AnswerChoice, string>;
   correctAnswer: AnswerChoice;
   explanation: string;
+  standardRef?: string;
 };

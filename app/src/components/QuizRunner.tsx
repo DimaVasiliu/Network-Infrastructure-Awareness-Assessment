@@ -193,6 +193,9 @@ export function QuizRunner({
                 </Text>
                 {!isCorrect ? <Text style={styles.reviewAnswer}>Correct answer: {question.correctAnswer}</Text> : null}
                 <Text style={styles.explanation}>{question.explanation}</Text>
+                {question.standardRef ? (
+                  <Text style={styles.standardRef}>Reference: {question.standardRef}</Text>
+                ) : null}
               </View>
             );
           })}
@@ -247,6 +250,9 @@ export function QuizRunner({
             {selectedAnswer === currentQuestion.correctAnswer ? 'Correct' : 'Incorrect'}
           </Text>
           <Text style={styles.explanation}>{currentQuestion.explanation}</Text>
+          {currentQuestion.standardRef ? (
+            <Text style={styles.standardRef}>Reference: {currentQuestion.standardRef}</Text>
+          ) : null}
         </View>
       ) : null}
 
@@ -363,6 +369,12 @@ const styles = StyleSheet.create({
     color: colors.muted,
     fontSize: 15,
     lineHeight: 22,
+    marginTop: spacing.sm,
+  },
+  standardRef: {
+    color: colors.primary,
+    fontSize: 13,
+    fontWeight: '700',
     marginTop: spacing.sm,
   },
   actions: {
