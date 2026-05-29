@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: spacing.xl,
     paddingHorizontal: spacing.xl,
-    paddingTop: 64,
+    paddingTop: spacing.xl,
     backgroundColor: colors.background,
   },
   title: {

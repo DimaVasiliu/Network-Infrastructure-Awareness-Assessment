@@ -1,130 +1,237 @@
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import type { NavigatorScreenParams } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
 import { HelpModal } from '../components/HelpModal';
-import { colors } from '../theme';
 import { HomeScreen } from '../screens/HomeScreen';
-import { MockExamScreen } from '../screens/MockExamScreen';
-import { PracticeScreen } from '../screens/PracticeScreen';
+import { MockExamRunScreen, MockExamScreen } from '../screens/MockExamScreen';
+import {
+  PracticeAnswerStudyScreen,
+  PracticeQuizScreen,
+  PracticeScreen,
+  PracticeSectionScreen,
+} from '../screens/PracticeScreen';
+import { SettingsScreen } from '../screens/SettingsScreen';
 import { StatsScreen } from '../screens/StatsScreen';
+import { colors } from '../theme';
+import type { QuestionSection } from '../types/question';
 
-type TabKey = 'home' | 'practice' | 'mockExam' | 'stats';
 type HelpLanguage = 'en' | 'ro' | 'ru';
 
-const tabs: Array<{ key: TabKey; label: string }> = [
-  { key: 'home', label: 'Home' },
-  { key: 'practice', label: 'Practice' },
-  { key: 'mockExam', label: 'Mock Exam' },
-  { key: 'stats', label: 'Stats' },
-];
+export type PracticeStackParamList = {
+  PracticeHome: undefined;
+  PracticeSection: { section: QuestionSection };
+  PracticeQuiz: { section: QuestionSection };
+  PracticeAnswers: { section: QuestionSection };
+};
+
+export type MockExamStackParamList = {
+  MockExamHome: undefined;
+  MockExamRun: undefined;
+};
+
+export type RootTabParamList = {
+  HomeTab: undefined;
+  PracticeTab: NavigatorScreenParams<PracticeStackParamList> | undefined;
+  MockExamTab: NavigatorScreenParams<MockExamStackParamList> | undefined;
+  StatsTab: undefined;
+  SettingsTab: undefined;
+};
+
+const Tab = createBottomTabNavigator<RootTabParamList>();
+const PracticeStack = createNativeStackNavigator<PracticeStackParamList>();
+const MockExamStack = createNativeStackNavigator<MockExamStackParamList>();
+
+const sectionSlugByName: Record<QuestionSection, string> = {
+  'Product Selection': 'product-selection',
+  'Containment Systems': 'containment-systems',
+  'Cable Laying': 'cable-laying',
+  'Cable Dressing': 'cable-dressing',
+  'Fire Regulations': 'fire-regulations',
+  'Safe Cable Installation': 'safe-cable-installation',
+  'Personal Safety': 'personal-safety',
+  'Other Services': 'other-services',
+  'Waste Management': 'waste-management',
+};
+
+const sectionBySlug = Object.fromEntries(
+  Object.entries(sectionSlugByName).map(([section, slug]) => [slug, section]),
+) as Record<string, QuestionSection>;
+
+const navigationTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: colors.background,
+    border: colors.border,
+    card: colors.surface,
+    primary: colors.primary,
+    text: colors.text,
+  },
+};
+
+const linking = {
+  prefixes: ['networktrainer://'],
+  config: {
+    screens: {
+      HomeTab: '',
+      PracticeTab: {
+        path: 'practice',
+        screens: {
+          PracticeHome: '',
+          PracticeSection: {
+            path: ':section',
+            parse: {
+              section: (slug: string) => sectionBySlug[slug] ?? 'Fire Regulations',
+            },
+            stringify: {
+              section: (section: QuestionSection) => sectionSlugByName[section],
+            },
+          },
+          PracticeQuiz: {
+            path: ':section/quiz',
+            parse: {
+              section: (slug: string) => sectionBySlug[slug] ?? 'Fire Regulations',
+            },
+            stringify: {
+              section: (section: QuestionSection) => sectionSlugByName[section],
+            },
+          },
+          PracticeAnswers: {
+            path: ':section/answers',
+            parse: {
+              section: (slug: string) => sectionBySlug[slug] ?? 'Fire Regulations',
+            },
+            stringify: {
+              section: (section: QuestionSection) => sectionSlugByName[section],
+            },
+          },
+        },
+      },
+      MockExamTab: {
+        path: 'mock-exam',
+        screens: {
+          MockExamHome: '',
+          MockExamRun: 'run',
+        },
+      },
+      StatsTab: 'stats',
+      SettingsTab: 'settings',
+    },
+  },
+};
 
 export function AppTabs() {
-  const [activeTab, setActiveTab] = useState<TabKey>('home');
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [helpLanguage, setHelpLanguage] = useState<HelpLanguage>('en');
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Pressable accessibilityLabel="Open help" onPress={() => setIsHelpOpen(true)} style={styles.helpButton}>
-          <Text style={styles.helpLabel}>?</Text>
-        </Pressable>
-        {renderScreen(activeTab, setActiveTab)}
-      </View>
-      <View style={styles.tabBar}>
-        {tabs.map((tab) => {
-          const isActive = tab.key === activeTab;
-
-          return (
-            <Pressable
-              key={tab.key}
-              accessibilityRole="button"
-              accessibilityState={{ selected: isActive }}
-              onPress={() => setActiveTab(tab.key)}
-              style={[styles.tabButton, isActive && styles.activeTabButton]}
-            >
-              <Text style={[styles.tabLabel, isActive && styles.activeTabLabel]}>{tab.label}</Text>
-            </Pressable>
-          );
-        })}
-      </View>
+    <>
+      <NavigationContainer linking={linking} theme={navigationTheme}>
+        <Tab.Navigator
+          screenOptions={{
+            headerRight: () => <HelpButton onPress={() => setIsHelpOpen(true)} />,
+            tabBarActiveTintColor: colors.primary,
+            tabBarInactiveTintColor: colors.muted,
+            tabBarLabelStyle: styles.tabLabel,
+            tabBarStyle: styles.tabBar,
+          }}
+        >
+          <Tab.Screen name="HomeTab" component={HomeScreen} options={{ title: 'Home', tabBarLabel: 'Home' }} />
+          <Tab.Screen
+            name="PracticeTab"
+            options={{ headerShown: false, title: 'Practice', tabBarLabel: 'Practice' }}
+          >
+            {() => <PracticeNavigator openHelp={() => setIsHelpOpen(true)} />}
+          </Tab.Screen>
+          <Tab.Screen
+            name="MockExamTab"
+            options={{ headerShown: false, title: 'Mock Exam', tabBarLabel: 'Mock Exam' }}
+          >
+            {() => <MockExamNavigator openHelp={() => setIsHelpOpen(true)} />}
+          </Tab.Screen>
+          <Tab.Screen name="StatsTab" component={StatsScreen} options={{ title: 'Stats', tabBarLabel: 'Stats' }} />
+          <Tab.Screen
+            name="SettingsTab"
+            component={SettingsScreen}
+            options={{ title: 'Settings', tabBarLabel: 'Settings' }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
       <HelpModal
         isVisible={isHelpOpen}
         language={helpLanguage}
         onChangeLanguage={setHelpLanguage}
         onClose={() => setIsHelpOpen(false)}
       />
-    </SafeAreaView>
+    </>
   );
 }
 
-function renderScreen(tab: TabKey, navigate: (tab: TabKey) => void) {
-  switch (tab) {
-    case 'practice':
-      return <PracticeScreen />;
-    case 'mockExam':
-      return <MockExamScreen />;
-    case 'stats':
-      return <StatsScreen />;
-    case 'home':
-    default:
-      return <HomeScreen navigate={navigate} />;
-  }
+function PracticeNavigator({ openHelp }: { openHelp: () => void }) {
+  return (
+    <PracticeStack.Navigator screenOptions={{ headerRight: () => <HelpButton onPress={openHelp} /> }}>
+      <PracticeStack.Screen name="PracticeHome" component={PracticeScreen} options={{ title: 'Practice' }} />
+      <PracticeStack.Screen
+        name="PracticeSection"
+        component={PracticeSectionScreen}
+        options={({ route }) => ({ title: route.params.section })}
+      />
+      <PracticeStack.Screen
+        name="PracticeQuiz"
+        component={PracticeQuizScreen}
+        options={({ route }) => ({ title: route.params.section })}
+      />
+      <PracticeStack.Screen
+        name="PracticeAnswers"
+        component={PracticeAnswerStudyScreen}
+        options={({ route }) => ({ title: route.params.section })}
+      />
+    </PracticeStack.Navigator>
+  );
+}
+
+function MockExamNavigator({ openHelp }: { openHelp: () => void }) {
+  return (
+    <MockExamStack.Navigator screenOptions={{ headerRight: () => <HelpButton onPress={openHelp} /> }}>
+      <MockExamStack.Screen name="MockExamHome" component={MockExamScreen} options={{ title: 'Mock Exam' }} />
+      <MockExamStack.Screen name="MockExamRun" component={MockExamRunScreen} options={{ title: 'Mock Exam' }} />
+    </MockExamStack.Navigator>
+  );
+}
+
+function HelpButton({ onPress }: { onPress: () => void }) {
+  return (
+    <Pressable accessibilityLabel="Open help" onPress={onPress} style={styles.helpButton}>
+      <Text style={styles.helpLabel}>?</Text>
+    </Pressable>
+  );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.surface,
-  },
-  content: {
-    flex: 1,
-  },
   helpButton: {
     alignItems: 'center',
     backgroundColor: colors.primary,
     borderRadius: 8,
-    height: 38,
+    height: 34,
     justifyContent: 'center',
-    position: 'absolute',
-    right: 16,
-    top: 18,
-    width: 38,
-    zIndex: 10,
+    marginRight: 12,
+    width: 34,
   },
   helpLabel: {
     color: colors.surface,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '900',
   },
   tabBar: {
-    flexDirection: 'row',
-    borderTopColor: colors.border,
-    borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: colors.surface,
-    paddingHorizontal: 8,
-    paddingTop: 8,
-    paddingBottom: 12,
-  },
-  tabButton: {
-    alignItems: 'center',
-    borderRadius: 8,
-    flex: 1,
-    justifyContent: 'center',
-    minHeight: 44,
-    paddingHorizontal: 6,
-  },
-  activeTabButton: {
-    backgroundColor: colors.primarySoft,
+    borderTopColor: colors.border,
   },
   tabLabel: {
-    color: colors.muted,
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '700',
-    textAlign: 'center',
-  },
-  activeTabLabel: {
-    color: colors.primary,
   },
 });

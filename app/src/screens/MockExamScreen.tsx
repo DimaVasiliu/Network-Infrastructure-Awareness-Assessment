@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { PrimaryButton } from '../components/PrimaryButton';
 import { QuizRunner } from '../components/QuizRunner';
+import type { MockExamStackParamList } from '../navigation/AppTabs';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
 import type { QuizAttempt } from '../types/progress';
@@ -15,31 +17,12 @@ import {
   questions,
 } from '../utils/questions';
 
-export function MockExamScreen() {
-  const [examQuestions, setExamQuestions] = useState(() => buildMockExam());
-  const [isRunning, setIsRunning] = useState(false);
-  const addAttempt = useProgressStore((state) => state.addAttempt);
+type MockExamHomeProps = NativeStackScreenProps<MockExamStackParamList, 'MockExamHome'>;
+type MockExamRunProps = NativeStackScreenProps<MockExamStackParamList, 'MockExamRun'>;
 
+export function MockExamScreen({ navigation }: MockExamHomeProps) {
   function startExam() {
-    setExamQuestions(buildMockExam());
-    setIsRunning(true);
-  }
-
-  function completeAttempt(attempt: QuizAttempt) {
-    addAttempt(attempt);
-  }
-
-  if (isRunning) {
-    return (
-      <QuizRunner
-        mode="mockExam"
-        onComplete={completeAttempt}
-        onExit={() => setIsRunning(false)}
-        passMark={mockExamPassMark}
-        questions={examQuestions}
-        timerSeconds={mockExamDurationSeconds}
-      />
-    );
+    navigation.navigate('MockExamRun');
   }
 
   return (
@@ -72,6 +55,26 @@ export function MockExamScreen() {
   );
 }
 
+export function MockExamRunScreen({ navigation }: MockExamRunProps) {
+  const examQuestions = useMemo(() => buildMockExam(), []);
+  const addAttempt = useProgressStore((state) => state.addAttempt);
+
+  function completeAttempt(attempt: QuizAttempt) {
+    addAttempt(attempt);
+  }
+
+  return (
+    <QuizRunner
+      mode="mockExam"
+      onComplete={completeAttempt}
+      onExit={() => navigation.goBack()}
+      passMark={mockExamPassMark}
+      questions={examQuestions}
+      timerSeconds={mockExamDurationSeconds}
+    />
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: spacing.xl,
     paddingBottom: 96,
-    paddingTop: 64,
+    paddingTop: spacing.xl,
     backgroundColor: colors.background,
   },
   title: {

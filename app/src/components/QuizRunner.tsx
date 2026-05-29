@@ -276,11 +276,11 @@ const styles = StyleSheet.create({
   content: {
     paddingBottom: spacing.xxl,
     paddingHorizontal: spacing.xl,
-    paddingTop: 64,
+    paddingTop: spacing.xl,
   },
   reviewContent: {
     paddingHorizontal: spacing.xl,
-    paddingTop: 64,
+    paddingTop: spacing.xl,
     paddingBottom: spacing.xxl,
   },
   emptyState: {

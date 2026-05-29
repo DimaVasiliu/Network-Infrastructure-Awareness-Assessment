@@ -1,15 +1,15 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 import { PrimaryButton } from '../components/PrimaryButton';
+import type { RootTabParamList } from '../navigation/AppTabs';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
 import { questions, sectionCounts } from '../utils/questions';
 
-type HomeScreenProps = {
-  navigate: (tab: 'home' | 'practice' | 'mockExam' | 'stats') => void;
-};
+type HomeScreenProps = BottomTabScreenProps<RootTabParamList, 'HomeTab'>;
 
-export function HomeScreen({ navigate }: HomeScreenProps) {
+export function HomeScreen({ navigation }: HomeScreenProps) {
   const attempts = useProgressStore((state) => state.attempts);
   const latestAttempt = attempts[0];
   const totalAnswered = attempts.reduce((sum, attempt) => sum + attempt.total, 0);
@@ -59,8 +59,8 @@ export function HomeScreen({ navigate }: HomeScreenProps) {
       </View>
 
       <View style={styles.actions}>
-        <PrimaryButton onPress={() => navigate('practice')}>Start Practice</PrimaryButton>
-        <PrimaryButton onPress={() => navigate('mockExam')} variant="secondary">
+        <PrimaryButton onPress={() => navigation.navigate('PracticeTab')}>Start Practice</PrimaryButton>
+        <PrimaryButton onPress={() => navigation.navigate('MockExamTab')} variant="secondary">
           Take Mock Exam
         </PrimaryButton>
       </View>
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingBottom: spacing.xl,
     paddingHorizontal: spacing.xl,
-    paddingTop: 64,
+    paddingTop: spacing.xl,
     backgroundColor: colors.background,
   },
   eyebrow: {

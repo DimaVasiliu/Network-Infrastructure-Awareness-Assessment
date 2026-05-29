@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { QuizRunner } from '../components/QuizRunner';
+import type { PracticeStackParamList } from '../navigation/AppTabs';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
 import type { Question } from '../types/question';
@@ -9,86 +11,12 @@ import type { QuestionSection } from '../types/question';
 import type { QuizAttempt } from '../types/progress';
 import { questionsForSection, sectionCounts, shuffleQuestions } from '../utils/questions';
 
-type PracticeMode = 'quiz' | 'answers';
+type PracticeHomeProps = NativeStackScreenProps<PracticeStackParamList, 'PracticeHome'>;
+type PracticeSectionProps = NativeStackScreenProps<PracticeStackParamList, 'PracticeSection'>;
+type PracticeQuizProps = NativeStackScreenProps<PracticeStackParamList, 'PracticeQuiz'>;
+type PracticeAnswersProps = NativeStackScreenProps<PracticeStackParamList, 'PracticeAnswers'>;
 
-export function PracticeScreen() {
-  const [activeSection, setActiveSection] = useState<QuestionSection | null>(null);
-  const [activeMode, setActiveMode] = useState<PracticeMode | null>(null);
-  const [sessionQuestions, setSessionQuestions] = useState<Question[]>([]);
-  const addAttempt = useProgressStore((state) => state.addAttempt);
-
-  function chooseSection(section: QuestionSection) {
-    setActiveSection(section);
-  }
-
-  function startQuiz(section: QuestionSection) {
-    setActiveMode('quiz');
-    setSessionQuestions(shuffleQuestions(questionsForSection(section)));
-  }
-
-  function startAnswerStudy(section: QuestionSection) {
-    setActiveMode('answers');
-    setSessionQuestions(questionsForSection(section));
-  }
-
-  function exitSection() {
-    setActiveSection(null);
-    setActiveMode(null);
-    setSessionQuestions([]);
-  }
-
-  function completeAttempt(attempt: QuizAttempt) {
-    addAttempt(attempt);
-  }
-
-  if (activeSection && activeMode === 'quiz') {
-    return (
-      <QuizRunner
-        mode="practice"
-        onComplete={completeAttempt}
-        onExit={exitSection}
-        questions={sessionQuestions}
-        section={activeSection}
-        showImmediateFeedback
-      />
-    );
-  }
-
-  if (activeSection && activeMode === 'answers') {
-    return <AnswerStudyView onExit={exitSection} questions={sessionQuestions} section={activeSection} />;
-  }
-
-  if (activeSection) {
-    const count = questionsForSection(activeSection).length;
-
-    return (
-      <ScrollView contentContainerStyle={styles.screen}>
-        <Text style={styles.title}>{activeSection}</Text>
-        <Text style={styles.body}>Choose how you want to practise this section.</Text>
-
-        <View style={styles.modeList}>
-          <Pressable accessibilityRole="button" onPress={() => startQuiz(activeSection)} style={styles.modeCard}>
-            <Text style={styles.modeTitle}>Quiz practice</Text>
-            <Text style={styles.modeBody}>Answer one question at a time, then review the explanation.</Text>
-            <Text style={styles.modeAction}>Start quiz</Text>
-          </Pressable>
-
-          <Pressable accessibilityRole="button" onPress={() => startAnswerStudy(activeSection)} style={styles.modeCard}>
-            <Text style={styles.modeTitle}>Study correct answers</Text>
-            <Text style={styles.modeBody}>
-              Read all {count} questions with the correct answer first and wrong answers marked.
-            </Text>
-            <Text style={styles.modeAction}>Open answers</Text>
-          </Pressable>
-        </View>
-
-        <Pressable accessibilityRole="button" onPress={exitSection} style={styles.backButton}>
-          <Text style={styles.backButtonText}>Back to sections</Text>
-        </Pressable>
-      </ScrollView>
-    );
-  }
-
+export function PracticeScreen({ navigation }: PracticeHomeProps) {
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <Text style={styles.title}>Practice</Text>
@@ -99,7 +27,7 @@ export function PracticeScreen() {
           <Pressable
             accessibilityRole="button"
             key={section}
-            onPress={() => chooseSection(section)}
+            onPress={() => navigation.navigate('PracticeSection', { section })}
             style={styles.sectionCard}
           >
             <View style={styles.sectionCardText}>
@@ -114,15 +42,67 @@ export function PracticeScreen() {
   );
 }
 
-function AnswerStudyView({
-  onExit,
-  questions,
-  section,
-}: {
-  onExit: () => void;
-  questions: Question[];
-  section: QuestionSection;
-}) {
+export function PracticeSectionScreen({ navigation, route }: PracticeSectionProps) {
+  const { section } = route.params;
+  const count = questionsForSection(section).length;
+
+  return (
+    <ScrollView contentContainerStyle={styles.screen}>
+      <Text style={styles.title}>{section}</Text>
+      <Text style={styles.body}>Choose how you want to practise this section.</Text>
+
+      <View style={styles.modeList}>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => navigation.navigate('PracticeQuiz', { section })}
+          style={styles.modeCard}
+        >
+          <Text style={styles.modeTitle}>Quiz practice</Text>
+          <Text style={styles.modeBody}>Answer one question at a time, then review the explanation.</Text>
+          <Text style={styles.modeAction}>Start quiz</Text>
+        </Pressable>
+
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => navigation.navigate('PracticeAnswers', { section })}
+          style={styles.modeCard}
+        >
+          <Text style={styles.modeTitle}>Study correct answers</Text>
+          <Text style={styles.modeBody}>
+            Read all {count} questions with the correct answer first and wrong answers marked.
+          </Text>
+          <Text style={styles.modeAction}>Open answers</Text>
+        </Pressable>
+      </View>
+    </ScrollView>
+  );
+}
+
+export function PracticeQuizScreen({ navigation, route }: PracticeQuizProps) {
+  const { section } = route.params;
+  const sessionQuestions = useMemo(() => shuffleQuestions(questionsForSection(section)), [section]);
+  const addAttempt = useProgressStore((state) => state.addAttempt);
+
+  function completeAttempt(attempt: QuizAttempt) {
+    addAttempt(attempt);
+  }
+
+  return (
+    <QuizRunner
+      mode="practice"
+      onComplete={completeAttempt}
+      onExit={() => navigation.goBack()}
+      questions={sessionQuestions}
+      section={section}
+      showImmediateFeedback
+    />
+  );
+}
+
+export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswersProps) {
+  const { section } = route.params;
+  const questions = questionsForSection(section);
+
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <Text style={styles.title}>{section}</Text>
@@ -161,7 +141,7 @@ function AnswerStudyView({
         })}
       </View>
 
-      <Pressable accessibilityRole="button" onPress={onExit} style={styles.backButton}>
+      <Pressable accessibilityRole="button" onPress={() => navigation.popToTop()} style={styles.backButton}>
         <Text style={styles.backButtonText}>Back to sections</Text>
       </Pressable>
     </ScrollView>
@@ -178,7 +158,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingBottom: spacing.xl,
     paddingHorizontal: spacing.xl,
-    paddingTop: 64,
+    paddingTop: spacing.xl,
     backgroundColor: colors.background,
   },
   title: {
