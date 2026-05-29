@@ -9,19 +9,68 @@ import { colors, spacing } from '../theme';
 import type { Question } from '../types/question';
 import type { QuestionSection } from '../types/question';
 import type { QuizAttempt } from '../types/progress';
-import { questionsForSection, sectionCounts, shuffleQuestions } from '../utils/questions';
+import {
+  questionsByIds,
+  questionsForSection,
+  sectionCounts,
+  shuffleQuestions,
+  weakestPracticeSize,
+  weakestQuestions,
+  wrongAnsweredQuestions,
+} from '../utils/questions';
 
 type PracticeHomeProps = NativeStackScreenProps<PracticeStackParamList, 'PracticeHome'>;
 type PracticeSectionProps = NativeStackScreenProps<PracticeStackParamList, 'PracticeSection'>;
 type PracticeQuizProps = NativeStackScreenProps<PracticeStackParamList, 'PracticeQuiz'>;
 type PracticeAnswersProps = NativeStackScreenProps<PracticeStackParamList, 'PracticeAnswers'>;
+type PracticeFocusProps = NativeStackScreenProps<PracticeStackParamList, 'PracticeFocus'>;
 
 export function PracticeScreen({ navigation }: PracticeHomeProps) {
+  const bookmarks = useProgressStore((state) => state.bookmarks);
+  const stats = useProgressStore((state) => state.stats);
+
+  const wrongCount = useMemo(() => wrongAnsweredQuestions(stats).length, [stats]);
+  const weakestCount = useMemo(
+    () => weakestQuestions(stats, weakestPracticeSize).length,
+    [stats],
+  );
+  const bookmarkCount = useMemo(() => questionsByIds(bookmarks).length, [bookmarks]);
+
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <Text style={styles.title}>Practice</Text>
-      <Text style={styles.body}>Choose a section, then select quiz practice or answer study.</Text>
+      <Text style={styles.body}>Choose a section, or focus on what you need to fix.</Text>
 
+      <View style={styles.focusList}>
+        <FocusCard
+          title="Review wrong answers"
+          subtitle={wrongCount === 0 ? 'No wrong answers logged yet' : `${wrongCount} to revisit`}
+          enabled={wrongCount > 0}
+          onPress={() => navigation.navigate('PracticeFocus', { focus: 'wrong' })}
+        />
+        <FocusCard
+          title="10 weakest questions"
+          subtitle={
+            weakestCount === 0
+              ? 'Answer more questions to build a weak-area list'
+              : `${weakestCount} question${weakestCount === 1 ? '' : 's'} by lowest accuracy`
+          }
+          enabled={weakestCount > 0}
+          onPress={() => navigation.navigate('PracticeFocus', { focus: 'weakest' })}
+        />
+        <FocusCard
+          title="Bookmarked questions"
+          subtitle={
+            bookmarkCount === 0
+              ? 'Tap the star while answering to bookmark a question'
+              : `${bookmarkCount} saved`
+          }
+          enabled={bookmarkCount > 0}
+          onPress={() => navigation.navigate('PracticeFocus', { focus: 'bookmarks' })}
+        />
+      </View>
+
+      <Text style={styles.subheading}>By section</Text>
       <View style={styles.sectionList}>
         {sectionCounts().map(({ section, count }) => (
           <Pressable
@@ -99,6 +148,57 @@ export function PracticeQuizScreen({ navigation, route }: PracticeQuizProps) {
   );
 }
 
+export function PracticeFocusScreen({ navigation, route }: PracticeFocusProps) {
+  const { focus } = route.params;
+  const addAttempt = useProgressStore((state) => state.addAttempt);
+  const bookmarks = useProgressStore((state) => state.bookmarks);
+  const stats = useProgressStore((state) => state.stats);
+
+  const sessionQuestions = useMemo(() => {
+    let source: Question[] = [];
+    if (focus === 'wrong') source = wrongAnsweredQuestions(stats);
+    else if (focus === 'weakest') source = weakestQuestions(stats, weakestPracticeSize);
+    else if (focus === 'bookmarks') source = questionsByIds(bookmarks);
+    return shuffleQuestions(source);
+    // session captured once on mount so live bookmark toggles don't restart the quiz
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (sessionQuestions.length === 0) {
+    return (
+      <ScrollView contentContainerStyle={styles.screen}>
+        <Text style={styles.title}>{titleForFocus(focus)}</Text>
+        <Text style={styles.body}>{emptyMessageForFocus(focus)}</Text>
+        <Pressable accessibilityRole="button" onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Text style={styles.backButtonText}>Back to Practice</Text>
+        </Pressable>
+      </ScrollView>
+    );
+  }
+
+  return (
+    <QuizRunner
+      mode="practice"
+      onComplete={addAttempt}
+      onExit={() => navigation.goBack()}
+      questions={sessionQuestions}
+      showImmediateFeedback
+    />
+  );
+}
+
+function titleForFocus(focus: 'wrong' | 'bookmarks' | 'weakest') {
+  if (focus === 'wrong') return 'Review wrong answers';
+  if (focus === 'bookmarks') return 'Bookmarked questions';
+  return '10 weakest questions';
+}
+
+function emptyMessageForFocus(focus: 'wrong' | 'bookmarks' | 'weakest') {
+  if (focus === 'wrong') return 'No wrong answers logged yet. Answer some questions first.';
+  if (focus === 'bookmarks') return 'No bookmarks yet. Tap the star while answering a question to save it.';
+  return 'No question stats yet. Answer a few questions to build a weak-area list.';
+}
+
 export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswersProps) {
   const { section } = route.params;
   const questions = questionsForSection(section);
@@ -136,6 +236,9 @@ export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswers
               </View>
 
               <Text style={styles.explanation}>{question.explanation}</Text>
+              {question.standardRef ? (
+                <Text style={styles.standardRef}>Reference: {question.standardRef}</Text>
+              ) : null}
             </View>
           );
         })}
@@ -172,9 +275,46 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
   },
-  sectionList: {
+  focusList: {
     gap: spacing.md,
     marginTop: spacing.xl,
+  },
+  focusCard: {
+    alignItems: 'center',
+    backgroundColor: colors.primarySoft,
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: spacing.lg,
+  },
+  focusCardDisabled: {
+    backgroundColor: colors.surface,
+    opacity: 0.7,
+  },
+  focusCardText: {
+    flex: 1,
+    paddingRight: spacing.md,
+  },
+  focusTitle: {
+    color: colors.text,
+    fontSize: 16,
+    fontWeight: '800',
+    lineHeight: 22,
+  },
+  focusSubtitle: {
+    color: colors.muted,
+    fontSize: 14,
+    marginTop: spacing.xs,
+  },
+  subheading: {
+    color: colors.text,
+    fontSize: 18,
+    fontWeight: '800',
+    marginTop: spacing.xl,
+  },
+  sectionList: {
+    gap: spacing.md,
+    marginTop: spacing.md,
   },
   modeList: {
     gap: spacing.md,
@@ -209,6 +349,9 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 14,
     fontWeight: '900',
+  },
+  arrowDisabled: {
+    color: colors.muted,
   },
   modeCard: {
     backgroundColor: colors.surface,
@@ -310,4 +453,35 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     marginTop: spacing.md,
   },
+  standardRef: {
+    color: colors.primary,
+    fontSize: 13,
+    fontWeight: '700',
+    marginTop: spacing.sm,
+  },
 });
+
+type FocusCardProps = {
+  title: string;
+  subtitle: string;
+  enabled: boolean;
+  onPress: () => void;
+};
+
+function FocusCard({ title, subtitle, enabled, onPress }: FocusCardProps) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ disabled: !enabled }}
+      disabled={!enabled}
+      onPress={onPress}
+      style={[styles.focusCard, !enabled && styles.focusCardDisabled]}
+    >
+      <View style={styles.focusCardText}>
+        <Text style={styles.focusTitle}>{title}</Text>
+        <Text style={styles.focusSubtitle}>{subtitle}</Text>
+      </View>
+      <Text style={[styles.arrow, !enabled && styles.arrowDisabled]}>{enabled ? 'Start' : '—'}</Text>
+    </Pressable>
+  );
+}

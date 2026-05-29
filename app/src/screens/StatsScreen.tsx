@@ -1,11 +1,14 @@
+import { useMemo } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { PrimaryButton } from '../components/PrimaryButton';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
+import { sectionAccuracy } from '../utils/questions';
 
 export function StatsScreen() {
   const attempts = useProgressStore((state) => state.attempts);
+  const stats = useProgressStore((state) => state.stats);
   const clearProgress = useProgressStore((state) => state.clearProgress);
   const totalAnswered = attempts.reduce((sum, attempt) => sum + attempt.total, 0);
   const totalCorrect = attempts.reduce((sum, attempt) => sum + attempt.correct, 0);
@@ -16,8 +19,10 @@ export function StatsScreen() {
     return best === null ? score : Math.max(best, score);
   }, null);
 
+  const perSection = useMemo(() => sectionAccuracy(stats), [stats]);
+
   function confirmClear() {
-    Alert.alert('Clear progress?', 'This removes local attempt history from this device.', [
+    Alert.alert('Clear progress?', 'This removes attempt history and per-question stats from this device.', [
       { text: 'Cancel', style: 'cancel' },
       { text: 'Clear', onPress: clearProgress, style: 'destructive' },
     ]);
@@ -43,6 +48,40 @@ export function StatsScreen() {
         </View>
       </View>
 
+      <View style={styles.sectionPanel}>
+        <Text style={styles.panelTitle}>By section</Text>
+        {perSection.every((row) => row.accuracy === null) ? (
+          <Text style={styles.empty}>Section accuracy will appear here once you complete some questions.</Text>
+        ) : (
+          perSection.map((row) => (
+            <View key={row.section} style={styles.sectionRow}>
+              <View style={styles.sectionRowText}>
+                <Text style={styles.sectionRowTitle}>{row.section}</Text>
+                <Text style={styles.sectionRowMeta}>
+                  {row.seen === 0 ? 'No data yet' : `${row.correct}/${row.seen} correct`}
+                </Text>
+              </View>
+              <View style={styles.sectionRowRight}>
+                <View style={styles.barTrack}>
+                  <View
+                    style={[
+                      styles.barFill,
+                      {
+                        width: `${row.accuracy ?? 0}%`,
+                        backgroundColor: barColor(row.accuracy),
+                      },
+                    ]}
+                  />
+                </View>
+                <Text style={[styles.sectionRowScore, { color: barColor(row.accuracy) }]}>
+                  {row.accuracy === null ? '—' : `${row.accuracy}%`}
+                </Text>
+              </View>
+            </View>
+          ))
+        )}
+      </View>
+
       <View style={styles.history}>
         <Text style={styles.historyTitle}>Recent attempts</Text>
         {attempts.length === 0 ? (
@@ -52,7 +91,7 @@ export function StatsScreen() {
             <View key={attempt.id} style={styles.historyItem}>
               <View>
                 <Text style={styles.historyItemTitle}>
-                  {attempt.mode === 'mockExam' ? 'Mock Exam' : attempt.section}
+                  {attempt.mode === 'mockExam' ? 'Mock Exam' : attempt.section ?? 'Practice'}
                 </Text>
                 <Text style={styles.historyItemMeta}>{new Date(attempt.completedAt).toLocaleString()}</Text>
               </View>
@@ -71,6 +110,13 @@ export function StatsScreen() {
       ) : null}
     </ScrollView>
   );
+}
+
+function barColor(accuracy: number | null) {
+  if (accuracy === null) return colors.muted;
+  if (accuracy >= 80) return colors.success;
+  if (accuracy >= 60) return colors.warning;
+  return colors.danger;
 }
 
 const styles = StyleSheet.create({
@@ -112,6 +158,59 @@ const styles = StyleSheet.create({
     color: colors.muted,
     fontSize: 13,
     fontWeight: '700',
+    marginTop: spacing.xs,
+  },
+  sectionPanel: {
+    backgroundColor: colors.surface,
+    borderRadius: 8,
+    marginTop: spacing.xl,
+    padding: spacing.lg,
+  },
+  panelTitle: {
+    color: colors.text,
+    fontSize: 18,
+    fontWeight: '800',
+    marginBottom: spacing.md,
+  },
+  sectionRow: {
+    alignItems: 'center',
+    borderTopColor: colors.border,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: spacing.md,
+  },
+  sectionRowText: {
+    flex: 1,
+    paddingRight: spacing.md,
+  },
+  sectionRowTitle: {
+    color: colors.text,
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  sectionRowMeta: {
+    color: colors.muted,
+    fontSize: 13,
+    marginTop: spacing.xs,
+  },
+  sectionRowRight: {
+    alignItems: 'flex-end',
+    minWidth: 120,
+  },
+  barTrack: {
+    backgroundColor: colors.border,
+    borderRadius: 4,
+    height: 6,
+    overflow: 'hidden',
+    width: 100,
+  },
+  barFill: {
+    height: '100%',
+  },
+  sectionRowScore: {
+    fontSize: 14,
+    fontWeight: '900',
     marginTop: spacing.xs,
   },
   history: {

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { BackHandler, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
 import type { AnswerChoice, Question, QuestionSection } from '../types/question';
 import type { AttemptAnswer, QuizAttempt, QuizMode } from '../types/progress';
@@ -39,8 +40,11 @@ export function QuizRunner({
   const answersRef = useRef<Record<string, AnswerChoice>>({});
   const hasFinishedRef = useRef(false);
   const onExitRef = useRef(onExit);
+  const bookmarks = useProgressStore((state) => state.bookmarks);
+  const toggleBookmark = useProgressStore((state) => state.toggleBookmark);
   const currentQuestion = questions[currentIndex];
   const selectedAnswer = currentQuestion ? answers[currentQuestion.id] : undefined;
+  const isBookmarked = currentQuestion ? bookmarks.includes(currentQuestion.id) : false;
   const isLastQuestion = currentIndex === questions.length - 1;
 
   const attemptAnswers = useMemo(
@@ -212,7 +216,21 @@ export function QuizRunner({
         <Text style={styles.kicker}>
           {currentIndex + 1} of {questions.length}
         </Text>
-        {remainingSeconds !== undefined ? <Text style={styles.timer}>{formatTime(remainingSeconds)}</Text> : null}
+        <View style={styles.topRowRight}>
+          {remainingSeconds !== undefined ? <Text style={styles.timer}>{formatTime(remainingSeconds)}</Text> : null}
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={isBookmarked ? 'Remove bookmark' : 'Bookmark question'}
+            accessibilityState={{ selected: isBookmarked }}
+            hitSlop={8}
+            onPress={() => toggleBookmark(currentQuestion.id)}
+            style={styles.bookmarkButton}
+          >
+            <Text style={[styles.bookmarkIcon, isBookmarked && styles.bookmarkIconActive]}>
+              {isBookmarked ? '★' : '☆'}
+            </Text>
+          </Pressable>
+        </View>
       </View>
 
       <Text style={styles.section}>{currentQuestion.section}</Text>
@@ -299,6 +317,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: spacing.lg,
+  },
+  topRowRight: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.md,
+  },
+  bookmarkButton: {
+    minHeight: 32,
+    minWidth: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bookmarkIcon: {
+    color: colors.muted,
+    fontSize: 24,
+    fontWeight: '800',
+  },
+  bookmarkIconActive: {
+    color: colors.warning,
   },
   kicker: {
     color: colors.primary,

@@ -11,6 +11,7 @@ import { HomeScreen } from '../screens/HomeScreen';
 import { MockExamRunScreen, MockExamScreen } from '../screens/MockExamScreen';
 import {
   PracticeAnswerStudyScreen,
+  PracticeFocusScreen,
   PracticeQuizScreen,
   PracticeScreen,
   PracticeSectionScreen,
@@ -27,6 +28,7 @@ export type PracticeStackParamList = {
   PracticeSection: { section: QuestionSection };
   PracticeQuiz: { section: QuestionSection };
   PracticeAnswers: { section: QuestionSection };
+  PracticeFocus: { focus: 'wrong' | 'bookmarks' | 'weakest' };
 };
 
 export type MockExamStackParamList = {
@@ -53,7 +55,7 @@ const tabIcons: Record<keyof RootTabParamList, { active: TabIconName; inactive: 
   PracticeTab: { active: 'school', inactive: 'school-outline' },
   MockExamTab: { active: 'timer', inactive: 'timer-outline' },
   StatsTab: { active: 'bar-chart', inactive: 'bar-chart-outline' },
-  SettingsTab: { active: 'settings', inactive: 'settings-outline' },
+  SettingsTab: { active: 'information-circle', inactive: 'information-circle-outline' },
 };
 
 const sectionSlugByName: Record<QuestionSection, string> = {
@@ -120,6 +122,9 @@ const linking = {
               section: (section: QuestionSection) => sectionSlugByName[section],
             },
           },
+          PracticeFocus: {
+            path: 'focus/:focus',
+          },
         },
       },
       MockExamTab: {
@@ -171,7 +176,7 @@ export function AppTabs() {
           <Tab.Screen
             name="SettingsTab"
             component={SettingsScreen}
-            options={{ title: 'Settings', tabBarLabel: 'Settings' }}
+            options={{ title: 'About', tabBarLabel: 'About' }}
           />
         </Tab.Navigator>
       </NavigationContainer>
@@ -204,6 +209,18 @@ function PracticeNavigator({ openHelp }: { openHelp: () => void }) {
         component={PracticeAnswerStudyScreen}
         options={({ route }) => ({ title: route.params.section })}
       />
+      <PracticeStack.Screen
+        name="PracticeFocus"
+        component={PracticeFocusScreen}
+        options={({ route }) => ({
+          title:
+            route.params.focus === 'wrong'
+              ? 'Review wrong'
+              : route.params.focus === 'bookmarks'
+                ? 'Bookmarks'
+                : 'Weakest 10',
+        })}
+      />
     </PracticeStack.Navigator>
   );
 }
@@ -229,11 +246,11 @@ const styles = StyleSheet.create({
   helpButton: {
     alignItems: 'center',
     backgroundColor: colors.primary,
-    borderRadius: 8,
-    height: 34,
+    borderRadius: 18,
+    height: 36,
     justifyContent: 'center',
     marginRight: 12,
-    width: 34,
+    width: 36,
   },
   helpLabel: {
     color: colors.surface,

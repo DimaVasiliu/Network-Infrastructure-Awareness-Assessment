@@ -19,3 +19,10 @@ export type QuizAttempt = {
   completedAt: string;
   answers: AttemptAnswer[];
 };
+
+export type QuestionStat = {
+  seen: number;
+  correct: number;
+  lastSeenAt: string;
+  lastWasCorrect: boolean;
+};
