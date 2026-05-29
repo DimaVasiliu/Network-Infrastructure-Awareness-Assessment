@@ -4,13 +4,15 @@ import type { QuestionStat } from '../types/progress';
 
 export const questions = questionBank;
 
-export const sections = Array.from(new Set(questions.map((question) => question.section))) as QuestionSection[];
+export const sections = Array.from(
+  new Set(questions.map((question) => question.section)),
+) as QuestionSection[];
 
 export const questionMap: Record<string, Question> = Object.fromEntries(
   questions.map((question) => [question.id, question]),
 );
 
-export const mockExamBlueprint: Array<{ section: QuestionSection; count: number }> = [
+export const mockExamBlueprint: { section: QuestionSection; count: number }[] = [
   { section: 'Product Selection', count: 3 },
   { section: 'Containment Systems', count: 4 },
   { section: 'Cable Laying', count: 4 },
@@ -44,7 +46,9 @@ export function shuffleQuestions(source: Question[]) {
 
 export function buildMockExam() {
   return shuffleQuestions(
-    mockExamBlueprint.flatMap(({ section, count }) => shuffleQuestions(questionsForSection(section)).slice(0, count)),
+    mockExamBlueprint.flatMap(({ section, count }) =>
+      shuffleQuestions(questionsForSection(section)).slice(0, count),
+    ),
   );
 }
 

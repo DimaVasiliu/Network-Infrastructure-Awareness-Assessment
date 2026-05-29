@@ -1,6 +1,7 @@
-import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 
 import appJson from '../../app.json';
+import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
 
 const SUPPORT_EMAIL = 'support@networkinfrastructure.app';
@@ -12,12 +13,15 @@ const EULA_URL = 'https://networkinfrastructure.app/eula';
 const appVersion = appJson.expo.version;
 
 export function SettingsScreen() {
+  const crashReportingOptOut = useProgressStore((state) => state.crashReportingOptOut);
+  const setCrashReportingOptOut = useProgressStore((state) => state.setCrashReportingOptOut);
+
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <Text style={styles.title}>About</Text>
       <Text style={styles.body}>
-        Network Infrastructure Trainer is an independent offline study aid for the UK Network Infrastructure Awareness
-        Assessment.
+        Network Infrastructure Trainer is an independent offline study aid for the UK Network Infrastructure
+        Awareness Assessment.
       </Text>
 
       <View style={styles.card}>
@@ -41,10 +45,28 @@ export function SettingsScreen() {
       </View>
 
       <View style={styles.card}>
+        <Text style={styles.cardTitle}>Privacy controls</Text>
+        <View style={styles.toggleRow}>
+          <View style={styles.toggleText}>
+            <Text style={styles.toggleLabel}>Send anonymous crash reports</Text>
+            <Text style={styles.toggleSub}>
+              Helps us fix crashes. No personal data, no usage tracking. Off here means no crash data leaves
+              your device.
+            </Text>
+          </View>
+          <Switch
+            accessibilityLabel="Send anonymous crash reports"
+            onValueChange={(value) => setCrashReportingOptOut(!value)}
+            value={!crashReportingOptOut}
+          />
+        </View>
+      </View>
+
+      <View style={styles.card}>
         <Text style={styles.cardTitle}>Disclaimer</Text>
         <Text style={styles.cardText}>
-          This app is an independent study aid. It is not affiliated with, endorsed by, or sponsored by The JIB or the
-          Electrotechnical Certification Scheme. "ECS" is a trademark of The JIB.
+          This app is an independent study aid. It is not affiliated with, endorsed by, or sponsored by The
+          JIB or the Electrotechnical Certification Scheme. "ECS" is a trademark of The JIB.
         </Text>
       </View>
 
@@ -157,5 +179,26 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: spacing.xl,
     textAlign: 'center',
+  },
+  toggleRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: spacing.md,
+    justifyContent: 'space-between',
+    paddingVertical: spacing.sm,
+  },
+  toggleText: {
+    flex: 1,
+  },
+  toggleLabel: {
+    color: colors.text,
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  toggleSub: {
+    color: colors.muted,
+    fontSize: 13,
+    lineHeight: 18,
+    marginTop: spacing.xs,
   },
 });

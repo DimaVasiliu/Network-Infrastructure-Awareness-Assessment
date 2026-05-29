@@ -23,3 +23,17 @@ yarn-error.log*
 # macOS
 .DS_Store
 
+# Copyrighted reference material — never commit
+/reference/*
+!/reference/README.md
+
+# Legacy SDK 56 snapshot — pending manual deletion from Finder
+/app-sdk56-backup/
+/app-sdk56-backup.PLEASE-DELETE/
+
+# Sentry — never commit DSN secrets or credentials
+sentry.properties
+.sentryclirc
+
+# Jest coverage reports
+/coverage/

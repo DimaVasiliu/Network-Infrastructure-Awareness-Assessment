@@ -22,7 +22,7 @@ const helpContent: Record<
   {
     title: string;
     subtitle: string;
-    sections: Array<{ title: string; lines: string[] }>;
+    sections: { title: string; lines: string[] }[];
   }
 > = {
   en: {

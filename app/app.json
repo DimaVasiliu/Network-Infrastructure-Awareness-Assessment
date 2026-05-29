@@ -34,12 +34,20 @@
           "imageWidth": 180,
           "resizeMode": "contain"
         }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "REPLACE_WITH_SENTRY_ORG_SLUG",
+          "project": "REPLACE_WITH_SENTRY_PROJECT_SLUG"
+        }
       ]
     ],
     "extra": {
       "eas": {
         "projectId": "9280728c-c54a-4d47-8536-ee673544a354"
-      }
+      },
+      "sentryDsn": "REPLACE_WITH_SENTRY_DSN_AT_BUILD_TIME"
     }
   }
 }

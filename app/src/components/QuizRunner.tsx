@@ -178,9 +178,16 @@ export function QuizRunner({
     return (
       <ScrollView contentContainerStyle={styles.reviewContent} style={styles.container}>
         <Text style={styles.kicker}>{mode === 'mockExam' ? 'Mock exam complete' : 'Practice complete'}</Text>
-        <Text style={styles.score}>{correct}/{questions.length}</Text>
+        <Text style={styles.score}>
+          {correct}/{questions.length}
+        </Text>
         <Text style={styles.scoreLabel}>
-          {score}% {requiredScore ? (correct >= requiredScore ? 'Pass' : `Pass mark ${requiredScore}`) : 'answered correctly'}
+          {score}%{' '}
+          {requiredScore
+            ? correct >= requiredScore
+              ? 'Pass'
+              : `Pass mark ${requiredScore}`
+            : 'answered correctly'}
         </Text>
 
         <View style={styles.reviewList}>
@@ -195,7 +202,9 @@ export function QuizRunner({
                 <Text style={[styles.reviewAnswer, isCorrect ? styles.correctText : styles.incorrectText]}>
                   Your answer: {answer ?? 'No answer'} {isCorrect ? 'correct' : 'incorrect'}
                 </Text>
-                {!isCorrect ? <Text style={styles.reviewAnswer}>Correct answer: {question.correctAnswer}</Text> : null}
+                {!isCorrect ? (
+                  <Text style={styles.reviewAnswer}>Correct answer: {question.correctAnswer}</Text>
+                ) : null}
                 <Text style={styles.explanation}>{question.explanation}</Text>
                 {question.standardRef ? (
                   <Text style={styles.standardRef}>Reference: {question.standardRef}</Text>
@@ -217,7 +226,9 @@ export function QuizRunner({
           {currentIndex + 1} of {questions.length}
         </Text>
         <View style={styles.topRowRight}>
-          {remainingSeconds !== undefined ? <Text style={styles.timer}>{formatTime(remainingSeconds)}</Text> : null}
+          {remainingSeconds !== undefined ? (
+            <Text style={styles.timer}>{formatTime(remainingSeconds)}</Text>
+          ) : null}
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={isBookmarked ? 'Remove bookmark' : 'Bookmark question'}
@@ -264,7 +275,11 @@ export function QuizRunner({
 
       {showImmediateFeedback && selectedAnswer ? (
         <View style={styles.feedback}>
-          <Text style={selectedAnswer === currentQuestion.correctAnswer ? styles.correctText : styles.incorrectText}>
+          <Text
+            style={
+              selectedAnswer === currentQuestion.correctAnswer ? styles.correctText : styles.incorrectText
+            }
+          >
             {selectedAnswer === currentQuestion.correctAnswer ? 'Correct' : 'Incorrect'}
           </Text>
           <Text style={styles.explanation}>{currentQuestion.explanation}</Text>

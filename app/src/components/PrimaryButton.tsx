@@ -12,7 +12,12 @@ type PrimaryButtonProps = {
   variant?: ButtonVariant;
 };
 
-export function PrimaryButton({ children, disabled = false, onPress, variant = 'primary' }: PrimaryButtonProps) {
+export function PrimaryButton({
+  children,
+  disabled = false,
+  onPress,
+  variant = 'primary',
+}: PrimaryButtonProps) {
   return (
     <Pressable
       accessibilityRole="button"
@@ -67,4 +72,3 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
 });
-

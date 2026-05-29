@@ -29,15 +29,19 @@ export function MockExamScreen({ navigation }: MockExamHomeProps) {
     <ScrollView contentContainerStyle={styles.screen} style={styles.container}>
       <Text style={styles.title}>Mock Exam</Text>
       <Text style={styles.body}>
-        Matches the published ECS Network Infrastructure Awareness format: 30 questions across the assessment topics,
-        45 minutes, pass mark 24 correct answers.
+        Matches the published ECS Network Infrastructure Awareness format: 30 questions across the assessment
+        topics, 45 minutes, pass mark 24 correct answers.
       </Text>
 
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Exam settings</Text>
-        <Text style={styles.cardText}>{mockExamQuestionCount} questions from {questions.length} practice questions</Text>
+        <Text style={styles.cardText}>
+          {mockExamQuestionCount} questions from {questions.length} practice questions
+        </Text>
         <Text style={styles.cardText}>45 minute timer</Text>
-        <Text style={styles.cardText}>Pass mark: {mockExamPassMark}/{mockExamQuestionCount}</Text>
+        <Text style={styles.cardText}>
+          Pass mark: {mockExamPassMark}/{mockExamQuestionCount}
+        </Text>
       </View>
 
       <View style={styles.card}>

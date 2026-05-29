@@ -67,33 +67,66 @@ issues.
 - Retention: support emails are kept for up to **24 months** from the last
   message in the thread, then deleted.
 
-## 3. What we do NOT do
+## 3. Crash reporting (Sentry)
+
+The App includes **Sentry** crash reporting so we can find and fix crashes
+quickly. This is **on by default in production builds** and **disabled in
+development**.
+
+What Sentry receives when the App crashes or hits an unhandled error:
+
+- the device model (e.g. "iPhone 15"),
+- the operating system and version,
+- the App version and build number,
+- a stack trace of the crash,
+- a short list of breadcrumbs (recent navigation events inside the App),
+- a session ID generated for that crash event.
+
+What Sentry **does not** receive from us:
+
+- your name, email, phone number or any contact details;
+- your IP address (we strip it before sending);
+- the content of any practice question you answered, your bookmarks, your
+  stats or any progress data;
+- any persistent identifier we control. We do not set a Sentry user ID.
+
+Lawful basis: legitimate interests (Art. 6(1)(f) UK GDPR) — improving the
+reliability of the App for all users. Sentry processes the data in Europe (or
+in the United States if you choose the US Sentry region; we use the
+{{SENTRY_REGION}} region).
+
+**You can turn this off at any time.** Open the **About** screen and use the
+"Send anonymous crash reports" toggle. When off, no crash data leaves your
+device.
+
+If we ever expand the data Sentry receives (for example, by enabling session
+replay or performance traces), we will update this policy and the App Store /
+Play Store privacy declarations before the change ships.
+
+## 4. What we do NOT do
 
 - We do **not** include third-party analytics SDKs (no Google Analytics, no
   Firebase Analytics, no Meta SDK, no Mixpanel, no Amplitude).
 - We do **not** include third-party advertising SDKs.
-- We do **not** include crash-reporting SDKs in the App. (If this changes in
-  future we will update this policy and the App Store / Play Store privacy
-  declarations.)
 - We do **not** sell, rent or share personal data with third parties for their
   own marketing.
 - We do **not** use your data for automated decision-making with legal effect.
 
-## 4. Children
+## 5. Children
 
 The App is rated 4+ / Everyone. It is intended for adult learners preparing for
 a UK trade assessment. We do not knowingly collect personal data from anyone
 under 13. If you believe a child has provided personal data through the support
 inbox, email {{SUPPORT_EMAIL}} and we will delete it.
 
-## 5. International transfers
+## 6. International transfers
 
 Support emails are processed via {{EMAIL_PROVIDER}} which may store data in the
 {{EMAIL_PROVIDER_REGION}}. Where personal data is transferred outside the UK,
 it is protected by the UK's "adequacy" rules or by the UK International Data
 Transfer Addendum to the EU Standard Contractual Clauses, as applicable.
 
-## 6. Your rights
+## 7. Your rights
 
 Under UK GDPR you have the right to:
 
@@ -115,19 +148,19 @@ You also have the right to complain to the Information Commissioner's Office
 - Website: https://ico.org.uk
 - Helpline: 0303 123 1113
 
-## 7. Data breaches
+## 8. Data breaches
 
 If a personal data breach is likely to result in a risk to your rights and
 freedoms, we will notify the ICO within 72 hours and, where required, notify
 the affected users at the email address on file.
 
-## 8. Changes to this policy
+## 9. Changes to this policy
 
 We may update this policy. The "Last updated" date at the top will change and a
 notice will be posted at the policy URL. Continued use of the App after the
 notice constitutes acceptance of the updated policy.
 
-## 9. Contact
+## 10. Contact
 
 Email: {{SUPPORT_EMAIL}}
 Subject suggestion: "Privacy enquiry — NIA Trainer"

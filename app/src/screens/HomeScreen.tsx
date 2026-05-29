@@ -44,10 +44,12 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
           </Text>
         </View>
       ) : (
-      <View style={styles.panel}>
-        <Text style={styles.panelTitle}>Start here</Text>
-        <Text style={styles.panelBody}>Use Practice first, then take Mock Exam once you have covered the sections.</Text>
-      </View>
+        <View style={styles.panel}>
+          <Text style={styles.panelTitle}>Start here</Text>
+          <Text style={styles.panelBody}>
+            Use Practice first, then take Mock Exam once you have covered the sections.
+          </Text>
+        </View>
       )}
 
       <View style={styles.disclaimerPanel}>

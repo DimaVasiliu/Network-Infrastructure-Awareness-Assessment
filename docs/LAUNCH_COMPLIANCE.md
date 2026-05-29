@@ -29,6 +29,7 @@ Owner: founder. Update statuses inline. Anything still red blocks launch.
 - `{{EMAIL_PROVIDER}}` / `{{EMAIL_PROVIDER_REGION}}` — who hosts the `support@` mailbox (e.g. "Fastmail", "Ireland")
 - `{{PRIVACY_URL}}` / `{{TERMS_URL}}` / `{{REFUND_URL}}` / `{{EULA_URL}}` — public URLs after hosting
 - `{{ADDITIONAL_COUNTRIES}}` — leave blank for UK-only launch; or add e.g. "and the European Union"
+- `{{SENTRY_REGION}}` — `eu` or `us` (matches the region you picked when creating the Sentry organisation)
 
 Hosting: any static URL is fine. Cheapest path: a single static page per document, served from
 S3 + CloudFront, Cloudflare Pages, or GitHub Pages. The URLs in `SettingsScreen.tsx` must point to
@@ -78,8 +79,8 @@ Done inside App Store Connect → your app → App Privacy.
 | Contact Info → Email | Yes (when user emails support) | No | Yes (support thread) |
 | Identifiers → User ID | **No** | — | — |
 | Identifiers → Device ID | **No** | — | — |
-| Diagnostics → Crash Data | **No** | — | — |
-| Diagnostics → Performance | **No** | — | — |
+| Diagnostics → Crash Data | **Yes** (Sentry, opt-out via About) | **No** | **No** (no user ID, no IP) |
+| Diagnostics → Performance | **No** (Sentry tracesSampleRate = 0) | — | — |
 | Usage Data → Product Interaction | **No** | — | — |
 | Purchases → Purchase History | **No** (Apple holds this, not us) | — | — |
 | Location | **No** | — | — |
@@ -88,6 +89,10 @@ Done inside App Store Connect → your app → App Privacy.
 **Privacy Choices URL:** `{{PRIVACY_URL}}` (must be live before submission).
 
 **App Privacy Choices required?** No — we do not track. Confirm "We do not track" in the App Privacy form.
+
+> If the Sentry opt-out toggle is removed in future, or if session replay /
+> traces are enabled, the Crash Data and Performance rows must be re-evaluated
+> and the App Privacy form re-submitted.
 
 | Step | Done |
 |---|---|
@@ -104,9 +109,13 @@ Done inside Play Console → your app → App content → Data safety.
 
 | Section | Answer |
 |---|---|
-| Does your app collect or share any of the required user data types? | No data is collected by the app itself. Email address is processed if (and only if) the user contacts support — declare as user-initiated contact, encrypted in transit, optional, used for App functionality, not shared. |
-| Is all user data encrypted in transit? | Yes (HTTPS / TLS for support emails; on-device storage is plaintext but local-only) |
-| Can users request data deletion? | Yes — email `{{SUPPORT_EMAIL}}` for support-inbox data; on-device data is deleted by uninstalling or by tapping "Clear Progress" inside the app |
+| Does your app collect or share any of the required user data types? | Yes — two streams: (a) email + free-text when user contacts support, (b) crash diagnostics via Sentry (opt-out). Nothing else is collected. |
+| App activity → Other actions / Other user-generated content | **No** |
+| Personal info → Email address | **Yes** — collected, user-initiated only, used for App functionality (responding to support), optional, encrypted in transit, user can request deletion |
+| App info and performance → Crash logs | **Yes** — collected, used for App functionality (fixing crashes), optional (user can opt out in About), encrypted in transit, ephemeral / not linked to user |
+| App info and performance → Diagnostics | **No** (Sentry traces sample rate is 0) |
+| Is all user data encrypted in transit? | Yes (HTTPS / TLS for support emails and Sentry; on-device storage is plaintext but local-only) |
+| Can users request data deletion? | Yes — email `{{SUPPORT_EMAIL}}` for support-inbox data; in-App "Clear Progress" wipes attempt + question stats; uninstall removes all on-device state |
 | Has your app been independently validated against a global security standard? | No |
 
 **Privacy Policy URL:** `{{PRIVACY_URL}}`.
@@ -193,6 +202,7 @@ Template: https://ico.org.uk/for-organisations/sme-web-hub/documentation/
 | Google (Play Store) | No DPA — Google is independent controller for store data | [x] |
 | Email provider (`support@`) | Yes | [ ] Accept their standard DPA on signup |
 | Hosting provider for legal pages | Yes if pages contain forms; no if static-only | [ ] N/A while static |
+| **Sentry (sentry.io)** | **Yes** — they process crash diagnostics on our behalf | [ ] Sign Sentry's standard DPA (sentry.io → Settings → Legal & Compliance) and record the date |
 
 ---
 
@@ -226,5 +236,9 @@ Run this top-to-bottom on the day you submit the binary.
 [ ] ROPA saved
 [ ] Calendar reminder for ICO renewal set
 [ ] Build version + buildNumber / versionCode incremented from any prior submission
+[ ] Sentry DSN set in `app.json` extra.sentryDsn (or via EAS Secret) — not the placeholder
+[ ] Sentry org + project slugs set in the `@sentry/react-native/expo` plugin block in `app.json`
+[ ] Sentry DPA accepted (sentry.io → Settings → Legal & Compliance)
+[ ] Source-map upload working in the production EAS build (see `docs/SENTRY.md`)
 [ ] Final TestFlight / Play Internal Test run on real iOS + Android device
 ```

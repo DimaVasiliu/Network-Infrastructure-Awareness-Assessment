@@ -51,7 +51,9 @@ export function StatsScreen() {
       <View style={styles.sectionPanel}>
         <Text style={styles.panelTitle}>By section</Text>
         {perSection.every((row) => row.accuracy === null) ? (
-          <Text style={styles.empty}>Section accuracy will appear here once you complete some questions.</Text>
+          <Text style={styles.empty}>
+            Section accuracy will appear here once you complete some questions.
+          </Text>
         ) : (
           perSection.map((row) => (
             <View key={row.section} style={styles.sectionRow}>
@@ -91,7 +93,7 @@ export function StatsScreen() {
             <View key={attempt.id} style={styles.historyItem}>
               <View>
                 <Text style={styles.historyItemTitle}>
-                  {attempt.mode === 'mockExam' ? 'Mock Exam' : attempt.section ?? 'Practice'}
+                  {attempt.mode === 'mockExam' ? 'Mock Exam' : (attempt.section ?? 'Practice')}
                 </Text>
                 <Text style={styles.historyItemMeta}>{new Date(attempt.completedAt).toLocaleString()}</Text>
               </View>

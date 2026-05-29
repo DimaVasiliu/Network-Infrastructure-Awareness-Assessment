@@ -8,9 +8,11 @@ type ProgressState = {
   attempts: QuizAttempt[];
   bookmarks: string[];
   stats: Record<string, QuestionStat>;
+  crashReportingOptOut: boolean;
   addAttempt: (attempt: QuizAttempt) => void;
   clearProgress: () => void;
   toggleBookmark: (questionId: string) => void;
+  setCrashReportingOptOut: (optedOut: boolean) => void;
 };
 
 export const useProgressStore = create<ProgressState>()(
@@ -19,6 +21,7 @@ export const useProgressStore = create<ProgressState>()(
       attempts: [],
       bookmarks: [],
       stats: {},
+      crashReportingOptOut: false,
       addAttempt: (attempt) =>
         set((state) => {
           const nextStats = { ...state.stats };
@@ -45,17 +48,19 @@ export const useProgressStore = create<ProgressState>()(
             ? state.bookmarks.filter((id) => id !== questionId)
             : [questionId, ...state.bookmarks],
         })),
+      setCrashReportingOptOut: (optedOut) => set({ crashReportingOptOut: optedOut }),
     }),
     {
       name: 'network-infrastructure-progress',
       storage: createJSONStorage(() => AsyncStorage),
-      version: 2,
+      version: 3,
       migrate: (persisted: unknown) => {
         const previous = (persisted as Partial<ProgressState>) ?? {};
         return {
           attempts: previous.attempts ?? [],
           bookmarks: previous.bookmarks ?? [],
           stats: previous.stats ?? {},
+          crashReportingOptOut: previous.crashReportingOptOut ?? false,
         } as ProgressState;
       },
     },

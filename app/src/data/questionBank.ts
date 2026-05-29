@@ -34,8 +34,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'CPR / EN 13501-6 EuroClass',
     },
     {
-      question:
-        'Among the listed cable codes, which produces the least smoke when burning?',
+      question: 'Among the listed cable codes, which produces the least smoke when burning?',
       correct: 'B2ca s1a d1 a1',
       distractors: ['Eca', 'Cca s1b d2 a2', 'Dca s2 d2 a2'],
       explanation:
@@ -46,11 +45,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       question:
         'Which one of the following is NOT a telecommunications cable and instead belongs to the electrical power installation?',
       correct: '3 core 13 amp 230 volt mains cable',
-      distractors: [
-        'Cat5e 4 pair data cable',
-        '1308 3 pair telephone cable',
-        '2 pair intruder alarm cable',
-      ],
+      distractors: ['Cat5e 4 pair data cable', '1308 3 pair telephone cable', '2 pair intruder alarm cable'],
       explanation:
         'Data, telephone and intruder-alarm cables are communications-type cables. A 230 V mains lead is a low-voltage power cable and falls under the electrical installation, not the telecoms installation.',
       standardRef: 'BS EN 50173-1 (definitions)',
@@ -135,8 +130,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'HD 60364-5-54',
     },
     {
-      question:
-        'Of the Ethernet application names listed, which is supported over Cat5e balanced cabling?',
+      question: 'Of the Ethernet application names listed, which is supported over Cat5e balanced cabling?',
       correct: '100baseT',
       distractors: ['100baseSX', '10base2', '10base5'],
       explanation:
@@ -144,8 +138,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'IEEE 802.3',
     },
     {
-      question:
-        'A 10 Gb/s link must run 500 m between two buildings. Which media family is appropriate?',
+      question: 'A 10 Gb/s link must run 500 m between two buildings. Which media family is appropriate?',
       correct: 'Fibre optic cable',
       distractors: ['Co-axial cable', 'Cat 6A balanced cable', 'Cat 7 or Cat 8 balanced cable'],
       explanation:
@@ -153,21 +146,15 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'ISO/IEC 11801-1',
     },
     {
-      question:
-        'A 10 Gb/s link must reach 2 km. Which media is the correct choice?',
+      question: 'A 10 Gb/s link must reach 2 km. Which media is the correct choice?',
       correct: 'Single-mode fibre optic cable',
-      distractors: [
-        'Multimode fibre OM1 or OM2',
-        'Multimode fibre OM3 or OM4',
-        'Multimode fibre OM5',
-      ],
+      distractors: ['Multimode fibre OM1 or OM2', 'Multimode fibre OM3 or OM4', 'Multimode fibre OM5'],
       explanation:
         'Multimode fibre grades are intended for short reach, typically a few hundred metres at 10 Gb/s. For kilometre-scale 10 Gb/s links, single-mode fibre is used.',
       standardRef: 'ISO/IEC 11801-1',
     },
     {
-      question:
-        'Which of the following core/cladding fibre sizes is NOT a standard telecoms fibre size?',
+      question: 'Which of the following core/cladding fibre sizes is NOT a standard telecoms fibre size?',
       correct: '100/125',
       distractors: ['9/125', '50/125', '62.5/125'],
       explanation:
@@ -191,18 +178,13 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       question:
         'When discussing construction-product cable documentation, what does the abbreviation DoP stand for?',
       correct: 'Declaration of Performance',
-      distractors: [
-        'Declaration of Product',
-        'Details of Performance',
-        'Declaration of Personnel',
-      ],
+      distractors: ['Declaration of Product', 'Details of Performance', 'Declaration of Personnel'],
       explanation:
         'A Declaration of Performance is the document in which a manufacturer states the declared characteristics of a construction product, including any reaction-to-fire EuroClass rating.',
       standardRef: 'CPR Article 4',
     },
     {
-      question:
-        'What does CE marking on a cable product actually indicate?',
+      question: 'What does CE marking on a cable product actually indicate?',
       correct: 'The product meets the applicable EU safety, health or environmental requirements',
       distractors: [
         'The product meets every worldwide standard',
@@ -242,22 +224,17 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'What is one rack unit (1U) on a standard 19 inch frame?',
+      question: 'What is one rack unit (1U) on a standard 19 inch frame?',
       correct: '44.45 mm (1.75 inches)',
-      distractors: [
-        '50 mm (2 inches)',
-        '30 mm (approximately 1.2 inches)',
-        '25 mm (1 inch)',
-      ],
+      distractors: ['50 mm (2 inches)', '30 mm (approximately 1.2 inches)', '25 mm (1 inch)'],
       explanation:
         '1U on a 19 inch rack is 44.45 mm (1.75 inches) high. Rack-mountable equipment is sized in whole rack units (1U, 2U, 4U, etc.).',
       standardRef: 'EIA-310 / IEC 60297',
     },
     {
-      question:
-        'Which statement best describes a cable management system?',
-      correct: 'A set of pathway products such as tray, basket, ducts and tubes used to support or contain cabling',
+      question: 'Which statement best describes a cable management system?',
+      correct:
+        'A set of pathway products such as tray, basket, ducts and tubes used to support or contain cabling',
       distractors: [
         'Only metallic tray installed below floor level',
         'Only tubes intended for blown fibre or blown copper',
@@ -268,8 +245,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Can a suspended ceiling grid be used to support a network cabling pathway?',
+      question: 'Can a suspended ceiling grid be used to support a network cabling pathway?',
       correct: 'No — pathway systems must be fixed to suitable building fabric, not to the ceiling grid',
       distractors: [
         'Yes, provided the cable bundle is small',
@@ -281,8 +257,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Before adding more cables to an existing containment route, what should you check?',
+      question: 'Before adding more cables to an existing containment route, what should you check?',
       correct: 'That the containment and its fixings can carry the additional cable load',
       distractors: [
         'Only that the new cables physically fit through the route',
@@ -307,8 +282,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2 / Building Regs Part B',
     },
     {
-      question:
-        'You are refitting trunking lids after pulling cables. What is the correct practice?',
+      question: 'You are refitting trunking lids after pulling cables. What is the correct practice?',
       correct: 'Replace the lids without trapping, pinching or crushing any cable',
       distractors: [
         'Force the lid closed and adjust cables later',
@@ -320,8 +294,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Several services are about to share the same containment. What must be confirmed first?',
+      question: 'Several services are about to share the same containment. What must be confirmed first?',
       correct: 'That separation, identification and compatibility between services are acceptable',
       distractors: [
         'That all services use the same coloured cable',
@@ -333,8 +306,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'When containment changes direction, which accessory choice is correct?',
+      question: 'When containment changes direction, which accessory choice is correct?',
       correct: 'Use bend accessories that maintain the required cable bend radius',
       distractors: [
         'Use a sharp 90° angle to save material',
@@ -346,8 +318,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'After cutting containment on site, what must be done before installing cable?',
+      question: 'After cutting containment on site, what must be done before installing cable?',
       correct: 'Deburr the cut edges and protect cables from any sharp metal or plastic',
       distractors: [
         'Leave the cut edges if the installation is hidden',
@@ -359,8 +330,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'You are fixing containment to a weak or unusual substrate. What is the right approach?',
+      question: 'You are fixing containment to a weak or unusual substrate. What is the right approach?',
       correct: 'Use fixings rated for that substrate and for the expected containment load',
       distractors: [
         'Use the same fixings as elsewhere on site, regardless of substrate',
@@ -372,8 +342,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'When restraining cables on containment, what is the correct use of cable ties?',
+      question: 'When restraining cables on containment, what is the correct use of cable ties?',
       correct: 'Use suitable restraints and avoid over-tightening that deforms the cable',
       distractors: [
         'Pull every tie as tight as possible for a neat finish',
@@ -398,8 +367,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'A cable route passes through a damp or corrosive area. Which choice is correct?',
+      question: 'A cable route passes through a damp or corrosive area. Which choice is correct?',
       correct: 'Select corrosion-resistant containment and fixings suitable for the environment',
       distractors: [
         'Use standard mild steel because painted finish is enough',
@@ -411,8 +379,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Containment is being installed across a building expansion joint. What must be allowed for?',
+      question: 'Containment is being installed across a building expansion joint. What must be allowed for?',
       correct: 'Building movement, so containment and cables are not strained when the structure moves',
       distractors: [
         'No movement, because the joint is decorative',
@@ -450,8 +417,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'When using basket tray for data cabling, what is the correct dressing principle?',
+      question: 'When using basket tray for data cabling, what is the correct dressing principle?',
       correct: 'Support cables without sharp pressure points, excessive sag or deformation',
       distractors: [
         'Stack cables as deep as possible to use all available space',
@@ -463,8 +429,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'What should be inspected on containment before handover?',
+      question: 'What should be inspected on containment before handover?',
       correct: 'Sharp edges, missing lids, poor support, overfilling and incomplete fire stopping',
       distractors: [
         'Only the colour of the containment',
@@ -478,8 +443,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
   ],
   'Cable Laying': [
     {
-      question:
-        'During installation of Cat 6A or shielded UTP, what minimum bend radius is generally used?',
+      question: 'During installation of Cat 6A or shielded UTP, what minimum bend radius is generally used?',
       correct: 'At least four times the cable outside diameter',
       distractors: [
         'At least two times the cable outside diameter',
@@ -491,8 +455,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Of Cat 5, Cat 5e, Cat 6 and Cat 6A, which is most sensitive to tight bends?',
+      question: 'Of Cat 5, Cat 5e, Cat 6 and Cat 6A, which is most sensitive to tight bends?',
       correct: 'Cat 6A',
       distractors: ['Cat 5', 'Cat 5e', 'Cat 6'],
       explanation:
@@ -500,8 +463,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50173-1',
     },
     {
-      question:
-        'How many Cat 6A cables does the guide use as the example fill for a 20 mm conduit?',
+      question: 'How many Cat 6A cables does the guide use as the example fill for a 20 mm conduit?',
       correct: '2 Cat 6A cables',
       distractors: ['6 Cat 6A cables', '12 Cat 6A cables', '24 Cat 6A cables'],
       explanation:
@@ -518,8 +480,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'When pulling a bundle of cables together, what should the installer manage?',
+      question: 'When pulling a bundle of cables together, what should the installer manage?',
       correct: 'The bundle so cables do not cross, twist or exceed tension limits',
       distractors: [
         'Only the speed of the pull, not the bundle geometry',
@@ -531,8 +492,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'If a pulling lubricant is needed, what must be verified?',
+      question: 'If a pulling lubricant is needed, what must be verified?',
       correct: 'That the lubricant is compatible with the cable sheath and the installation method',
       distractors: [
         'That it is the cheapest one on the van',
@@ -544,8 +504,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'How much spare cable should be left at an outlet?',
+      question: 'How much spare cable should be left at an outlet?',
       correct: 'A sensible service loop, without forcing tight coils or bends',
       distractors: [
         'No slack at all, to keep the cable straight',
@@ -557,8 +516,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'You are pulling cable in cold conditions. What is the first thing to check?',
+      question: 'You are pulling cable in cold conditions. What is the first thing to check?',
       correct: 'The manufacturer minimum installation temperature for that cable',
       distractors: [
         'The colour of the cable sheath',
@@ -570,8 +528,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Manufacturer data / BS EN 50174-2',
     },
     {
-      question:
-        'How should data cabling be separated from sources of electromagnetic interference?',
+      question: 'How should data cabling be separated from sources of electromagnetic interference?',
       correct: 'Keep adequate distance, or use suitable barriers, between IT cable and noise sources',
       distractors: [
         'Use ordinary insulating tape between cables',
@@ -583,8 +540,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'On a long vertical drop, how should the cable be supported?',
+      question: 'On a long vertical drop, how should the cable be supported?',
       correct: 'Supported at appropriate intervals so strain is not carried by the termination',
       distractors: [
         'Hanging entirely from the top connector',
@@ -596,8 +552,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'When passing cable through a drilled hole, what is the correct practice?',
+      question: 'When passing cable through a drilled hole, what is the correct practice?',
       correct: 'Protect the cable from rough edges and avoid compressing it in the opening',
       distractors: [
         'Wedge the cable in the hole to hold it in place',
@@ -609,8 +564,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2 / Building Regs Part B',
     },
     {
-      question:
-        'You must cross a power cable with a data cable. What is the correct technique?',
+      question: 'You must cross a power cable with a data cable. What is the correct technique?',
       correct: 'Cross at a right angle and avoid long parallel runs nearby',
       distractors: [
         'Cross in a long parallel section to keep the route tidy',
@@ -622,8 +576,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Before pulling cable through a conduit, what must be checked?',
+      question: 'Before pulling cable through a conduit, what must be checked?',
       correct: 'The conduit fill, bend count and draw-in access',
       distractors: [
         'Only the conduit colour',
@@ -635,8 +588,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'You plan to use an existing route for new cabling. What is the correct first step?',
+      question: 'You plan to use an existing route for new cabling. What is the correct first step?',
       correct: 'Survey the route to confirm capacity, condition and suitability',
       distractors: [
         'Assume the route is fine because it was used previously',
@@ -648,8 +600,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'How should cable ends be treated during installation, before termination?',
+      question: 'How should cable ends be treated during installation, before termination?',
       correct: 'Keep them clean, capped and protected from dust and moisture',
       distractors: [
         'Leave them in standing water for cooling',
@@ -661,8 +612,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'When during installation should cables be identified?',
+      question: 'When during installation should cables be identified?',
       correct: 'At both ends before final termination and testing',
       distractors: [
         'Only after handover, if the client asks',
@@ -674,8 +624,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'What is the correct rule for protecting installed cable from crushing?',
+      question: 'What is the correct rule for protecting installed cable from crushing?',
       correct: 'Do not stand on cables, trap them under materials or compress them with fixings',
       distractors: [
         'Stand on cables only briefly to flatten them',
@@ -687,8 +636,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'How should the draw-in sequence be planned for a multi-cable pull?',
+      question: 'How should the draw-in sequence be planned for a multi-cable pull?',
       correct: 'Plan the order so cables do not tangle and pulling force stays within limits',
       distractors: [
         'Pull every cable at once with no planning',
@@ -700,8 +648,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'When routing pre-terminated assemblies, what is the priority?',
+      question: 'When routing pre-terminated assemblies, what is the priority?',
       correct: 'Protect connectors and pulling socks so terminations are not damaged',
       distractors: [
         'Pull connectors first without any cover',
@@ -713,8 +660,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Before terminating an installed cable, what should be done?',
+      question: 'Before terminating an installed cable, what should be done?',
       correct: 'Inspect for sheath damage, kinks, crushing and any route issue',
       distractors: [
         'Terminate immediately and rely on testing later',
@@ -728,8 +674,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
   ],
   'Cable Dressing': [
     {
-      question:
-        'When dressing copper pairs into a patch panel, what is the rule about pair twist?',
+      question: 'When dressing copper pairs into a patch panel, what is the rule about pair twist?',
       correct: 'Keep the pair twist as close to the termination point as practical',
       distractors: [
         'Untwist pairs as far as needed to make conductors lie flat',
@@ -741,8 +686,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'What is the maximum copper data cable bundle size given in the guide?',
+      question: 'What is the maximum copper data cable bundle size given in the guide?',
       correct: '24 cables in a bundle',
       distractors: ['50 cables in a bundle', '72 cables in a bundle', '100 cables in a bundle'],
       explanation:
@@ -750,21 +694,15 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Which restraint is best for temporarily dressing cables during installation?',
+      question: 'Which restraint is best for temporarily dressing cables during installation?',
       correct: 'Hook and loop fastening',
-      distractors: [
-        '150 mm × 7.6 mm nylon cable ties',
-        'Steel wire ties',
-        '300 mm × 13 mm nylon cable ties',
-      ],
+      distractors: ['150 mm × 7.6 mm nylon cable ties', 'Steel wire ties', '300 mm × 13 mm nylon cable ties'],
       explanation:
         'Hook and loop fastening can be released and re-applied without crushing the cable. Nylon ties pulled tight risk deforming balanced cable.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'How should patch cords in a cabinet be managed?',
+      question: 'How should patch cords in a cabinet be managed?',
       correct: 'Routed so ports remain identifiable and cords are not sharply bent',
       distractors: [
         'Bundled tightly across the front of the panel',
@@ -776,8 +714,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'What is correct practice for dressing fibre patch leads?',
+      question: 'What is correct practice for dressing fibre patch leads?',
       correct: 'Use bend-management features and avoid tight loops',
       distractors: [
         'Hang fibre leads from connectors only',
@@ -789,8 +726,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'When copper and fibre share a cabinet, how should they be dressed?',
+      question: 'When copper and fibre share a cabinet, how should they be dressed?',
       correct: 'Each media type is supported and accessible without strain on the other',
       distractors: [
         'Mixed into one bundle for a tidy front view',
@@ -802,8 +738,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'What is the correct approach to service loops left in a cabinet?',
+      question: 'What is the correct approach to service loops left in a cabinet?',
       correct: 'Provide enough slack for maintenance without creating unmanaged coils',
       distractors: [
         'Leave 5 m of slack coiled loosely on the floor',
@@ -815,8 +750,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'When dressing cable behind an outlet faceplate, what should be avoided?',
+      question: 'When dressing cable behind an outlet faceplate, what should be avoided?',
       correct: 'Crushing the cable or exceeding the bend radius',
       distractors: [
         'Leaving service slack inside the box',
@@ -828,8 +762,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'What is the purpose of cable management bars in a rack?',
+      question: 'What is the purpose of cable management bars in a rack?',
       correct: 'To support cables and patch cords so the connector does not carry strain',
       distractors: [
         'To hide unused ports from view',
@@ -841,8 +774,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'What must cable dressing not do in an active equipment cabinet?',
+      question: 'What must cable dressing not do in an active equipment cabinet?',
       correct: 'Obstruct equipment ventilation or airflow paths',
       distractors: [
         'Use the cabinet manufacturer cable trays',
@@ -854,8 +786,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'After dressing a cabinet, what must remain true of the labels?',
+      question: 'After dressing a cabinet, what must remain true of the labels?',
       correct: 'Each label remains readable and associated with the correct cable or port',
       distractors: [
         'Labels can be removed once the cables look tidy',
@@ -867,8 +798,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'When reworking a dressed cable bundle, what is the right method?',
+      question: 'When reworking a dressed cable bundle, what is the right method?',
       correct: 'Release the restraints and redress the bundle carefully',
       distractors: [
         'Pull individual cables out through the tight bundle',
@@ -880,8 +810,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'How close to a termination should the last cable tie be placed?',
+      question: 'How close to a termination should the last cable tie be placed?',
       correct: 'Far enough away to avoid stressing the connector or the conductor entry',
       distractors: [
         'Right against the connector body for grip',
@@ -893,8 +822,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Does Cat 7 or Cat 8 patching change basic dressing discipline?',
+      question: 'Does Cat 7 or Cat 8 patching change basic dressing discipline?',
       correct: 'No — bend radius, restraint and labelling still apply',
       distractors: [
         'Yes, higher categories are immune to tight bends',
@@ -908,8 +836,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
   ],
   'Fire Regulations': [
     {
-      question:
-        'Which framework sets the reaction-to-fire classification system used for IT cables?',
+      question: 'Which framework sets the reaction-to-fire classification system used for IT cables?',
       correct: 'Construction Products Regulations 2013 (CPR)',
       distractors: [
         'Regulatory Reform (Fire Safety) Order 2005',
@@ -921,14 +848,9 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'CPR / EN 13501-6',
     },
     {
-      question:
-        'In the context of cable fire performance, what does CPR stand for?',
+      question: 'In the context of cable fire performance, what does CPR stand for?',
       correct: 'Construction Products Regulations',
-      distractors: [
-        'Cable Products Regulations',
-        'Cable Products Rules',
-        'Construction Products Rules',
-      ],
+      distractors: ['Cable Products Regulations', 'Cable Products Rules', 'Construction Products Rules'],
       explanation:
         'CPR is the Construction Products Regulations, which set the harmonised framework for declared product performance, including reaction to fire for cables.',
       standardRef: 'CPR',
@@ -943,8 +865,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'CPR / EN 13501-6',
     },
     {
-      question:
-        'Where must a cable manufacturer display the CPR EuroClass classification for a data cable?',
+      question: 'Where must a cable manufacturer display the CPR EuroClass classification for a data cable?',
       correct: 'On the CE-marked label on the cable reel, box or spool',
       distractors: [
         'Only on the manufacturer website',
@@ -956,8 +877,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'CPR Article 7',
     },
     {
-      question:
-        'What records should be kept for completed fire-stopping work?',
+      question: 'What records should be kept for completed fire-stopping work?',
       correct: 'Location, product used, installer, rating and date for each seal',
       distractors: [
         'Only the cost of the materials used',
@@ -969,8 +889,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS 9999 / Regulatory Reform (Fire Safety) Order 2005',
     },
     {
-      question:
-        'Can different fire-stopping products be mixed in one penetration?',
+      question: 'Can different fire-stopping products be mixed in one penetration?',
       correct: 'No — use only tested systems and combinations specified by the manufacturer',
       distractors: [
         'Yes, as long as both are fire-rated for any duration',
@@ -982,8 +901,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 1366 / Manufacturer data',
     },
     {
-      question:
-        'You notice annular gaps around cables passing through a wall. What is the correct action?',
+      question: 'You notice annular gaps around cables passing through a wall. What is the correct action?',
       correct: 'Seal the gaps using the specified fire-stopping system',
       distractors: [
         'Ignore the gaps if they are above a ceiling',
@@ -995,8 +913,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS 9999',
     },
     {
-      question:
-        'How should the reaction-to-fire marking on an installed cable be verified?',
+      question: 'How should the reaction-to-fire marking on an installed cable be verified?',
       correct: 'Check the marking or supplied documentation against the project specification',
       distractors: [
         'Trust the cable colour alone',
@@ -1008,8 +925,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'CPR / EN 13501-6',
     },
     {
-      question:
-        'What is the correct practice when routing cables through a protected shaft?',
+      question: 'What is the correct practice when routing cables through a protected shaft?',
       correct: 'Maintain the fire protection and service separation of the shaft',
       distractors: [
         'Treat the shaft as ordinary containment',
@@ -1021,8 +937,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS 9999 / Approved Document B',
     },
     {
-      question:
-        'You are working close to live fire-alarm cabling. What is the correct approach?',
+      question: 'You are working close to live fire-alarm cabling. What is the correct approach?',
       correct: 'Follow the agreed isolation or permit process and avoid disturbing the system',
       distractors: [
         'Disconnect the alarm temporarily without telling anyone',
@@ -1034,8 +949,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS 5839-1',
     },
     {
-      question:
-        'What should be done with redundant cabling found during a new installation?',
+      question: 'What should be done with redundant cabling found during a new installation?',
       correct: 'Remove or make safe the redundant cable where required by the fire strategy and scope',
       distractors: [
         'Leave all redundant cabling in place regardless',
@@ -1047,8 +961,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS 6701 / BS 9999',
     },
     {
-      question:
-        'What fixings should be used for a fire-stopping system?',
+      question: 'What fixings should be used for a fire-stopping system?',
       correct: 'Fixings and collars that match the tested system',
       distractors: [
         'Any general-purpose screw from the van',
@@ -1060,8 +973,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 1366',
     },
     {
-      question:
-        'When should fire-stopping be confirmed complete?',
+      question: 'When should fire-stopping be confirmed complete?',
       correct: 'Before ceilings, risers or other concealments are closed up',
       distractors: [
         'After handover, during routine maintenance',
@@ -1073,8 +985,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS 9999',
     },
     {
-      question:
-        'You find incomplete or damaged fire-stopping. What is the correct action?',
+      question: 'You find incomplete or damaged fire-stopping. What is the correct action?',
       correct: 'Report it immediately through the project process',
       distractors: [
         'Leave a verbal message for the next shift',
@@ -1088,8 +999,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
   ],
   'Safe Cable Installation': [
     {
-      question:
-        'When pulling cable from a drum, how should the work be staffed?',
+      question: 'When pulling cable from a drum, how should the work be staffed?',
       correct: 'At least two people, one controlling the drum and one pulling',
       distractors: [
         'One person pulling directly from the drum',
@@ -1114,8 +1024,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'A delivered cable drum is damaged enough to expose the cable. What should you do?',
+      question: 'A delivered cable drum is damaged enough to expose the cable. What should you do?',
       correct: 'Do not use the drum and report it to the supervisor',
       distractors: [
         'Use the drum while standing clear of it',
@@ -1127,8 +1036,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS 6701',
     },
     {
-      question:
-        'A wooden drum is splintered around the rim but the cable seems fine. What is correct?',
+      question: 'A wooden drum is splintered around the rim but the cable seems fine. What is correct?',
       correct: 'Wear gloves, remove the splinters with a suitable tool, then use the drum',
       distractors: [
         'Use the drum as found, just stand back',
@@ -1140,8 +1048,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Manual Handling Operations Regulations 1992',
     },
     {
-      question:
-        'What is the correct support when paying cable off a wooden drum?',
+      question: 'What is the correct support when paying cable off a wooden drum?',
       correct: 'A metal A-frame and spindle designed for the drum',
       distractors: [
         'A tied-off rope between two beams',
@@ -1153,8 +1060,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS 6701',
     },
     {
-      question:
-        'How many Cat 6A cable drums should one person carry at a time?',
+      question: 'How many Cat 6A cable drums should one person carry at a time?',
       correct: 'Use the task risk assessment to decide',
       distractors: [
         'None — it is always a two-person lift',
@@ -1166,8 +1072,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Manual Handling Operations Regulations 1992',
     },
     {
-      question:
-        'A stack of cable boxes collapses while you are working. What is the correct response?',
+      question: 'A stack of cable boxes collapses while you are working. What is the correct response?',
       correct: 'Stop immediately and restack the boxes safely',
       distractors: [
         'Finish the current cable run first',
@@ -1179,8 +1084,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'CDM Regulations 2015',
     },
     {
-      question:
-        'What is the minimum staffing for pulling cable from boxes?',
+      question: 'What is the minimum staffing for pulling cable from boxes?',
       correct: 'At least two people',
       distractors: [
         'One person, if the route is short',
@@ -1192,8 +1096,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS 6701',
     },
     {
-      question:
-        'You are loose-laying cable around a 90° corridor corner. What is the correct method?',
+      question: 'You are loose-laying cable around a 90° corridor corner. What is the correct method?',
       correct: 'Station someone at the corner to feed and control the cable',
       distractors: [
         'Pull the entire length around the corner in one movement',
@@ -1205,8 +1108,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'What is the correct rule for using knives during data-cabling work?',
+      question: 'What is the correct rule for using knives during data-cabling work?',
       correct: 'Avoid knives where a proper specialist tool is available',
       distractors: [
         'Use a knife whenever removing sheath',
@@ -1221,31 +1123,21 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       question:
         'You are pulling between two offices through a straight false-ceiling route with basket already installed. How many people are needed?',
       correct: 'Three people',
-      distractors: [
-        'One person',
-        'Two people',
-        'Four people',
-      ],
+      distractors: ['One person', 'Two people', 'Four people'],
       explanation:
         'Three people is the typical minimum: one at the box, one feeding the route, and one at the receiving end.',
       standardRef: 'BS 6701',
     },
     {
-      question:
-        'Which tool is suitable for pulling a bundle through an enclosed pathway?',
+      question: 'Which tool is suitable for pulling a bundle through an enclosed pathway?',
       correct: 'Nylon cable rods',
-      distractors: [
-        'A trunking lid',
-        'A straightened wire coat hanger',
-        'A broom handle',
-      ],
+      distractors: ['A trunking lid', 'A straightened wire coat hanger', 'A broom handle'],
       explanation:
         'Cable rods are designed to be pushed through pathways and joined as required. Improvised items can damage cable or get stuck in the route.',
       standardRef: 'PUWER 1998',
     },
     {
-      question:
-        'You discover suspect asbestos-containing material on the route. What must you do?',
+      question: 'You discover suspect asbestos-containing material on the route. What must you do?',
       correct: 'Stop work and follow the site asbestos procedure',
       distractors: [
         'Drill carefully and continue',
@@ -1257,21 +1149,15 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Control of Asbestos Regulations 2012',
     },
     {
-      question:
-        'What is the correct tool for cutting the yellow fibrous strength member in a fibre cable?',
+      question: 'What is the correct tool for cutting the yellow fibrous strength member in a fibre cable?',
       correct: 'Kevlar (aramid) scissors',
-      distractors: [
-        'A utility knife',
-        'A hacksaw',
-        'Bolt cutters',
-      ],
+      distractors: ['A utility knife', 'A hacksaw', 'Bolt cutters'],
       explanation:
         'Aramid yarn dulls ordinary scissors quickly. Purpose-made Kevlar scissors cut cleanly without slipping or damaging the fibre.',
       standardRef: 'Manufacturer guidance',
     },
     {
-      question:
-        'When fitting a new hacksaw blade, which way must the teeth face?',
+      question: 'When fitting a new hacksaw blade, which way must the teeth face?',
       correct: 'Forward, so the saw cuts on the forward stroke',
       distractors: [
         'It does not matter which way',
@@ -1283,8 +1169,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'PUWER 1998',
     },
     {
-      question:
-        'Which tool is correct for cutting excess Cat 6 cable?',
+      question: 'Which tool is correct for cutting excess Cat 6 cable?',
       correct: 'Side cutters',
       distractors: ['A hacksaw', 'A jigsaw', 'Scissors'],
       explanation:
@@ -1292,47 +1177,31 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Manufacturer guidance',
     },
     {
-      question:
-        'How should a cable be temporarily marked during pulling?',
+      question: 'How should a cable be temporarily marked during pulling?',
       correct: 'With a fine-point permanent marker',
-      distractors: [
-        'A felt tip pen',
-        'A ball point pen',
-        'A chalk pen',
-      ],
+      distractors: ['A felt tip pen', 'A ball point pen', 'A chalk pen'],
       explanation:
         'A fine-point permanent marker survives handling during pulling. Felt tip, ballpoint and chalk marks rub off too easily.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Which restraint is correct for temporarily fastening cables that may need adjustment later?',
+      question: 'Which restraint is correct for temporarily fastening cables that may need adjustment later?',
       correct: 'Hook and loop fastening',
-      distractors: [
-        '150 mm × 7.6 mm nylon ties',
-        'Steel wire ties',
-        '300 mm × 13 mm nylon ties',
-      ],
+      distractors: ['150 mm × 7.6 mm nylon ties', 'Steel wire ties', '300 mm × 13 mm nylon ties'],
       explanation:
         'Hook and loop fasteners can be released and reapplied without crushing the cable, which makes them ideal for dressing work that may still be adjusted.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'What tool is correct for stripping the outer sheath of copper data cable?',
+      question: 'What tool is correct for stripping the outer sheath of copper data cable?',
       correct: 'A cyclops / rotary cable stripper',
-      distractors: [
-        'A retractable utility knife',
-        'Scissors',
-        'A sharp pen knife',
-      ],
+      distractors: ['A retractable utility knife', 'Scissors', 'A sharp pen knife'],
       explanation:
         'Purpose-made strippers control the cut depth and reduce damage to the inner pairs and foils. Knives and scissors easily cut too deep.',
       standardRef: 'Manufacturer guidance',
     },
     {
-      question:
-        'Once cabling is installed but not yet handed over, what protection is needed?',
+      question: 'Once cabling is installed but not yet handed over, what protection is needed?',
       correct: 'Protect cables from use as supports and from damage by follow-on trades',
       distractors: [
         'No protection is needed until handover',
@@ -1346,8 +1215,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
   ],
   'Personal Safety': [
     {
-      question:
-        'Which gloves should be used when pulling in data cable?',
+      question: 'Which gloves should be used when pulling in data cable?',
       correct: 'Correctly fitting EN 420 compliant work gloves',
       distractors: [
         'Heavy leather rigger gloves',
@@ -1359,21 +1227,15 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'EN 420',
     },
     {
-      question:
-        'Who is PPE primarily designed to protect?',
+      question: 'Who is PPE primarily designed to protect?',
       correct: 'The person wearing it',
-      distractors: [
-        'Everyone in the work area',
-        'Only the site safety representative',
-        'Only the client',
-      ],
+      distractors: ['Everyone in the work area', 'Only the site safety representative', 'Only the client'],
       explanation:
         'PPE is personal protective equipment. It is the last line of defence and protects the wearer.',
       standardRef: 'PPE at Work Regulations 1992 (as amended)',
     },
     {
-      question:
-        'What is the correct base-to-height ratio for a leaning ladder?',
+      question: 'What is the correct base-to-height ratio for a leaning ladder?',
       correct: '1 : 4 (base out, height up)',
       distractors: ['1 : 2', '1 : 8', '4 : 1'],
       explanation:
@@ -1381,8 +1243,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'HSE INDG455 / Work at Height Regulations 2005',
     },
     {
-      question:
-        'You need both hands free for a task on a step-ladder. How do you stay safe?',
+      question: 'You need both hands free for a task on a step-ladder. How do you stay safe?',
       correct: 'Maintain three points of contact using two feet and part of the body against the ladder',
       distractors: [
         'Keep both feet on the same step',
@@ -1394,8 +1255,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Work at Height Regulations 2005',
     },
     {
-      question:
-        'You find a material you suspect contains asbestos. What is the immediate action?',
+      question: 'You find a material you suspect contains asbestos. What is the immediate action?',
       correct: 'Stop work, warn others and prevent access to the area',
       distractors: [
         'Finish the work and sweep up later',
@@ -1407,8 +1267,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Control of Asbestos Regulations 2012',
     },
     {
-      question:
-        'How do you decide whether a given PPE item is suitable?',
+      question: 'How do you decide whether a given PPE item is suitable?',
       correct: 'Assess it against the actual risk and the working conditions',
       distractors: [
         'Pick whichever is most comfortable',
@@ -1420,8 +1279,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'PPE at Work Regulations 1992 (as amended)',
     },
     {
-      question:
-        'For pulling cable on an active construction site, which PPE should be used?',
+      question: 'For pulling cable on an active construction site, which PPE should be used?',
       correct: 'Hard hat, eye protection, gloves, safety boots, hi-vis and a face mask where required',
       distractors: [
         'Hard hat and face mask only',
@@ -1433,8 +1291,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'CDM Regulations 2015',
     },
     {
-      question:
-        'Which standard should a safety helmet meet for general cabling work at height?',
+      question: 'Which standard should a safety helmet meet for general cabling work at height?',
       correct: 'BS EN 397',
       distractors: [
         'A specific company-branded standard',
@@ -1446,34 +1303,26 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 397',
     },
     {
-      question:
-        'Who must provide an employee with the PPE required for their work?',
+      question: 'Who must provide an employee with the PPE required for their work?',
       correct: 'The employer',
-      distractors: [
-        'The employee',
-        'The site storeman',
-        'The site health and safety adviser',
-      ],
+      distractors: ['The employee', 'The site storeman', 'The site health and safety adviser'],
       explanation:
         'Employers must provide suitable PPE free of charge where the risk assessment identifies that PPE is needed.',
       standardRef: 'PPE at Work Regulations 1992 (as amended)',
     },
     {
-      question:
-        'How often should ladders or step-ladders be inspected before use?',
+      question: 'How often should ladders or step-ladders be inspected before use?',
       correct: 'Visually inspected by the user before each use, in addition to any formal inspections',
       distractors: [
         'Monthly only, by the supervisor',
         'Weekly only, by the storeman',
         'After use, not before',
       ],
-      explanation:
-        'A pre-use visual check by the user catches obvious defects between formal inspections.',
+      explanation: 'A pre-use visual check by the user catches obvious defects between formal inspections.',
       standardRef: 'Work at Height Regulations 2005',
     },
     {
-      question:
-        'You see a near miss but no injury. What should you do?',
+      question: 'You see a near miss but no injury. What should you do?',
       correct: 'Report it through the site near-miss process',
       distractors: [
         'Ignore it because no one was hurt',
@@ -1485,8 +1334,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'RIDDOR 2013 (reporting culture)',
     },
     {
-      question:
-        'When should hearing protection be worn?',
+      question: 'When should hearing protection be worn?',
       correct: 'When the work or area noise assessment requires it',
       distractors: [
         'Never, because cabling is quiet work',
@@ -1498,8 +1346,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Control of Noise at Work Regulations 2005',
     },
     {
-      question:
-        'How should dust exposure from drilling be controlled?',
+      question: 'How should dust exposure from drilling be controlled?',
       correct: 'Use extraction, damping or respiratory protection appropriate to the task',
       distractors: [
         'Open a window and continue without controls',
@@ -1511,21 +1358,18 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'COSHH 2002 / HSG260',
     },
     {
-      question:
-        'Before using a step-up, podium or tower, what must be done?',
+      question: 'Before using a step-up, podium or tower, what must be done?',
       correct: 'Inspect the access equipment and confirm it is suitable for the task',
       distractors: [
         'Use it without inspection if it was used yesterday',
         'Use it without inspection if it was delivered today',
         'Use it as long as it is the right colour for the site',
       ],
-      explanation:
-        'Access equipment must be in safe condition and suitable for the task and load.',
+      explanation: 'Access equipment must be in safe condition and suitable for the task and load.',
       standardRef: 'Work at Height Regulations 2005',
     },
     {
-      question:
-        'You are working near occupied areas of a building. What is the rule?',
+      question: 'You are working near occupied areas of a building. What is the rule?',
       correct: 'Segregate the work area and protect users from tools, dust and trailing leads',
       distractors: [
         'Continue without barriers because users will avoid the area',
@@ -1550,8 +1394,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'COSHH 2002',
     },
     {
-      question:
-        'What should you know before starting work on a new site?',
+      question: 'What should you know before starting work on a new site?',
       correct: 'The site first-aid arrangements and emergency procedure',
       distractors: [
         'Only the name of the site canteen',
@@ -1563,8 +1406,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Health and Safety (First-Aid) Regulations 1981',
     },
     {
-      question:
-        'Conditions on site no longer match the agreed method statement. What is correct?',
+      question: 'Conditions on site no longer match the agreed method statement. What is correct?',
       correct: 'Stop work and escalate before continuing',
       distractors: [
         'Continue and adjust the method silently',
@@ -1576,8 +1418,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Management of H&S at Work Regulations 1999',
     },
     {
-      question:
-        'What is the correct rule for using mobile phones on site?',
+      question: 'What is the correct rule for using mobile phones on site?',
       correct: 'Follow site rules and avoid distraction during safety-critical tasks',
       distractors: [
         'Use phones freely at all times',
@@ -1589,8 +1430,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'CDM Regulations 2015',
     },
     {
-      question:
-        'When leaving the work area at the end of a task, what must be done?',
+      question: 'When leaving the work area at the end of a task, what must be done?',
       correct: 'Clear tools, waste and temporary controls before leaving or handing over',
       distractors: [
         'Leave the area exactly as the work finished',
@@ -1617,8 +1457,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
         'Data cables run alongside screened power cables with no separation. What is the maximum shared run length?',
       correct: '35 m',
       distractors: ['40 m', '45 m', '50 m'],
-      explanation:
-        'For this no-separation, screened-power scenario, the maximum length is 35 m.',
+      explanation: 'For this no-separation, screened-power scenario, the maximum length is 35 m.',
       standardRef: 'BS EN 50174-2',
     },
     {
@@ -1631,8 +1470,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Where a network cable must cross a power cable, what is the correct angle?',
+      question: 'Where a network cable must cross a power cable, what is the correct angle?',
       correct: 'At right angles (90°)',
       distractors: [
         'Only where a metallic divider separates the cables',
@@ -1653,8 +1491,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Why must telecoms wiring and power cabling be separated?',
+      question: 'Why must telecoms wiring and power cabling be separated?',
       correct: 'To prevent danger to persons from induced voltages, as well as to protect performance',
       distractors: [
         'Only to allow future telecoms expansion',
@@ -1666,8 +1503,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Which two factors mainly drive the 50 mm EMI separation recommendation?',
+      question: 'Which two factors mainly drive the 50 mm EMI separation recommendation?',
       correct: 'Current in the power cable and physical distance from the telecoms cabling',
       distractors: [
         'Power cable length and telecoms cable length',
@@ -1679,8 +1515,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'BS EN 50174-2',
     },
     {
-      question:
-        'Which of the following does NOT help reduce electrical interference on copper data cables?',
+      question: 'Which of the following does NOT help reduce electrical interference on copper data cables?',
       correct: 'Installing unscreened twisted pair (UTP) cable',
       distractors: [
         'Installing screened twisted pair (S/FTP, F/FTP) cable',
@@ -1696,8 +1531,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
         'Which HSE guidance covers safe work near underground services such as buried telecoms cable?',
       correct: 'HSG47',
       distractors: ['HSR25', 'GS38', 'HSG85'],
-      explanation:
-        'HSG47 ("Avoiding danger from underground services") is the relevant HSE guidance.',
+      explanation: 'HSG47 ("Avoiding danger from underground services") is the relevant HSE guidance.',
       standardRef: 'HSE HSG47',
     },
     {
@@ -1714,8 +1548,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'HSE HSG47',
     },
     {
-      question:
-        'Before entering a cable chamber for duct installation work, what must be done?',
+      question: 'Before entering a cable chamber for duct installation work, what must be done?',
       correct: 'Test for explosive and noxious gases with a portable gas detector',
       distractors: [
         'Pitch a tent to keep weather out',
@@ -1727,8 +1560,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Confined Spaces Regulations 1997',
     },
     {
-      question:
-        'Which of the following buried duct colours is NOT suitable for telecommunications ductwork?',
+      question: 'Which of the following buried duct colours is NOT suitable for telecommunications ductwork?',
       correct: 'Yellow',
       distractors: ['White', 'Black', 'Grey'],
       explanation:
@@ -1740,19 +1572,14 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
         'Under BS EN 50174-3, what is the minimum recommended depth for telecoms cable below a footpath?',
       correct: '500 mm',
       distractors: ['250 mm – 450 mm', '450 mm – 600 mm', '600 mm'],
-      explanation:
-        'Below a footpath, BS EN 50174-3 Table 3 sets a minimum depth of 500 mm.',
+      explanation: 'Below a footpath, BS EN 50174-3 Table 3 sets a minimum depth of 500 mm.',
       standardRef: 'BS EN 50174-3 Table 3',
     },
     {
       question:
         'Which cable management system can act as an earthed screen and help reduce EMI on data cabling?',
       correct: 'Metallic trunking',
-      distractors: [
-        'Plastic conduit',
-        'Plastic trunking',
-        'Non-metallic basket',
-      ],
+      distractors: ['Plastic conduit', 'Plastic trunking', 'Non-metallic basket'],
       explanation:
         'A correctly bonded metallic containment can act as a screen, reducing the EMI environment around the cabling.',
       standardRef: 'BS EN 50174-2',
@@ -1762,15 +1589,13 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
         'Under BS EN 50174-3, what is the minimum recommended depth for telecoms cable below a road or carriageway?',
       correct: '600 mm',
       distractors: ['250 mm – 350 mm', '750 mm – 1200 mm', '750 mm'],
-      explanation:
-        'Below a road or carriageway, BS EN 50174-3 Table 3 sets a minimum depth of 600 mm.',
+      explanation: 'Below a road or carriageway, BS EN 50174-3 Table 3 sets a minimum depth of 600 mm.',
       standardRef: 'BS EN 50174-3 Table 3',
     },
   ],
   'Waste Management': [
     {
-      question:
-        'Is a site waste-management policy required on a construction site?',
+      question: 'Is a site waste-management policy required on a construction site?',
       correct: 'Yes, and it must be followed',
       distractors: [
         'Yes, but it is advisory only',
@@ -1782,8 +1607,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Environmental Protection Act 1990 / EPR 2016',
     },
     {
-      question:
-        'How should empty cable boxes be disposed of on site?',
+      question: 'How should empty cable boxes be disposed of on site?',
       correct: 'According to the company / site waste-management policy',
       distractors: [
         'Leave them for the cleaner to deal with',
@@ -1795,8 +1619,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Environmental Protection Act 1990',
     },
     {
-      question:
-        'How should waste cable left on cable drums be disposed of?',
+      question: 'How should waste cable left on cable drums be disposed of?',
       correct: 'According to the company / site waste-management policy',
       distractors: [
         'Keep it for personal scrap value',
@@ -1808,8 +1631,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Environmental Protection Act 1990',
     },
     {
-      question:
-        'A fibre sharps bin is full. How should it be disposed of?',
+      question: 'A fibre sharps bin is full. How should it be disposed of?',
       correct: 'Sent away for specialist disposal',
       distractors: [
         'Emptied into the general skip',
@@ -1821,8 +1643,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Hazardous Waste Regulations 2005',
     },
     {
-      question:
-        'How should empty wooden cable drums be dealt with?',
+      question: 'How should empty wooden cable drums be dealt with?',
       correct: 'According to the company / site waste-management policy',
       distractors: [
         'Break them down before putting in any recycling skip',
@@ -1834,8 +1655,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Waste (England and Wales) Regulations 2011',
     },
     {
-      question:
-        'Cable offcuts contain copper conductors. Which statement applies?',
+      question: 'Cable offcuts contain copper conductors. Which statement applies?',
       correct: 'They are usually segregated for metal recycling under the site policy',
       distractors: [
         'They can go in the general skip if small',
@@ -1847,8 +1667,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Waste (England and Wales) Regulations 2011',
     },
     {
-      question:
-        'You find unlabelled waste containers in the work area. What is the correct action?',
+      question: 'You find unlabelled waste containers in the work area. What is the correct action?',
       correct: 'Do not add waste to them — report and label them according to site procedure',
       distractors: [
         'Use them for any waste because they are empty',
@@ -1860,8 +1679,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Environmental Protection (Duty of Care) Regulations 1991',
     },
     {
-      question:
-        'Solvent-based cleaner has been used on site. How is the empty container handled?',
+      question: 'Solvent-based cleaner has been used on site. How is the empty container handled?',
       correct: 'As hazardous waste, following the site procedure for chemical containers',
       distractors: [
         'Place it in the general skip once it is empty',
@@ -1886,8 +1704,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Environmental Protection Act 1990 / Fire Strategy',
     },
     {
-      question:
-        'What is the principle behind the waste hierarchy used on site?',
+      question: 'What is the principle behind the waste hierarchy used on site?',
       correct: 'Prevent, prepare for reuse, recycle, recover, then dispose as a last resort',
       distractors: [
         'Dispose first to keep the area clear',
@@ -1912,8 +1729,7 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Waste (England and Wales) Regulations 2011',
     },
     {
-      question:
-        'What information is normally required on a waste transfer note?',
+      question: 'What information is normally required on a waste transfer note?',
       correct: 'Waste description, quantity, parties involved and EWC code where relevant',
       distractors: [
         'Only the driver’s name',
@@ -1925,9 +1741,9 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'Environmental Protection (Duty of Care) Regulations 1991',
     },
     {
-      question:
-        'Where are WEEE rules relevant on a cabling site?',
-      correct: 'When removing or disposing of electrical and electronic equipment such as switches or active hardware',
+      question: 'Where are WEEE rules relevant on a cabling site?',
+      correct:
+        'When removing or disposing of electrical and electronic equipment such as switches or active hardware',
       distractors: [
         'Whenever any packaging is thrown away',
         'Whenever any wooden drum is disposed of',
@@ -1938,9 +1754,9 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
       standardRef: 'WEEE Regulations 2013',
     },
     {
-      question:
-        'A spill of cleaning solvent occurs on a hard floor. What is the correct first action?',
-      correct: 'Contain the spill, follow the site procedure and treat the absorbent material as hazardous waste',
+      question: 'A spill of cleaning solvent occurs on a hard floor. What is the correct first action?',
+      correct:
+        'Contain the spill, follow the site procedure and treat the absorbent material as hazardous waste',
       distractors: [
         'Wash it down the nearest drain',
         'Sweep it into the general skip',
@@ -1998,9 +1814,7 @@ function buildChoices(
 
 function toQuestion(section: QuestionSection, spec: Spec, index: number): Question {
   const sectionNumber = sectionOrder.indexOf(section) + 1;
-  const id = `nia-${sectionNumber.toString().padStart(2, '0')}-${(index + 1)
-    .toString()
-    .padStart(3, '0')}`;
+  const id = `nia-${sectionNumber.toString().padStart(2, '0')}-${(index + 1).toString().padStart(3, '0')}`;
   const correctAnswer = answerLetterForId(id);
   const choices = buildChoices(correctAnswer, spec.correct, spec.distractors);
 

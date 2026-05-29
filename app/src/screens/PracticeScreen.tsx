@@ -7,7 +7,6 @@ import type { PracticeStackParamList } from '../navigation/AppTabs';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
 import type { Question } from '../types/question';
-import type { QuestionSection } from '../types/question';
 import type { QuizAttempt } from '../types/progress';
 import {
   questionsByIds,
@@ -30,10 +29,7 @@ export function PracticeScreen({ navigation }: PracticeHomeProps) {
   const stats = useProgressStore((state) => state.stats);
 
   const wrongCount = useMemo(() => wrongAnsweredQuestions(stats).length, [stats]);
-  const weakestCount = useMemo(
-    () => weakestQuestions(stats, weakestPracticeSize).length,
-    [stats],
-  );
+  const weakestCount = useMemo(() => weakestQuestions(stats, weakestPracticeSize).length, [stats]);
   const bookmarkCount = useMemo(() => questionsByIds(bookmarks).length, [bookmarks]);
 
   return (
@@ -206,7 +202,9 @@ export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswers
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <Text style={styles.title}>{section}</Text>
-      <Text style={styles.body}>Correct answers are shown first. Wrong answers are marked below for comparison.</Text>
+      <Text style={styles.body}>
+        Correct answers are shown first. Wrong answers are marked below for comparison.
+      </Text>
 
       <View style={styles.answerList}>
         {questions.map((question, index) => {
@@ -226,7 +224,12 @@ export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswers
                       key={choice}
                       style={[styles.studyChoice, isCorrect ? styles.studyCorrect : styles.studyWrong]}
                     >
-                      <Text style={[styles.studyMark, isCorrect ? styles.studyCorrectText : styles.studyWrongText]}>
+                      <Text
+                        style={[
+                          styles.studyMark,
+                          isCorrect ? styles.studyCorrectText : styles.studyWrongText,
+                        ]}
+                      >
                         {isCorrect ? 'V' : 'X'}
                       </Text>
                       <Text style={styles.studyChoiceText}>{question.choices[choice]}</Text>

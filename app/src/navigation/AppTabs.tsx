@@ -151,7 +151,11 @@ export function AppTabs() {
           screenOptions={({ route }) => ({
             headerRight: () => <HelpButton onPress={() => setIsHelpOpen(true)} />,
             tabBarIcon: ({ color, focused, size }) => (
-              <Ionicons color={color} name={focused ? tabIcons[route.name].active : tabIcons[route.name].inactive} size={size} />
+              <Ionicons
+                color={color}
+                name={focused ? tabIcons[route.name].active : tabIcons[route.name].inactive}
+                size={size}
+              />
             ),
             tabBarActiveTintColor: colors.primary,
             tabBarInactiveTintColor: colors.muted,
@@ -159,7 +163,11 @@ export function AppTabs() {
             tabBarStyle: styles.tabBar,
           })}
         >
-          <Tab.Screen name="HomeTab" component={HomeScreen} options={{ title: 'Home', tabBarLabel: 'Home' }} />
+          <Tab.Screen
+            name="HomeTab"
+            component={HomeScreen}
+            options={{ title: 'Home', tabBarLabel: 'Home' }}
+          />
           <Tab.Screen
             name="PracticeTab"
             options={{ headerShown: false, title: 'Practice', tabBarLabel: 'Practice' }}
@@ -172,7 +180,11 @@ export function AppTabs() {
           >
             {() => <MockExamNavigator openHelp={() => setIsHelpOpen(true)} />}
           </Tab.Screen>
-          <Tab.Screen name="StatsTab" component={StatsScreen} options={{ title: 'Stats', tabBarLabel: 'Stats' }} />
+          <Tab.Screen
+            name="StatsTab"
+            component={StatsScreen}
+            options={{ title: 'Stats', tabBarLabel: 'Stats' }}
+          />
           <Tab.Screen
             name="SettingsTab"
             component={SettingsScreen}
@@ -229,7 +241,11 @@ function MockExamNavigator({ openHelp }: { openHelp: () => void }) {
   return (
     <MockExamStack.Navigator screenOptions={{ headerRight: () => <HelpButton onPress={openHelp} /> }}>
       <MockExamStack.Screen name="MockExamHome" component={MockExamScreen} options={{ title: 'Mock Exam' }} />
-      <MockExamStack.Screen name="MockExamRun" component={MockExamRunScreen} options={{ title: 'Mock Exam' }} />
+      <MockExamStack.Screen
+        name="MockExamRun"
+        component={MockExamRunScreen}
+        options={{ title: 'Mock Exam' }}
+      />
     </MockExamStack.Navigator>
   );
 }
