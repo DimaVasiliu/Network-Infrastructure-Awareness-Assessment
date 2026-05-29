@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { HelpModal } from '../components/HelpModal';
 import { colors } from '../theme';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MockExamScreen } from '../screens/MockExamScreen';
@@ -8,6 +10,7 @@ import { PracticeScreen } from '../screens/PracticeScreen';
 import { StatsScreen } from '../screens/StatsScreen';
 
 type TabKey = 'home' | 'practice' | 'mockExam' | 'stats';
+type HelpLanguage = 'en' | 'ro' | 'ru';
 
 const tabs: Array<{ key: TabKey; label: string }> = [
   { key: 'home', label: 'Home' },
@@ -18,10 +21,17 @@ const tabs: Array<{ key: TabKey; label: string }> = [
 
 export function AppTabs() {
   const [activeTab, setActiveTab] = useState<TabKey>('home');
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [helpLanguage, setHelpLanguage] = useState<HelpLanguage>('en');
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>{renderScreen(activeTab, setActiveTab)}</View>
+      <View style={styles.content}>
+        <Pressable accessibilityLabel="Open help" onPress={() => setIsHelpOpen(true)} style={styles.helpButton}>
+          <Text style={styles.helpLabel}>?</Text>
+        </Pressable>
+        {renderScreen(activeTab, setActiveTab)}
+      </View>
       <View style={styles.tabBar}>
         {tabs.map((tab) => {
           const isActive = tab.key === activeTab;
@@ -39,6 +49,12 @@ export function AppTabs() {
           );
         })}
       </View>
+      <HelpModal
+        isVisible={isHelpOpen}
+        language={helpLanguage}
+        onChangeLanguage={setHelpLanguage}
+        onClose={() => setIsHelpOpen(false)}
+      />
     </SafeAreaView>
   );
 }
@@ -65,13 +81,31 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
+  helpButton: {
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    borderRadius: 8,
+    height: 38,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 16,
+    top: 18,
+    width: 38,
+    zIndex: 10,
+  },
+  helpLabel: {
+    color: colors.surface,
+    fontSize: 20,
+    fontWeight: '900',
+  },
   tabBar: {
     flexDirection: 'row',
     borderTopColor: colors.border,
     borderTopWidth: StyleSheet.hairlineWidth,
     backgroundColor: colors.surface,
     paddingHorizontal: 8,
-    paddingVertical: 8,
+    paddingTop: 8,
+    paddingBottom: 12,
   },
   tabButton: {
     alignItems: 'center',

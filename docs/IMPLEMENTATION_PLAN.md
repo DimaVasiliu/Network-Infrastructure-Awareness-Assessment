@@ -14,7 +14,7 @@ Existing ECS apps on the App Store / Play Store target the **Health & Safety** a
 
 **No dedicated app exists for the Network Infrastructure Awareness Assessment.** You have a clean niche with 145 vetted questions across 9 sections from the official PDF guide.
 
-**Suggested price:** £4.99 one-time (paid up-front on stores; same price via Stripe on web).
+**Suggested price:** £4.99 one-time paid up-front on the Apple App Store and Google Play.
 
 ---
 
@@ -22,53 +22,25 @@ Existing ECS apps on the App Store / Play Store target the **Health & Safety** a
 
 | Layer | Choice | Why |
 |---|---|---|
-| App framework | **Expo SDK 52** (React Native + RN Web) | One TypeScript codebase → iOS + Android + Web |
+| App framework | **Expo SDK 54** (React Native) | One TypeScript codebase → iOS + Android |
 | Language | TypeScript | Type safety, great in VS Code |
 | State | Zustand + AsyncStorage | Tiny, local-first |
-| Web hosting | **AWS S3 + CloudFront** | Static export of Expo web |
-| Web payment | **Mollie Payments** (one-time) | You already have an account; cheaper UK fees than Stripe (~1.8% + 18p), hosted checkout |
-| Backend | **AWS Lambda + API Gateway** (Node 20) | Only needed for Stripe webhook + licence lookup |
-| Database | **AWS RDS Postgres** (smallest tier, db.t4g.micro) | You'll manage in TablePlus |
 | Mobile distribution | Apple App Store + Google Play (paid app, £4.99) | No IAP complexity needed |
 | Builds | **EAS Build** (Expo's cloud build service) | Avoid keeping Xcode/Android Studio in sync |
 
-**Data we collect:** essentially nothing.
-- Mobile: zero. Apple/Google handle the payment. Questions ship inside the app.
-- Web: email + a licence key (so users can re-log-in after paying). One Postgres row per buyer.
+**Data we collect:** zero for launch. Apple/Google handle the payment. Questions ship inside the app.
 
 ---
 
-## 3. Database schema (TablePlus → RDS Postgres)
+## 3. Backend and database
 
-One table. That's it.
-
-```sql
-CREATE TABLE licences (
-  id              BIGSERIAL PRIMARY KEY,
-  licence_key     TEXT NOT NULL UNIQUE,           -- e.g. ECS-NIA-XXXX-XXXX-XXXX
-  email           TEXT NOT NULL,
-  mollie_payment  TEXT NOT NULL UNIQUE,           -- Mollie payment id, used for webhook idempotency
-  created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  last_seen_at    TIMESTAMPTZ
-);
-CREATE INDEX idx_licences_email ON licences (lower(email));
-```
-
-That's the entire backend data model.
+None for launch. This is a mobile-only paid app for iOS and Android.
 
 ---
 
-## 4. AWS resources you'll create later (don't do this yet)
+## 4. AWS resources
 
-- **S3 bucket** `ecs-nia-web-prod` — static site
-- **CloudFront** distribution in front of the S3 bucket (custom domain, HTTPS)
-- **RDS Postgres** — `db.t4g.micro` in a single AZ (cheapest), public access locked to your IP + Lambda SG
-- **Lambda functions**: `mollie-webhook`, `verify-licence`
-- **API Gateway** HTTP API in front of Lambda
-- **Route 53** for your domain (or whatever registrar you use)
-- **Secrets Manager** for Stripe secret + DB password
-
-Estimated AWS monthly cost while small: **£15–25/month** (RDS micro is the big one).
+None for launch. The product is mobile-only for iOS and Android.
 
 ---
 
@@ -78,11 +50,8 @@ Estimated AWS monthly cost while small: **£15–25/month** (RDS micro is the bi
 |---|---|
 | Apple Developer Program | $99/year (~£78) |
 | Google Play Console | $25 one-time |
-| Domain (.com or .co.uk) | ~£10/year |
-| AWS (small) | ~£20/month |
-| Mollie fees | ~1.8% + 18p per UK card transaction |
 | EAS Build (free tier is enough at start) | £0 |
-| **Total to first launch** | **~£113 + ~£20/month** |
+| **Total to first launch** | **~£103** |
 
 ---
 
@@ -102,20 +71,14 @@ Estimated AWS monthly cost while small: **£15–25/month** (RDS micro is the bi
 - Wrong-answer review.
 - Progress stored in AsyncStorage (no backend).
 
-**Phase 3 — Polish & web build.**
+**Phase 3 — Polish.**
 - Dark mode, icons, splash screen.
-- `npx expo export -p web` → upload to S3 bucket behind CloudFront.
 
-**Phase 4 — Web payment.**
-- Add a landing page (free preview of 5 questions).
-- Mollie Checkout button → Lambda webhook → write row to `licences` → email key (via AWS SES).
-- Licence-key gate on the web app.
-
-**Phase 5 — Store submission.**
+**Phase 4 — Store submission.**
 - Apple Developer account, App Store Connect entry, EAS build → submit.
 - Google Play Console, EAS build → internal testing → production.
 
-**Phase 6 — Post-launch.**
+**Phase 5 — Post-launch.**
 - ASO (app store optimisation): titles like "ECS Network Infrastructure Test Prep".
 - Backlink from electriciantraining.co.uk, applyecscard.co.uk, the JIB forum, Reddit r/electricians.
 
@@ -199,23 +162,6 @@ eas submit                     # submits to App Store / Play
 
 You still need the **Apple Developer ($99/yr) and Google Play ($25 one-time)** accounts before submitting.
 
-### 7e. AWS CLI (install before Phase 4)
-
-```bash
-brew install awscli
-aws configure                                 # paste your IAM access key/secret
-```
-
-Mollie has no CLI — we'll use their Node SDK (`@mollie/api-client`) inside the Lambda and test webhooks with `ngrok` or by deploying to a dev Lambda. Install ngrok now if you want local webhook testing:
-
-```bash
-brew install --cask ngrok
-```
-
-You already have **TablePlus** — connect it to your RDS instance once Phase 4 starts.
-
----
-
 ## 8. Verify the setup
 
 After installing 7a–7c, run this sanity check in a new Terminal:
@@ -264,7 +210,7 @@ You have three options, ranked by risk:
 - **Bad:** "ECS Network Infrastructure Trainer", "ECS NIA Prep"
 - **OK:** "Network Infrastructure Awareness Trainer", "NetInfra Cert Prep UK", "Cable Installer Test Coach"
 - In the description you may factually state *"Practice for the UK Network Infrastructure Awareness Assessment"* — describing what the app prepares for is allowed (nominative fair use), as long as you also include a disclaimer.
-- **Required disclaimer** on the landing page, in the app's About screen, and in the App Store description:
+- **Required disclaimer** in the app's About/Help area and in the App Store / Play Store description:
   > *This app is an independent study aid. It is not affiliated with, endorsed by, or sponsored by The JIB or the Electrotechnical Certification Scheme (ECS). "ECS" is a trademark of The JIB.*
 
 ### 9c. UK GDPR + Data Protection Act 2018
@@ -272,20 +218,18 @@ You have three options, ranked by risk:
 Because you're collecting almost nothing, you're in great shape — but you still need the paperwork.
 
 **What you must do:**
-- **Privacy Policy** — a public URL linked from the app, the store listing, and the website. It must list: data collected (email, licence key, IP via CloudFront logs), purpose (delivering the licence and customer support), lawful basis (contract under Art. 6(1)(b)), retention (e.g. 7 years for tax records, then delete), data subject rights, your contact email, and any processors (AWS, Mollie).
-- **Cookie banner on the website** — only if you set non-essential cookies. If you only set a session cookie for the licence-key login, no banner needed; just mention it in the policy.
-- **No tracking SDKs without consent** — skip Google Analytics, Facebook Pixel, etc. on launch. If you later want analytics, use **Plausible** or **Simple Analytics** (cookieless, GDPR-compliant by design) or self-hosted Umami.
+- **Privacy Policy** — a public URL linked from the app and store listings. For the mobile-only launch it should say the app collects no personal data, stores quiz progress locally on device, and Apple/Google process store payments.
+- **No tracking SDKs without consent** — skip Google Analytics, Facebook Pixel, etc. on launch.
 - **ICO registration** — as a UK data controller you're legally required to register with the ICO and pay the data protection fee (£40–£60/year for most small businesses). Register at https://ico.org.uk/for-organisations/data-protection-fee/.
 - **Records of processing (ROPA)** — a simple internal document. Template on the ICO website.
-- **Data Processing Agreement** — Mollie and AWS publish standard DPAs; you accept them when signing up.
-- **Subject Access Request process** — set up a `privacy@yourdomain` mailbox and a one-page internal procedure to respond within 30 days.
+- **Subject Access Request process** — set up a contact email and a one-page internal procedure to respond within 30 days.
 - **Breach notification** — if data is breached, you have 72 hours to notify the ICO. Plan for it.
 
 ### 9d. App Store & Play Store privacy declarations
 
 Both stores require you to declare what data you collect, even if it's "none".
 
-- **Apple App Privacy** (App Store Connect → App Privacy) — for the mobile apps, declare "Data Not Collected". For the web version (separate concern), it doesn't apply.
+- **Apple App Privacy** (App Store Connect → App Privacy) — declare "Data Not Collected" for the mobile app.
 - **Google Play Data Safety** (Play Console → App content → Data safety) — same: declare no data collection for the mobile app.
 - **Age rating** — choose 4+ / Everyone. No mature content.
 - **EULA / Terms of Use** — Apple has a default EULA you can use, or write your own. Required on both stores.
@@ -294,28 +238,24 @@ Both stores require you to declare what data you collect, even if it's "none".
 
 You're selling a digital product to UK and likely EU consumers.
 
-- **Right of withdrawal** — for digital goods you can disable this *only if* the consumer expressly waives it and acknowledges they lose the right when the download starts. Add a checkbox on Mollie checkout: *"I agree to immediate access and waive my 14-day cancellation right."*
-- **VAT** — UK threshold is £90,000/year (2026). Below that, no VAT registration needed; above, you must charge VAT. For EU consumer sales there's a **separate £0 threshold** under the EU VAT scheme; either register for VAT OSS (One-Stop Shop) once you sell into the EU, or use a merchant of record like Paddle / Lemon Squeezy that handles VAT for you. **For launch: either restrict sales to UK only, or use Paddle as merchant of record instead of direct Mollie — they take ~5% but absorb all VAT obligations.** Worth discussing.
-- **Refund policy** — publish a clear refund policy on the website. For a £4.99 study aid, "no refunds after assessment is taken / question bank accessed" is reasonable.
+- **Refunds and cancellation** — Apple and Google handle paid-app purchases and refund flows through their stores.
+- **VAT** — Apple and Google generally handle consumer tax collection/remittance for App Store / Play Store purchases, but confirm your seller obligations before launch.
 
 ### 9f. Quick checklist before launch
 
 ```
 [ ] Question bank rewritten from scratch (or JIB licence in writing)
 [ ] App name does not contain "ECS"
-[ ] Disclaimer placed in app About screen, store listing, and website footer
+[ ] Disclaimer placed in app About/Help screen and store listings
 [ ] Privacy policy URL live
 [ ] Terms / EULA URL live
-[ ] Refund policy URL live
 [ ] ICO registration paid (~£40)
 [ ] Apple App Privacy declaration submitted
 [ ] Google Play Data Safety form completed
-[ ] Mollie DPA and AWS DPA on file
-[ ] VAT route decided (UK-only sales OR Paddle OR VAT OSS)
-[ ] Mollie checkout includes consumer waiver checkbox
+[ ] VAT/accounting position checked for App Store / Play Store sales
 ```
 
-I'll generate draft Privacy Policy, Terms, Refund Policy, and Disclaimer documents for you when we hit Phase 4 — they're boilerplate-able once we know the company name and contact email.
+I'll generate draft Privacy Policy, Terms, and Disclaimer documents before store submission — they're boilerplate-able once we know the company name and contact email.
 
 ---
 

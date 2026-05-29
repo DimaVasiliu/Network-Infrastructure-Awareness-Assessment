@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { PrimaryButton } from '../components/PrimaryButton';
 import { QuizRunner } from '../components/QuizRunner';
@@ -43,7 +43,7 @@ export function MockExamScreen() {
   }
 
   return (
-    <View style={styles.screen}>
+    <ScrollView contentContainerStyle={styles.screen} style={styles.container}>
       <Text style={styles.title}>Mock Exam</Text>
       <Text style={styles.body}>
         Matches the published ECS Network Infrastructure Awareness format: 30 questions across the assessment topics,
@@ -68,15 +68,20 @@ export function MockExamScreen() {
       </View>
 
       <PrimaryButton onPress={startExam}>Start Mock Exam</PrimaryButton>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: spacing.xl,
+    backgroundColor: colors.background,
+  },
+  screen: {
+    flexGrow: 1,
+    paddingHorizontal: spacing.xl,
+    paddingBottom: 96,
+    paddingTop: 64,
     backgroundColor: colors.background,
   },
   title: {
@@ -93,7 +98,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.surface,
     borderRadius: 8,
-    marginVertical: spacing.xl,
+    marginTop: spacing.xl,
     padding: spacing.lg,
   },
   cardTitle: {

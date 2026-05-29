@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { BackHandler, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { colors, spacing } from '../theme';
 import type { AnswerChoice, Question, QuestionSection } from '../types/question';
@@ -36,6 +36,9 @@ export function QuizRunner({
   const [status, setStatus] = useState<QuizStatus>('answering');
   const [startedAt] = useState(() => Date.now());
   const [remainingSeconds, setRemainingSeconds] = useState(timerSeconds);
+  const answersRef = useRef<Record<string, AnswerChoice>>({});
+  const hasFinishedRef = useRef(false);
+  const onExitRef = useRef(onExit);
   const currentQuestion = questions[currentIndex];
   const selectedAnswer = currentQuestion ? answers[currentQuestion.id] : undefined;
   const isLastQuestion = currentIndex === questions.length - 1;
@@ -47,9 +50,9 @@ export function QuizRunner({
         .map<AttemptAnswer>((question) => {
           const answer = answers[question.id];
 
-      return {
-        questionId: question.id,
-        selectedAnswer: answer,
+          return {
+            questionId: question.id,
+            selectedAnswer: answer,
             correctAnswer: question.correctAnswer,
             isCorrect: answer === question.correctAnswer,
           };
@@ -57,16 +60,68 @@ export function QuizRunner({
     [answers, questions],
   );
 
+  const finishQuiz = useCallback(
+    (answerSnapshot: Record<string, AnswerChoice> = answersRef.current) => {
+      if (hasFinishedRef.current) {
+        return;
+      }
+
+      hasFinishedRef.current = true;
+
+      const finalAnswers = questions.map<AttemptAnswer>((question) => {
+        const answer = answerSnapshot[question.id];
+
+        return {
+          questionId: question.id,
+          selectedAnswer: answer,
+          correctAnswer: question.correctAnswer,
+          isCorrect: answer === question.correctAnswer,
+        };
+      });
+      const correct = finalAnswers.filter((answer) => answer.isCorrect).length;
+      const attempt: QuizAttempt = {
+        id: `${mode}-${Date.now()}`,
+        mode,
+        section,
+        total: questions.length,
+        correct,
+        durationSeconds: Math.round((Date.now() - startedAt) / 1000),
+        completedAt: new Date().toISOString(),
+        answers: finalAnswers,
+      };
+
+      onComplete(attempt);
+      setStatus('review');
+    },
+    [mode, onComplete, questions, section, startedAt],
+  );
+
   useEffect(() => {
-    if (!remainingSeconds || status === 'review') {
+    onExitRef.current = onExit;
+  }, [onExit]);
+
+  useEffect(() => {
+    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+      onExitRef.current();
+      return true;
+    });
+
+    return () => subscription.remove();
+  }, []);
+
+  useEffect(() => {
+    if (!timerSeconds) {
       return;
     }
 
     const timer = setInterval(() => {
       setRemainingSeconds((seconds) => {
-        if (!seconds || seconds <= 1) {
-          clearInterval(timer);
-          finishQuiz();
+        if (!seconds || hasFinishedRef.current) {
+          return seconds;
+        }
+
+        if (seconds <= 1) {
+          finishQuiz(answersRef.current);
           return 0;
         }
 
@@ -75,17 +130,22 @@ export function QuizRunner({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [remainingSeconds, status]);
+  }, [finishQuiz, timerSeconds]);
 
   function chooseAnswer(answer: AnswerChoice) {
     if (!currentQuestion || selectedAnswer) {
       return;
     }
 
-    setAnswers((nextAnswers) => ({
-      ...nextAnswers,
-      [currentQuestion.id]: answer,
-    }));
+    setAnswers((latestAnswers) => {
+      const nextAnswers = {
+        ...latestAnswers,
+        [currentQuestion.id]: answer,
+      };
+
+      answersRef.current = nextAnswers;
+      return nextAnswers;
+    });
   }
 
   function goNext() {
@@ -95,33 +155,6 @@ export function QuizRunner({
     }
 
     setCurrentIndex((index) => index + 1);
-  }
-
-  function finishQuiz() {
-    const finalAnswers = questions.map<AttemptAnswer>((question) => {
-      const answer = answers[question.id];
-
-      return {
-        questionId: question.id,
-        selectedAnswer: answer,
-        correctAnswer: question.correctAnswer,
-        isCorrect: answer === question.correctAnswer,
-      };
-    });
-    const correct = finalAnswers.filter((answer) => answer.isCorrect).length;
-    const attempt: QuizAttempt = {
-      id: `${mode}-${Date.now()}`,
-      mode,
-      section,
-      total: questions.length,
-      correct,
-      durationSeconds: Math.round((Date.now() - startedAt) / 1000),
-      completedAt: new Date().toISOString(),
-      answers: finalAnswers,
-    };
-
-    onComplete(attempt);
-    setStatus('review');
   }
 
   if (!currentQuestion) {
@@ -241,11 +274,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   content: {
-    padding: spacing.xl,
     paddingBottom: spacing.xxl,
+    paddingHorizontal: spacing.xl,
+    paddingTop: 64,
   },
   reviewContent: {
-    padding: spacing.xl,
+    paddingHorizontal: spacing.xl,
+    paddingTop: 64,
     paddingBottom: spacing.xxl,
   },
   emptyState: {

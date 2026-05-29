@@ -72,7 +72,9 @@ const styles = StyleSheet.create({
   screen: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: spacing.xl,
+    paddingBottom: spacing.xl,
+    paddingHorizontal: spacing.xl,
+    paddingTop: 64,
     backgroundColor: colors.background,
   },
   eyebrow: {
