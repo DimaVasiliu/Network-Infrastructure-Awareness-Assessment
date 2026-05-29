@@ -1,0 +1,29 @@
+[
+  {
+    "id": "nia-001",
+    "section": "Standards and Regulations",
+    "question": "Which document type is normally used to confirm that an installed cabling link meets the required performance class?",
+    "choices": {
+      "A": "A test certification report",
+      "B": "A delivery note",
+      "C": "A toolbox talk record",
+      "D": "A purchase invoice"
+    },
+    "correctAnswer": "A",
+    "explanation": "This is an original placeholder question. Certification reports record measured link performance and will be replaced with fully researched original content."
+  },
+  {
+    "id": "nia-002",
+    "section": "Copper Cabling",
+    "question": "What is the usual maximum permanent link length for balanced copper structured cabling?",
+    "choices": {
+      "A": "30 metres",
+      "B": "50 metres",
+      "C": "90 metres",
+      "D": "150 metres"
+    },
+    "correctAnswer": "C",
+    "explanation": "This is an original placeholder question. The common structured cabling permanent link limit is 90 metres, with channel allowance handled separately."
+  }
+]
+
