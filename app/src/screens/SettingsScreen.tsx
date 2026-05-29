@@ -7,6 +7,7 @@ const SUPPORT_EMAIL = 'support@networkinfrastructure.app';
 const PRIVACY_URL = 'https://networkinfrastructure.app/privacy';
 const TERMS_URL = 'https://networkinfrastructure.app/terms';
 const REFUND_URL = 'https://networkinfrastructure.app/refunds';
+const EULA_URL = 'https://networkinfrastructure.app/eula';
 
 const appVersion = appJson.expo.version;
 
@@ -36,6 +37,7 @@ export function SettingsScreen() {
         <LinkRow label="Privacy policy" value={PRIVACY_URL} onPress={() => Linking.openURL(PRIVACY_URL)} />
         <LinkRow label="Terms of use" value={TERMS_URL} onPress={() => Linking.openURL(TERMS_URL)} />
         <LinkRow label="Refund policy" value={REFUND_URL} onPress={() => Linking.openURL(REFUND_URL)} />
+        <LinkRow label="EULA" value={EULA_URL} onPress={() => Linking.openURL(EULA_URL)} />
       </View>
 
       <View style={styles.card}>
