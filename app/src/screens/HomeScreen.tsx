@@ -1,43 +1,131 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import questions from '../data/questions.json';
+import { PrimaryButton } from '../components/PrimaryButton';
+import { useProgressStore } from '../store/progressStore';
+import { colors, spacing } from '../theme';
+import { questions, sectionCounts } from '../utils/questions';
 
-export function HomeScreen() {
+type HomeScreenProps = {
+  navigate: (tab: 'home' | 'practice' | 'mockExam' | 'stats') => void;
+};
+
+export function HomeScreen({ navigate }: HomeScreenProps) {
+  const attempts = useProgressStore((state) => state.attempts);
+  const latestAttempt = attempts[0];
+  const totalAnswered = attempts.reduce((sum, attempt) => sum + attempt.total, 0);
+
   return (
-    <View style={styles.screen}>
-      <Text style={styles.eyebrow}>Phase 1</Text>
-      <Text style={styles.title}>Network Infrastructure Awareness Trainer</Text>
-      <Text style={styles.body}>
-        Skeleton app is running with a typed question-bank structure and {questions.length} sample questions.
-      </Text>
-    </View>
+    <ScrollView contentContainerStyle={styles.screen}>
+      <Text style={styles.eyebrow}>Study mode</Text>
+      <Text style={styles.title}>Network Infrastructure Trainer</Text>
+      <Text style={styles.body}>Practice by topic, take a timed mock exam, and review weak areas.</Text>
+
+      <View style={styles.statsGrid}>
+        <View style={styles.statCard}>
+          <Text style={styles.statNumber}>{questions.length}</Text>
+          <Text style={styles.statLabel}>Questions</Text>
+        </View>
+        <View style={styles.statCard}>
+          <Text style={styles.statNumber}>{sectionCounts().length}</Text>
+          <Text style={styles.statLabel}>Sections</Text>
+        </View>
+        <View style={styles.statCard}>
+          <Text style={styles.statNumber}>{totalAnswered}</Text>
+          <Text style={styles.statLabel}>Answered</Text>
+        </View>
+      </View>
+
+      {latestAttempt ? (
+        <View style={styles.panel}>
+          <Text style={styles.panelTitle}>Latest result</Text>
+          <Text style={styles.panelBody}>
+            {latestAttempt.correct}/{latestAttempt.total} correct in{' '}
+            {latestAttempt.mode === 'mockExam' ? 'Mock Exam' : latestAttempt.section}
+          </Text>
+        </View>
+      ) : (
+        <View style={styles.panel}>
+          <Text style={styles.panelTitle}>Start here</Text>
+          <Text style={styles.panelBody}>Use Practice first, then take Mock Exam once you have covered the sections.</Text>
+        </View>
+      )}
+
+      <View style={styles.actions}>
+        <PrimaryButton onPress={() => navigate('practice')}>Start Practice</PrimaryButton>
+        <PrimaryButton onPress={() => navigate('mockExam')} variant="secondary">
+          Take Mock Exam
+        </PrimaryButton>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
-    padding: 24,
-    backgroundColor: '#f7f8fa',
+    padding: spacing.xl,
+    backgroundColor: colors.background,
   },
   eyebrow: {
-    color: '#2364aa',
+    color: colors.primary,
     fontSize: 14,
     fontWeight: '700',
-    marginBottom: 8,
+    marginBottom: spacing.sm,
     textTransform: 'uppercase',
   },
   title: {
-    color: '#101820',
+    color: colors.text,
     fontSize: 28,
     fontWeight: '800',
-    marginBottom: 12,
+    marginBottom: spacing.md,
   },
   body: {
-    color: '#46515c',
+    color: colors.muted,
     fontSize: 16,
     lineHeight: 24,
   },
+  statsGrid: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    marginTop: spacing.xl,
+  },
+  statCard: {
+    backgroundColor: colors.surface,
+    borderRadius: 8,
+    flex: 1,
+    padding: spacing.lg,
+  },
+  statNumber: {
+    color: colors.text,
+    fontSize: 26,
+    fontWeight: '900',
+  },
+  statLabel: {
+    color: colors.muted,
+    fontSize: 13,
+    fontWeight: '700',
+    marginTop: spacing.xs,
+  },
+  panel: {
+    backgroundColor: colors.surface,
+    borderRadius: 8,
+    marginTop: spacing.xl,
+    padding: spacing.lg,
+  },
+  panelTitle: {
+    color: colors.text,
+    fontSize: 17,
+    fontWeight: '800',
+    marginBottom: spacing.sm,
+  },
+  panelBody: {
+    color: colors.muted,
+    fontSize: 15,
+    lineHeight: 22,
+  },
+  actions: {
+    gap: spacing.md,
+    marginTop: spacing.xl,
+  },
 });
-

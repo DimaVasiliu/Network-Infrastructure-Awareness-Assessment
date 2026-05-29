@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
+import { colors } from '../theme';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MockExamScreen } from '../screens/MockExamScreen';
 import { PracticeScreen } from '../screens/PracticeScreen';
@@ -20,7 +21,7 @@ export function AppTabs() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>{renderScreen(activeTab)}</View>
+      <View style={styles.content}>{renderScreen(activeTab, setActiveTab)}</View>
       <View style={styles.tabBar}>
         {tabs.map((tab) => {
           const isActive = tab.key === activeTab;
@@ -42,7 +43,7 @@ export function AppTabs() {
   );
 }
 
-function renderScreen(tab: TabKey) {
+function renderScreen(tab: TabKey, navigate: (tab: TabKey) => void) {
   switch (tab) {
     case 'practice':
       return <PracticeScreen />;
@@ -52,23 +53,23 @@ function renderScreen(tab: TabKey) {
       return <StatsScreen />;
     case 'home':
     default:
-      return <HomeScreen />;
+      return <HomeScreen navigate={navigate} />;
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.surface,
   },
   content: {
     flex: 1,
   },
   tabBar: {
     flexDirection: 'row',
-    borderTopColor: '#d9dee4',
+    borderTopColor: colors.border,
     borderTopWidth: StyleSheet.hairlineWidth,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.surface,
     paddingHorizontal: 8,
     paddingVertical: 8,
   },
@@ -81,16 +82,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   activeTabButton: {
-    backgroundColor: '#e9f1fb',
+    backgroundColor: colors.primarySoft,
   },
   tabLabel: {
-    color: '#5b6671',
+    color: colors.muted,
     fontSize: 13,
     fontWeight: '700',
     textAlign: 'center',
   },
   activeTabLabel: {
-    color: '#2364aa',
+    color: colors.primary,
   },
 });
-
