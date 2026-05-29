@@ -10,7 +10,7 @@ Independent study app for the UK Network Infrastructure Awareness Assessment.
 
 ## Current phase
 
-Phase 1: app skeleton and original question-bank structure.
+Phase 2: working quiz trainer MVP with an original 145-question seed bank.
 
 Do not copy official assessment questions into the app. The reference PDF is only a topic map for writing original study questions.
 
@@ -21,4 +21,3 @@ cd app
 npm install
 npx expo start -c
 ```
-

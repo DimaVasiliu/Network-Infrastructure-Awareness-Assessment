@@ -4,7 +4,7 @@ export type QuizMode = 'practice' | 'mockExam';
 
 export type AttemptAnswer = {
   questionId: string;
-  selectedAnswer: AnswerChoice;
+  selectedAnswer?: AnswerChoice;
   correctAnswer: AnswerChoice;
   isCorrect: boolean;
 };
@@ -19,4 +19,3 @@ export type QuizAttempt = {
   completedAt: string;
   answers: AttemptAnswer[];
 };
-

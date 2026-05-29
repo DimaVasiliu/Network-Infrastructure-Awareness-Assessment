@@ -1,13 +1,13 @@
 export type QuestionSection =
-  | 'Standards and Regulations'
-  | 'Network Topologies'
-  | 'Copper Cabling'
-  | 'Fibre Optic Cabling'
-  | 'Containment and Installation'
-  | 'Testing and Certification'
-  | 'Health and Safety'
-  | 'Fire Safety'
-  | 'Documentation';
+  | 'Product Selection'
+  | 'Containment Systems'
+  | 'Cable Laying'
+  | 'Cable Dressing'
+  | 'Fire Regulations'
+  | 'Safe Cable Installation'
+  | 'Personal Safety'
+  | 'Other Services'
+  | 'Waste Management';
 
 export type AnswerChoice = 'A' | 'B' | 'C' | 'D';
 
@@ -19,4 +19,3 @@ export type Question = {
   correctAnswer: AnswerChoice;
   explanation: string;
 };
-

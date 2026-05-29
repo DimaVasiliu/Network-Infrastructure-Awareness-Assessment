@@ -12,6 +12,7 @@ type QuizRunnerProps = {
   section?: QuestionSection;
   showImmediateFeedback?: boolean;
   timerSeconds?: number;
+  passMark?: number;
   onExit: () => void;
   onComplete: (attempt: QuizAttempt) => void;
 };
@@ -26,6 +27,7 @@ export function QuizRunner({
   section,
   showImmediateFeedback = false,
   timerSeconds,
+  passMark,
   onExit,
   onComplete,
 }: QuizRunnerProps) {
@@ -45,9 +47,9 @@ export function QuizRunner({
         .map<AttemptAnswer>((question) => {
           const answer = answers[question.id];
 
-          return {
-            questionId: question.id,
-            selectedAnswer: answer,
+      return {
+        questionId: question.id,
+        selectedAnswer: answer,
             correctAnswer: question.correctAnswer,
             isCorrect: answer === question.correctAnswer,
           };
@@ -101,7 +103,7 @@ export function QuizRunner({
 
       return {
         questionId: question.id,
-        selectedAnswer: answer ?? 'A',
+        selectedAnswer: answer,
         correctAnswer: question.correctAnswer,
         isCorrect: answer === question.correctAnswer,
       };
@@ -134,14 +136,14 @@ export function QuizRunner({
   if (status === 'review') {
     const correct = attemptAnswers.filter((answer) => answer.isCorrect).length;
     const score = questions.length > 0 ? Math.round((correct / questions.length) * 100) : 0;
-    const passMark = mode === 'mockExam' ? Math.ceil(questions.length * 0.7) : undefined;
+    const requiredScore = mode === 'mockExam' ? passMark : undefined;
 
     return (
       <ScrollView contentContainerStyle={styles.reviewContent} style={styles.container}>
         <Text style={styles.kicker}>{mode === 'mockExam' ? 'Mock exam complete' : 'Practice complete'}</Text>
         <Text style={styles.score}>{correct}/{questions.length}</Text>
         <Text style={styles.scoreLabel}>
-          {score}% {passMark ? (correct >= passMark ? 'Pass' : `Pass mark ${passMark}`) : 'answered correctly'}
+          {score}% {requiredScore ? (correct >= requiredScore ? 'Pass' : `Pass mark ${requiredScore}`) : 'answered correctly'}
         </Text>
 
         <View style={styles.reviewList}>
@@ -382,4 +384,3 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
 });
-

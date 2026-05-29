@@ -44,11 +44,19 @@ export function HomeScreen({ navigate }: HomeScreenProps) {
           </Text>
         </View>
       ) : (
-        <View style={styles.panel}>
-          <Text style={styles.panelTitle}>Start here</Text>
-          <Text style={styles.panelBody}>Use Practice first, then take Mock Exam once you have covered the sections.</Text>
-        </View>
+      <View style={styles.panel}>
+        <Text style={styles.panelTitle}>Start here</Text>
+        <Text style={styles.panelBody}>Use Practice first, then take Mock Exam once you have covered the sections.</Text>
+      </View>
       )}
+
+      <View style={styles.disclaimerPanel}>
+        <Text style={styles.disclaimerTitle}>Independent study aid</Text>
+        <Text style={styles.disclaimerText}>
+          This app is not affiliated with, endorsed by, or sponsored by The JIB or the Electrotechnical
+          Certification Scheme. ECS is a trademark of The JIB.
+        </Text>
+      </View>
 
       <View style={styles.actions}>
         <PrimaryButton onPress={() => navigate('practice')}>Start Practice</PrimaryButton>
@@ -123,6 +131,23 @@ const styles = StyleSheet.create({
     color: colors.muted,
     fontSize: 15,
     lineHeight: 22,
+  },
+  disclaimerPanel: {
+    backgroundColor: colors.warningSoft,
+    borderRadius: 8,
+    marginTop: spacing.lg,
+    padding: spacing.lg,
+  },
+  disclaimerTitle: {
+    color: colors.text,
+    fontSize: 15,
+    fontWeight: '800',
+    marginBottom: spacing.xs,
+  },
+  disclaimerText: {
+    color: colors.muted,
+    fontSize: 13,
+    lineHeight: 19,
   },
   actions: {
     gap: spacing.md,
