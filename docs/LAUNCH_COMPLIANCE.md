@@ -19,16 +19,20 @@ Owner: founder. Update statuses inline. Anything still red blocks launch.
 | Refund Policy | `docs/legal/REFUND.md` | `{{REFUND_URL}}` | [x] | [ ] | [ ] |
 | EULA | `docs/legal/EULA.md` | `{{EULA_URL}}` | [x] | [ ] | [ ] |
 
-**Placeholders to fill** before hosting (search-and-replace in every file):
+**Placeholders status** (the live pages on `timrx.live/legal/nia/*` are already
+populated; this list is the source of truth for the templates in `docs/legal/`):
 
-- `{{LEGAL_NAME}}` — registered legal entity (e.g. "John Smith t/a Network Trainer" or "Network Trainer Ltd")
-- `{{SUPPORT_EMAIL}}` — must match the email in `SettingsScreen.tsx`
-- `{{POSTAL_ADDRESS}}` — UK postal address (PO box is acceptable)
-- `{{EFFECTIVE_DATE}}` / `{{LAST_UPDATED}}` — ISO dates (e.g. 2026-06-01)
-- `{{ICO_NUMBER}}` — issued by the ICO after registration (see §3)
-- `{{EMAIL_PROVIDER}}` / `{{EMAIL_PROVIDER_REGION}}` — who hosts the `support@` mailbox (e.g. "Fastmail", "Ireland")
-- `{{PRIVACY_URL}}` / `{{TERMS_URL}}` / `{{REFUND_URL}}` / `{{EULA_URL}}` — public URLs after hosting
-- `{{ADDITIONAL_COUNTRIES}}` — leave blank for UK-only launch; or add e.g. "and the European Union"
+- `{{LEGAL_NAME}}` — **Dumitru Vasiliu** (sole trader, operating the TimrX portfolio).
+- `{{SUPPORT_EMAIL}}` — **support@timrx.live**. Matches `SettingsScreen.tsx`.
+- `{{POSTAL_ADDRESS}}` — _still to fill_. UK postal address (PO box is acceptable).
+- `{{EFFECTIVE_DATE}}` / `{{LAST_UPDATED}}` — set per page on hosting (currently 2026-05-30).
+- `{{ICO_NUMBER}}` — _still to fill_. Issued by the ICO after registration (see §3).
+- `{{EMAIL_PROVIDER}}` / `{{EMAIL_PROVIDER_REGION}}` — TimrX mail host (e.g. "Cloudflare Email Routing → Gmail / Ireland"). Confirm and record.
+- `{{PRIVACY_URL}}` — **https://timrx.live/legal/nia/privacy**
+- `{{TERMS_URL}}` — **https://timrx.live/legal/nia/terms**
+- `{{REFUND_URL}}` — **https://timrx.live/legal/nia/refunds**
+- `{{EULA_URL}}` — **https://timrx.live/legal/nia/eula**
+- `{{ADDITIONAL_COUNTRIES}}` — leave blank for UK-only launch; or add e.g. "and the European Union".
 - `{{SENTRY_REGION}}` — **`EU`** (Frankfurt). Confirmed by the DSN ingest host `ingest.de.sentry.io`.
 
 Hosting: any static URL is fine. Cheapest path: a single static page per document, served from

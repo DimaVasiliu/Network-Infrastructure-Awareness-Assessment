@@ -3,7 +3,7 @@
 The exact text to paste into App Store Connect and Google Play Console for
 the first submission. Disclaimer is in **every** description, by design.
 
-Replace `{{SUPPORT_EMAIL}}`, `{{PRIVACY_URL}}` and `{{LEGAL_NAME}}` with the
+Replace `support@timrx.live`, `{{PRIVACY_URL}}` and `{{LEGAL_NAME}}` with the
 final values before submitting.
 
 ---
@@ -74,7 +74,7 @@ This app is an independent study aid. It is not affiliated with, endorsed by or 
 Standards change. Always verify current requirements before relying on them at work. This app is a study aid, not professional advice.
 
 SUPPORT
-Email {{SUPPORT_EMAIL}} for questions, refund requests or feedback.
+Email support@timrx.live for questions, refund requests or feedback.
 
 PRIVACY
 Read the full privacy policy at {{PRIVACY_URL}}.
@@ -123,7 +123,7 @@ network infrastructure,NIA,cabling,JIB exam prep,datacomms,electrician,BS EN 501
 ## Support URL (both stores)
 
 ```
-mailto:{{SUPPORT_EMAIL}}
+mailto:support@timrx.live
 ```
 
 A simple `mailto:` is acceptable for both stores. A dedicated support page is
@@ -136,7 +136,15 @@ Leave blank at launch, or point to the landing page once it exists.
 ## Privacy Policy URL (both stores — required)
 
 ```
-{{PRIVACY_URL}}
+https://timrx.live/legal/nia/privacy
+```
+
+## Other legal URLs (referenced in app description / EULA / refund flow)
+
+```
+Terms of Use:   https://timrx.live/legal/nia/terms
+Refund Policy:  https://timrx.live/legal/nia/refunds
+EULA:           https://timrx.live/legal/nia/eula
 ```
 
 ---
@@ -158,7 +166,7 @@ original and based on publicly available standards.
 If the reviewer needs to test a long flow without waiting on the timer, use
 the Practice tab — questions there do not have a timer.
 
-Contact: {{SUPPORT_EMAIL}}
+Contact: support@timrx.live
 ```
 
 ---
@@ -185,5 +193,5 @@ Contact: {{SUPPORT_EMAIL}}
 [ ] Screenshots in required sizes uploaded
 [ ] Age rating set
 [ ] App Privacy / Data Safety forms submitted (see LAUNCH_COMPLIANCE.md §§4–5)
-[ ] Legal entity name on store dashboard matches {{LEGAL_NAME}}
+[ ] Legal entity name on store dashboard matches "Dumitru Vasiliu"
 ```

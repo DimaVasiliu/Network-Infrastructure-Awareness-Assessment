@@ -4,11 +4,11 @@ import appJson from '../../app.json';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
 
-const SUPPORT_EMAIL = 'support@networkinfrastructure.app';
-const PRIVACY_URL = 'https://networkinfrastructure.app/privacy';
-const TERMS_URL = 'https://networkinfrastructure.app/terms';
-const REFUND_URL = 'https://networkinfrastructure.app/refunds';
-const EULA_URL = 'https://networkinfrastructure.app/eula';
+const SUPPORT_EMAIL = 'support@timrx.live';
+const PRIVACY_URL = 'https://timrx.live/legal/nia/privacy';
+const TERMS_URL = 'https://timrx.live/legal/nia/terms';
+const REFUND_URL = 'https://timrx.live/legal/nia/refunds';
+const EULA_URL = 'https://timrx.live/legal/nia/eula';
 
 const appVersion = appJson.expo.version;
 
