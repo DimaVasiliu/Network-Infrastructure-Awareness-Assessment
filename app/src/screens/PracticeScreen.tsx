@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -27,44 +27,19 @@ type PracticeFocusProps = NativeStackScreenProps<PracticeStackParamList, 'Practi
 export function PracticeScreen({ navigation }: PracticeHomeProps) {
   const bookmarks = useProgressStore((state) => state.bookmarks);
   const stats = useProgressStore((state) => state.stats);
+  const [isFocusOpen, setIsFocusOpen] = useState(false);
 
   const wrongCount = useMemo(() => wrongAnsweredQuestions(stats).length, [stats]);
   const weakestCount = useMemo(() => weakestQuestions(stats, weakestPracticeSize).length, [stats]);
   const bookmarkCount = useMemo(() => questionsByIds(bookmarks).length, [bookmarks]);
+  const focusTotal = wrongCount + weakestCount + bookmarkCount;
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <Text style={styles.title}>Practice</Text>
-      <Text style={styles.body}>Choose a section, or focus on what you need to fix.</Text>
-
-      <View style={styles.focusList}>
-        <FocusCard
-          title="Review wrong answers"
-          subtitle={wrongCount === 0 ? 'No wrong answers logged yet' : `${wrongCount} to revisit`}
-          enabled={wrongCount > 0}
-          onPress={() => navigation.navigate('PracticeFocus', { focus: 'wrong' })}
-        />
-        <FocusCard
-          title="10 weakest questions"
-          subtitle={
-            weakestCount === 0
-              ? 'Answer more questions to build a weak-area list'
-              : `${weakestCount} question${weakestCount === 1 ? '' : 's'} by lowest accuracy`
-          }
-          enabled={weakestCount > 0}
-          onPress={() => navigation.navigate('PracticeFocus', { focus: 'weakest' })}
-        />
-        <FocusCard
-          title="Bookmarked questions"
-          subtitle={
-            bookmarkCount === 0
-              ? 'Tap the star while answering to bookmark a question'
-              : `${bookmarkCount} saved`
-          }
-          enabled={bookmarkCount > 0}
-          onPress={() => navigation.navigate('PracticeFocus', { focus: 'bookmarks' })}
-        />
-      </View>
+      <Text style={styles.body}>
+        Start with a section. Focused practice is available when you have progress.
+      </Text>
 
       <Text style={styles.subheading}>By section</Text>
       <View style={styles.sectionList}>
@@ -83,6 +58,54 @@ export function PracticeScreen({ navigation }: PracticeHomeProps) {
           </Pressable>
         ))}
       </View>
+
+      <Pressable
+        accessibilityRole="button"
+        accessibilityState={{ expanded: isFocusOpen }}
+        onPress={() => setIsFocusOpen((value) => !value)}
+        style={styles.focusToggle}
+      >
+        <View style={styles.focusToggleText}>
+          <Text style={styles.focusToggleTitle}>Focused practice</Text>
+          <Text style={styles.focusToggleSubtitle}>
+            {focusTotal === 0
+              ? 'Wrong answers, weakest questions and bookmarks appear here.'
+              : `${focusTotal} saved focus item${focusTotal === 1 ? '' : 's'}`}
+          </Text>
+        </View>
+        <Text style={styles.focusChevron}>{isFocusOpen ? '-' : '+'}</Text>
+      </Pressable>
+
+      {isFocusOpen ? (
+        <View style={styles.focusList}>
+          <FocusCard
+            title="Review wrong answers"
+            subtitle={wrongCount === 0 ? 'No wrong answers logged yet' : `${wrongCount} to revisit`}
+            enabled={wrongCount > 0}
+            onPress={() => navigation.navigate('PracticeFocus', { focus: 'wrong' })}
+          />
+          <FocusCard
+            title="10 weakest questions"
+            subtitle={
+              weakestCount === 0
+                ? 'Answer more questions to build a weak-area list'
+                : `${weakestCount} question${weakestCount === 1 ? '' : 's'} by lowest accuracy`
+            }
+            enabled={weakestCount > 0}
+            onPress={() => navigation.navigate('PracticeFocus', { focus: 'weakest' })}
+          />
+          <FocusCard
+            title="Bookmarked questions"
+            subtitle={
+              bookmarkCount === 0
+                ? 'Tap the star while answering to bookmark a question'
+                : `${bookmarkCount} saved`
+            }
+            enabled={bookmarkCount > 0}
+            onPress={() => navigation.navigate('PracticeFocus', { focus: 'bookmarks' })}
+          />
+        </View>
+      ) : null}
     </ScrollView>
   );
 }
@@ -280,7 +303,38 @@ const styles = StyleSheet.create({
   },
   focusList: {
     gap: spacing.md,
+    marginTop: spacing.md,
+  },
+  focusToggle: {
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
+    borderRadius: 8,
+    borderWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: spacing.xl,
+    padding: spacing.lg,
+  },
+  focusToggleText: {
+    flex: 1,
+    paddingRight: spacing.md,
+  },
+  focusToggleTitle: {
+    color: colors.text,
+    fontSize: 16,
+    fontWeight: '800',
+  },
+  focusToggleSubtitle: {
+    color: colors.muted,
+    fontSize: 14,
+    lineHeight: 20,
+    marginTop: spacing.xs,
+  },
+  focusChevron: {
+    color: colors.primary,
+    fontSize: 24,
+    fontWeight: '900',
   },
   focusCard: {
     alignItems: 'center',

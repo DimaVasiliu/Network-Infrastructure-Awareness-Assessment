@@ -478,6 +478,354 @@ export const cableCodes: CableCode[] = [
       },
     ],
   },
+  {
+    id: 'euroclass-aca',
+    category: 'EuroClass',
+    title: 'Aca — non-combustible (top of the EuroClass scale)',
+    codeExample: 'Aca',
+    summary: 'The highest EuroClass main class — essentially non-combustible. Rare for cables.',
+    parts: [
+      {
+        label: 'A',
+        meaning: 'Highest main class: no significant contribution to fire growth.',
+      },
+      { label: 'ca', meaning: '"cables" — applied to reaction-to-fire cable classifications.' },
+    ],
+    whatItMeans:
+      'Real Aca cables are uncommon because most plastic insulation contributes some heat release. You will normally see B2ca or Cca as the upper band in real specifications.',
+    typicalUse: 'Specialised mineral-insulated cables in extreme fire scenarios.',
+    watchOuts: "Don't assume any cable with an Aca on a data sheet meets the test — confirm the DoP.",
+    standardRef: 'CPR / EN 13501-6',
+    searchTerms: ['aca', 'non combustible', 'top class'],
+    quiz: [
+      {
+        question: 'Which is the highest EuroClass reaction-to-fire class?',
+        answer: 'Aca',
+        why: 'A > B > C > D > E > F. Aca is the top of the scale.',
+      },
+      {
+        question: 'Why is Aca rarely seen on telecoms cables?',
+        answer: 'Plastic jackets contribute some heat release',
+        why: 'Standard data-cable construction cannot pass the Aca test.',
+      },
+      {
+        question: 'If a job is specified "low fire load", which class is more realistic?',
+        answer: 'B2ca s1a d1 a1',
+        why: 'B2ca with strong sub-ratings is the practical "best available" for cabling.',
+      },
+    ],
+  },
+  {
+    id: 'euroclass-dca-eca-fca',
+    category: 'EuroClass',
+    title: 'Dca / Eca / Fca — lower EuroClass tiers',
+    codeExample: 'Dca · Eca · Fca',
+    summary: 'The lower three EuroClass main classes. You will see these on cheaper or older stock.',
+    parts: [
+      { label: 'Dca', meaning: 'Limited contribution to fire — below Cca.' },
+      { label: 'Eca', meaning: 'Basic ignition resistance only.' },
+      { label: 'Fca', meaning: 'No performance declared (the lowest tier).' },
+    ],
+    whatItMeans:
+      'For most new fixed installations Cca-s1b,d2,a2 is the minimum acceptable. Dca / Eca are sometimes used for temporary or industrial outdoor routes; Fca should generally be avoided.',
+    typicalUse: 'Legacy stock, temporary site cabling, very low-spec routes.',
+    watchOuts:
+      "Don't substitute Dca / Eca for Cca on a spec without written approval — it changes the building's fire performance.",
+    standardRef: 'CPR / EN 13501-6',
+    searchTerms: ['dca', 'eca', 'fca', 'low euroclass', 'cheap cable'],
+    quiz: [
+      {
+        question: 'Which EuroClass main class is the lowest?',
+        answer: 'Fca',
+        why: 'Fca means no performance declared — the weakest position on the scale.',
+      },
+      {
+        question: 'Is Eca acceptable as a substitute for Cca on a building project?',
+        answer: 'Only if the design approves it',
+        why: 'Substitution changes the declared performance — get sign-off in writing.',
+      },
+      {
+        question: 'On a spec calling for Cca-s1b,d2,a2, what about Dca-s1b,d2,a2?',
+        answer: 'Worse flame performance — not equivalent',
+        why: 'Main class drops from C to D regardless of identical sub-ratings.',
+      },
+    ],
+  },
+  {
+    id: 'cat-5e-6-6a-7-8',
+    category: 'Channel',
+    title: 'Cat 5e / 6 / 6A / 7 / 8 — balanced copper category names',
+    codeExample: 'Cat 5e · Cat 6 · Cat 6A · Cat 7 · Cat 8',
+    summary:
+      'Manufacturer "category" labels that map onto ISO/IEC transmission Classes. You will see them on cable jackets and component labels.',
+    parts: [
+      { label: 'Cat 5e', meaning: '100 MHz · Class D · supports 1000baseT (1 Gb/s) at 100 m.' },
+      {
+        label: 'Cat 6',
+        meaning: '250 MHz · Class E · supports 1 Gb/s comfortably, 10 Gb/s only at short reach.',
+      },
+      { label: 'Cat 6A', meaning: '500 MHz · Class EA · supports 10GBASE-T at 100 m.' },
+      {
+        label: 'Cat 7',
+        meaning: '600 MHz · Class F · screened design, not normally used in modern installations.',
+      },
+      {
+        label: 'Cat 8',
+        meaning: '2000 MHz · Class I / II · for short datacentre links (~30 m) at 25/40 Gb/s.',
+      },
+    ],
+    whatItMeans:
+      'Pick the lowest category that meets the speed and reach you need. For modern offices, Cat 6A is the typical "to-the-desk" cable.',
+    typicalUse:
+      'Match category to active equipment: 1 Gb/s → Cat 6, 10 Gb/s → Cat 6A, in-rack 25/40 Gb/s → Cat 8.',
+    watchOuts:
+      'Mixing components from different categories drops the channel to the lowest one. Cat 7 is a manufacturer label, not an IEEE Ethernet application.',
+    standardRef: 'BS EN 50173-1 / ISO/IEC 11801-1',
+    searchTerms: ['cat 5e', 'cat5e', 'cat 6', 'cat6', 'cat 6a', 'cat6a', 'cat 7', 'cat7', 'cat 8', 'cat8'],
+    quiz: [
+      {
+        question: 'Which category does Class EA correspond to?',
+        answer: 'Cat 6A',
+        why: 'Class EA is the BS EN 50173-1 performance class that matches Cat 6A.',
+      },
+      {
+        question: 'You need 10GBASE-T to the desk at 100 m. Minimum category?',
+        answer: 'Cat 6A',
+        why: 'Cat 6 only supports 10 Gb/s at short reach. Cat 6A handles 100 m channels.',
+      },
+      {
+        question: 'What does mixing Cat 6 components with a Cat 6A cable do to the channel?',
+        answer: 'Drops it to Cat 6 performance',
+        why: 'The channel performs at the lowest-rated component in the link.',
+      },
+    ],
+  },
+  {
+    id: 'utp-ftp-sftp',
+    category: 'Channel',
+    title: 'UTP / F/FTP / S/FTP — cable construction codes',
+    codeExample: 'UTP · F/FTP · S/FTP',
+    summary: 'Letters that tell you how (and whether) a balanced cable is screened.',
+    parts: [
+      { label: 'U', meaning: 'Unscreened (no overall screen).' },
+      { label: 'F', meaning: 'Foil screen (overall or per pair).' },
+      { label: 'S', meaning: 'Braid screen (overall).' },
+      { label: 'TP', meaning: 'Twisted pair construction.' },
+      { label: '/', meaning: 'Separates the overall screen (before /) from the per-pair screen (after /).' },
+    ],
+    whatItMeans:
+      'UTP = unscreened twisted pair. F/UTP = overall foil, unscreened pairs. F/FTP = overall foil + foil per pair. S/FTP = overall braid + foil per pair (highest immunity).',
+    typicalUse:
+      'UTP for ordinary offices. F/FTP or S/FTP where EMI sources are nearby (industrial sites, fluorescent fittings, parallel power runs).',
+    watchOuts:
+      'Screened cable only works if the screen is properly bonded at the panel and terminated correctly at the outlet.',
+    standardRef: 'BS EN 50173-1',
+    searchTerms: ['utp', 'ftp', 's/ftp', 'sftp', 'f/ftp', 'fftp', 'screened', 'unscreened'],
+    quiz: [
+      {
+        question: 'What does S/FTP mean?',
+        answer: 'Overall braid + foil-screened pairs',
+        why: 'S = braid screen overall, FTP = foil-screened twisted pairs.',
+      },
+      {
+        question: 'Does an unbonded screen still protect against EMI?',
+        answer: 'No — the screen must be bonded',
+        why: 'An unbonded screen acts as an antenna and can make EMI worse.',
+      },
+      {
+        question: 'Which is the simpler construction: UTP or F/FTP?',
+        answer: 'UTP',
+        why: 'UTP has no screen at all. F/FTP has overall foil plus per-pair foil.',
+      },
+    ],
+  },
+  {
+    id: 'fibre-om-grades',
+    category: 'Fibre',
+    title: 'OM1 / OM2 / OM3 / OM4 / OM5 — multimode fibre performance grades',
+    codeExample: 'OM1 · OM2 · OM3 · OM4 · OM5',
+    summary: 'Performance grades for multimode fibre. Higher number = longer reach at high data rates.',
+    parts: [
+      { label: 'OM1', meaning: '62.5/125, legacy, LED-driven. ~33 m at 10 Gb/s.' },
+      { label: 'OM2', meaning: '50/125, legacy, LED-driven. ~82 m at 10 Gb/s.' },
+      { label: 'OM3', meaning: '50/125, laser-optimised. 300 m at 10 Gb/s.' },
+      { label: 'OM4', meaning: '50/125, improved bandwidth. 400 m at 10 Gb/s, 150 m at 40/100 Gb/s.' },
+      {
+        label: 'OM5',
+        meaning: '50/125, wideband — supports SWDM for higher aggregate speeds on a single fibre pair.',
+      },
+    ],
+    whatItMeans:
+      'For new installations stick to OM3 / OM4 (or OM5 for short-wave wavelength-multiplexing). OM1 / OM2 are legacy.',
+    typicalUse: 'In-building backbones and short datacentre links.',
+    watchOuts:
+      'OM3 → OM4 → OM5 are colour-coded aqua / aqua / lime-green. Mixing grades works at the lowest-grade distance.',
+    standardRef: 'ISO/IEC 11801-1',
+    searchTerms: ['om1', 'om2', 'om3', 'om4', 'om5', 'multimode'],
+    quiz: [
+      {
+        question: 'Which OM grade supports 10 Gb/s up to ~400 m?',
+        answer: 'OM4',
+        why: 'OM3 = 300 m, OM4 = 400 m, OM5 = wideband but similar reach to OM4 at 10 Gb/s.',
+      },
+      {
+        question: 'What jacket colour is OM4?',
+        answer: 'Aqua (same as OM3)',
+        why: 'OM3 and OM4 share aqua. OM5 is lime-green.',
+      },
+      {
+        question: 'Which OM grade is laser-optimised but oldest of the laser-optimised set?',
+        answer: 'OM3',
+        why: 'OM3 was the first laser-optimised grade. OM4 and OM5 followed.',
+      },
+    ],
+  },
+  {
+    id: 'bs-7671',
+    category: 'Regulation',
+    title: 'BS 7671 — UK Wiring Regulations',
+    codeExample: 'BS 7671',
+    summary: 'The UK national rules for electrical installations. Sits over the top of HD 60364 in the UK.',
+    parts: [
+      { label: 'BS', meaning: 'British Standard.' },
+      { label: '7671', meaning: 'Number designation for the IET Wiring Regulations.' },
+    ],
+    whatItMeans:
+      'BS 7671 incorporates the HD 60364 series and adds UK-specific rules. Bonding sizes for racks/cabinets come from this stack.',
+    typicalUse:
+      'Reference whenever the electrical installation interacts with the cabling: bonding, earthing, separation from power.',
+    watchOuts:
+      'BS 7671 is updated periodically (current 18th Edition + amendments). Always check which edition / amendment your project uses.',
+    standardRef: 'BS 7671 / HD 60364',
+    searchTerms: ['bs 7671', 'bs7671', 'wiring regulations', 'iet regs', '18th edition'],
+    quiz: [
+      {
+        question: 'BS 7671 is also known as the…',
+        answer: 'IET Wiring Regulations',
+        why: 'BS 7671 is the formal designation for the wiring regs published by the IET.',
+      },
+      {
+        question: 'Which European series does BS 7671 incorporate?',
+        answer: 'HD 60364',
+        why: 'BS 7671 adopts the HD 60364 framework with UK-specific additions.',
+      },
+      {
+        question: 'Why does BS 7671 matter for a data cabling installer?',
+        answer: 'Earthing, bonding, and separation from power',
+        why: 'Bonding sizes and EMI separation rules come from this stack.',
+      },
+    ],
+  },
+  {
+    id: 'hsg47',
+    category: 'Regulation',
+    title: 'HSG47 — Avoiding danger from underground services',
+    codeExample: 'HSG47',
+    summary:
+      'HSE guidance document for safe work near buried services such as electricity, gas and telecoms.',
+    parts: [
+      { label: 'HSG', meaning: 'Health and Safety Guidance (an HSE publication series).' },
+      { label: '47', meaning: 'Document number — buried services.' },
+    ],
+    whatItMeans:
+      'Whenever you dig, scan first. HSG47 covers detection equipment, drawings, permits, safe digging techniques and how to handle finds.',
+    typicalUse: 'Outdoor work — laying or repairing buried telecoms duct, accessing chambers, trenching.',
+    watchOuts: 'Outside HSE references like HSG47 are not optional — they back up CDM 2015 duties.',
+    standardRef: 'HSE HSG47',
+    searchTerms: ['hsg47', 'buried services', 'cat scan', 'safe digging'],
+    quiz: [
+      {
+        question: 'What does HSG47 cover?',
+        answer: 'Avoiding danger from underground services',
+        why: "HSE's HSG47 is the buried-services safety guide.",
+      },
+      {
+        question: 'Before digging near buried cabling, what do you do first?',
+        answer: 'Survey with detection equipment (cat & genny)',
+        why: 'HSG47 lists scan + drawings + permit as standard pre-dig steps.',
+      },
+      {
+        question: 'Does HSG47 apply to a buried telecoms duct job?',
+        answer: 'Yes',
+        why: 'Telecoms duct work near other services falls squarely within HSG47.',
+      },
+    ],
+  },
+  {
+    id: 'coshh',
+    category: 'Regulation',
+    title: 'COSHH 2002 — Control of Substances Hazardous to Health',
+    codeExample: 'COSHH',
+    summary:
+      'The UK regulations covering exposure to hazardous substances at work — dust, solvents, fibre shards, cleaners.',
+    parts: [
+      { label: 'C', meaning: 'Control' },
+      { label: 'OS', meaning: 'Of Substances' },
+      { label: 'H', meaning: 'Hazardous' },
+      { label: 'H', meaning: 'to Health' },
+    ],
+    whatItMeans:
+      'For each hazardous product (cleaner, solvent, lubricant, expanding foam, dusts) you must read the safety data sheet (SDS), assess the risk, control exposure and provide PPE if needed.',
+    typicalUse: 'Drilling dust, fibre splice cleaning solvents, sealant chemicals, optical cable wipes.',
+    watchOuts:
+      'COSHH does not include radiation, asbestos or biological agents at work — those have separate regs (IRR, CAR 2012, BBV).',
+    standardRef: 'COSHH 2002',
+    searchTerms: ['coshh', 'hazardous substances', 'sds', 'safety data sheet'],
+    quiz: [
+      {
+        question: 'What is the first document you consult before using a new chemical product?',
+        answer: 'The safety data sheet (SDS)',
+        why: 'The SDS lists hazards, controls and PPE — COSHH expects you to read it.',
+      },
+      {
+        question: 'Is drilling dust covered by COSHH?',
+        answer: 'Yes',
+        why: 'Dust is a hazardous substance for the lungs — extraction or RPE is required.',
+      },
+      {
+        question: 'Does COSHH cover asbestos?',
+        answer: 'No — asbestos has its own regs (CAR 2012)',
+        why: 'COSHH explicitly excludes asbestos. CAR 2012 covers it.',
+      },
+    ],
+  },
+  {
+    id: 'rack-unit-1u',
+    category: 'Standard',
+    title: '1U / 19 inch rack — equipment height unit',
+    codeExample: '1U · 19″ rack',
+    summary: 'Standard rack form factor and the U / RU unit that measures equipment height.',
+    parts: [
+      { label: '19″', meaning: 'External width of the rack frame opening.' },
+      { label: '1U', meaning: '44.45 mm (1.75 inches) of vertical space.' },
+      { label: 'RU', meaning: 'Same as U — "rack unit".' },
+    ],
+    whatItMeans:
+      'Equipment is sized in whole U: a switch might be 1U, a small server 2U, a chassis 4U. Cabinet height (e.g. 42U) tells you how much equipment fits.',
+    typicalUse:
+      'Specifying cabinets, patch panels and switches. Bonding rules also reference cabinet height (≤21U vs >21U).',
+    watchOuts:
+      'Different cabinet manufacturers vary the depth; rail-to-rail spacing is the bit that has to match 19 inch.',
+    standardRef: 'EIA-310 / IEC 60297',
+    searchTerms: ['1u', '19 inch', '19 rack', 'rack unit', 'ru'],
+    quiz: [
+      {
+        question: 'How tall is 1U?',
+        answer: '44.45 mm (1.75 inches)',
+        why: '1U on a 19 inch rack is standardised at 44.45 mm.',
+      },
+      {
+        question: 'What standard width does 19 inch refer to?',
+        answer: 'External rail opening width',
+        why: 'The 19 inch dimension is the rail-to-rail opening, not the outside cabinet dimension.',
+      },
+      {
+        question: 'Which bonding bracket applies to a 12U wall cabinet?',
+        answer: '≤21U — 4 mm² minimum',
+        why: '12U sits within the small-cabinet bracket; HD 60364-5-54 says 4 mm² minimum.',
+      },
+    ],
+  },
 ];
 
 export function searchCableCodes(query: string): CableCode[] {

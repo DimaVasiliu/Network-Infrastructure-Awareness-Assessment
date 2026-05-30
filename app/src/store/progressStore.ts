@@ -2,17 +2,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import type { QuestionStat, QuizAttempt } from '../types/progress';
+import type { MockSessionSnapshot, QuestionStat, QuizAttempt } from '../types/progress';
 
 type ProgressState = {
   attempts: QuizAttempt[];
   bookmarks: string[];
   stats: Record<string, QuestionStat>;
   crashReportingOptOut: boolean;
+  mockSession: MockSessionSnapshot | null;
   addAttempt: (attempt: QuizAttempt) => void;
   clearProgress: () => void;
   toggleBookmark: (questionId: string) => void;
   setCrashReportingOptOut: (optedOut: boolean) => void;
+  saveMockSession: (snapshot: MockSessionSnapshot) => void;
+  clearMockSession: () => void;
 };
 
 export const useProgressStore = create<ProgressState>()(
@@ -22,6 +25,7 @@ export const useProgressStore = create<ProgressState>()(
       bookmarks: [],
       stats: {},
       crashReportingOptOut: false,
+      mockSession: null,
       addAttempt: (attempt) =>
         set((state) => {
           const nextStats = { ...state.stats };
@@ -49,11 +53,13 @@ export const useProgressStore = create<ProgressState>()(
             : [questionId, ...state.bookmarks],
         })),
       setCrashReportingOptOut: (optedOut) => set({ crashReportingOptOut: optedOut }),
+      saveMockSession: (snapshot) => set({ mockSession: snapshot }),
+      clearMockSession: () => set({ mockSession: null }),
     }),
     {
       name: 'network-infrastructure-progress',
       storage: createJSONStorage(() => AsyncStorage),
-      version: 3,
+      version: 4,
       migrate: (persisted: unknown) => {
         const previous = (persisted as Partial<ProgressState>) ?? {};
         return {
@@ -61,6 +67,7 @@ export const useProgressStore = create<ProgressState>()(
           bookmarks: previous.bookmarks ?? [],
           stats: previous.stats ?? {},
           crashReportingOptOut: previous.crashReportingOptOut ?? false,
+          mockSession: previous.mockSession ?? null,
         } as ProgressState;
       },
     },

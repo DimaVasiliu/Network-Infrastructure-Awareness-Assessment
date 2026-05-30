@@ -26,3 +26,15 @@ export type QuestionStat = {
   lastSeenAt: string;
   lastWasCorrect: boolean;
 };
+
+/**
+ * A paused mock-exam attempt. Persisted so the user can come back after
+ * closing the app or switching tabs without losing progress.
+ */
+export type MockSessionSnapshot = {
+  questionIds: string[];
+  answers: Record<string, AnswerChoice>;
+  currentIndex: number;
+  remainingSeconds: number;
+  savedAt: string;
+};

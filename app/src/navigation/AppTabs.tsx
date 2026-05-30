@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import type { NavigatorScreenParams } from '@react-navigation/native';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, getFocusedRouteNameFromRoute, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { HelpModal } from '../components/HelpModal';
 import { DecoderScreen } from '../screens/DecoderScreen';
@@ -89,6 +89,21 @@ const navigationTheme = {
   },
 };
 
+const baseHeaderOptions = {
+  headerShadowVisible: false,
+  headerStyle: {
+    backgroundColor: colors.background,
+  },
+  headerTitleStyle: {
+    color: colors.text,
+    fontSize: 18,
+    fontWeight: '800' as const,
+  },
+  headerRightContainerStyle: {
+    paddingRight: 0,
+  },
+};
+
 const linking = {
   prefixes: ['networktrainer://'],
   config: {
@@ -153,7 +168,8 @@ export function AppTabs() {
       <NavigationContainer linking={linking} theme={navigationTheme}>
         <Tab.Navigator
           screenOptions={({ route }) => ({
-            headerRight: () => <HelpButton onPress={() => setIsHelpOpen(true)} />,
+            ...baseHeaderOptions,
+            headerRight: () => <HeaderHelpButton onPress={() => setIsHelpOpen(true)} />,
             tabBarIcon: ({ color, focused, size }) => (
               <Ionicons
                 color={color}
@@ -174,7 +190,14 @@ export function AppTabs() {
           />
           <Tab.Screen
             name="PracticeTab"
-            options={{ headerShown: false, title: 'Practice', tabBarLabel: 'Practice' }}
+            options={({ route }) => {
+              const routeName = getFocusedRouteNameFromRoute(route) ?? 'PracticeHome';
+              return {
+                headerShown: routeName === 'PracticeHome',
+                title: 'Practice',
+                tabBarLabel: 'Practice',
+              };
+            }}
           >
             {() => <PracticeNavigator openHelp={() => setIsHelpOpen(true)} />}
           </Tab.Screen>
@@ -185,7 +208,14 @@ export function AppTabs() {
           />
           <Tab.Screen
             name="MockExamTab"
-            options={{ headerShown: false, title: 'Mock Exam', tabBarLabel: 'Mock Exam' }}
+            options={({ route }) => {
+              const routeName = getFocusedRouteNameFromRoute(route) ?? 'MockExamHome';
+              return {
+                headerShown: routeName === 'MockExamHome',
+                title: 'Mock Exam',
+                tabBarLabel: 'Mock',
+              };
+            }}
           >
             {() => <MockExamNavigator openHelp={() => setIsHelpOpen(true)} />}
           </Tab.Screen>
@@ -213,8 +243,17 @@ export function AppTabs() {
 
 function PracticeNavigator({ openHelp }: { openHelp: () => void }) {
   return (
-    <PracticeStack.Navigator screenOptions={{ headerRight: () => <HelpButton onPress={openHelp} /> }}>
-      <PracticeStack.Screen name="PracticeHome" component={PracticeScreen} options={{ title: 'Practice' }} />
+    <PracticeStack.Navigator
+      screenOptions={{
+        ...baseHeaderOptions,
+        headerRight: () => <HeaderHelpButton onPress={openHelp} />,
+      }}
+    >
+      <PracticeStack.Screen
+        name="PracticeHome"
+        component={PracticeScreen}
+        options={{ headerShown: false, title: 'Practice' }}
+      />
       <PracticeStack.Screen
         name="PracticeSection"
         component={PracticeSectionScreen}
@@ -248,8 +287,17 @@ function PracticeNavigator({ openHelp }: { openHelp: () => void }) {
 
 function MockExamNavigator({ openHelp }: { openHelp: () => void }) {
   return (
-    <MockExamStack.Navigator screenOptions={{ headerRight: () => <HelpButton onPress={openHelp} /> }}>
-      <MockExamStack.Screen name="MockExamHome" component={MockExamScreen} options={{ title: 'Mock Exam' }} />
+    <MockExamStack.Navigator
+      screenOptions={{
+        ...baseHeaderOptions,
+        headerRight: () => <HeaderHelpButton onPress={openHelp} />,
+      }}
+    >
+      <MockExamStack.Screen
+        name="MockExamHome"
+        component={MockExamScreen}
+        options={{ headerShown: false, title: 'Mock Exam' }}
+      />
       <MockExamStack.Screen
         name="MockExamRun"
         component={MockExamRunScreen}
@@ -259,35 +307,56 @@ function MockExamNavigator({ openHelp }: { openHelp: () => void }) {
   );
 }
 
+function HeaderHelpButton({ onPress }: { onPress: () => void }) {
+  return (
+    <View pointerEvents="box-none" style={styles.helpSlot}>
+      <HelpButton onPress={onPress} />
+    </View>
+  );
+}
+
 function HelpButton({ onPress }: { onPress: () => void }) {
   return (
-    <Pressable accessibilityLabel="Open help" onPress={onPress} style={styles.helpButton}>
-      <Text style={styles.helpLabel}>?</Text>
+    <Pressable
+      accessibilityLabel="Open help"
+      accessibilityRole="button"
+      hitSlop={8}
+      onPress={onPress}
+      style={({ pressed }) => [styles.helpButton, pressed && styles.helpButtonPressed]}
+    >
+      <Ionicons color={colors.surface} name="help-circle" size={22} />
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
+  helpSlot: {
+    alignItems: 'center',
+    height: 48,
+    justifyContent: 'center',
+    paddingRight: 16,
+    width: 64,
+  },
   helpButton: {
     alignItems: 'center',
     backgroundColor: colors.primary,
-    borderRadius: 18,
-    height: 36,
+    borderRadius: 20,
+    height: 40,
     justifyContent: 'center',
-    marginRight: 12,
-    width: 36,
+    width: 40,
   },
-  helpLabel: {
-    color: colors.surface,
-    fontSize: 18,
-    fontWeight: '900',
+  helpButtonPressed: {
+    opacity: 0.78,
   },
   tabBar: {
     backgroundColor: colors.surface,
     borderTopColor: colors.border,
+    height: 64,
+    paddingBottom: 8,
+    paddingTop: 6,
   },
   tabLabel: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
   },
 });

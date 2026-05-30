@@ -7,6 +7,12 @@ import type { AnswerChoice, Question, QuestionSection } from '../types/question'
 import type { AttemptAnswer, QuizAttempt, QuizMode } from '../types/progress';
 import { PrimaryButton } from './PrimaryButton';
 
+export type QuizSnapshot = {
+  answers: Record<string, AnswerChoice>;
+  currentIndex: number;
+  remainingSeconds: number | undefined;
+};
+
 type QuizRunnerProps = {
   mode: QuizMode;
   questions: Question[];
@@ -16,6 +22,10 @@ type QuizRunnerProps = {
   passMark?: number;
   onExit: () => void;
   onComplete: (attempt: QuizAttempt) => void;
+  /** Optional restart state — used by Resume mock exam. */
+  resumeFrom?: QuizSnapshot;
+  /** Fires whenever answers / current index / remaining seconds change. */
+  onSnapshot?: (snapshot: QuizSnapshot) => void;
 };
 
 type QuizStatus = 'answering' | 'review';
@@ -31,14 +41,16 @@ export function QuizRunner({
   passMark,
   onExit,
   onComplete,
+  resumeFrom,
+  onSnapshot,
 }: QuizRunnerProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, AnswerChoice>>({});
+  const [currentIndex, setCurrentIndex] = useState(resumeFrom?.currentIndex ?? 0);
+  const [answers, setAnswers] = useState<Record<string, AnswerChoice>>(resumeFrom?.answers ?? {});
   const [status, setStatus] = useState<QuizStatus>('answering');
   const [isNavigatorOpen, setIsNavigatorOpen] = useState(false);
   const [startedAt] = useState(() => Date.now());
-  const [remainingSeconds, setRemainingSeconds] = useState(timerSeconds);
-  const answersRef = useRef<Record<string, AnswerChoice>>({});
+  const [remainingSeconds, setRemainingSeconds] = useState(resumeFrom?.remainingSeconds ?? timerSeconds);
+  const answersRef = useRef<Record<string, AnswerChoice>>(resumeFrom?.answers ?? {});
   const hasFinishedRef = useRef(false);
   const onExitRef = useRef(onExit);
   const bookmarks = useProgressStore((state) => state.bookmarks);
@@ -123,6 +135,13 @@ export function QuizRunner({
     onExitRef.current = onExit;
     requestExitRef.current = requestExit;
   }, [onExit, requestExit]);
+
+  // Tell the parent whenever live state changes so it can persist a snapshot.
+  // Skipped once the attempt has finished — the snapshot is no longer useful.
+  useEffect(() => {
+    if (!onSnapshot || hasFinishedRef.current || status !== 'answering') return;
+    onSnapshot({ answers, currentIndex, remainingSeconds });
+  }, [answers, currentIndex, onSnapshot, remainingSeconds, status]);
 
   useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {

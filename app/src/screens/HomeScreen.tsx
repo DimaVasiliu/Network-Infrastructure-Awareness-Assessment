@@ -19,7 +19,37 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
     <ScrollView contentContainerStyle={styles.screen}>
       <Text style={styles.eyebrow}>Study mode</Text>
       <Text style={styles.title}>Network Infrastructure Trainer</Text>
-      <Text style={styles.body}>Practice by topic, take a timed mock exam, and review weak areas.</Text>
+      <Text style={styles.body}>
+        Practice by topic, decode the common cable codes, then test exam readiness.
+      </Text>
+
+      <View style={styles.startPanel}>
+        <Text style={styles.startEyebrow}>Start here</Text>
+        <Text style={styles.startTitle}>Build the basics before the mock exam</Text>
+        <View style={styles.stepList}>
+          <StepItem
+            number="1"
+            title="Decode the codes"
+            body="Review CPR, EuroClass, fibre sizes and Class EA limits."
+          />
+          <StepItem
+            number="2"
+            title="Practise one section"
+            body="Work through Product Selection first, then continue by topic."
+          />
+          <StepItem
+            number="3"
+            title="Use the mock later"
+            body="Take the timed exam after every section has been covered."
+          />
+        </View>
+        <View style={styles.startActions}>
+          <PrimaryButton onPress={() => navigation.navigate('DecoderTab')}>Open Code Decoder</PrimaryButton>
+          <PrimaryButton onPress={() => navigation.navigate('PracticeTab')} variant="secondary">
+            Choose a Section
+          </PrimaryButton>
+        </View>
+      </View>
 
       <View style={styles.statsGrid}>
         <View style={styles.statCard}>
@@ -77,10 +107,23 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
   );
 }
 
+function StepItem({ number, title, body }: { number: string; title: string; body: string }) {
+  return (
+    <View style={styles.stepItem}>
+      <View style={styles.stepNumber}>
+        <Text style={styles.stepNumberText}>{number}</Text>
+      </View>
+      <View style={styles.stepText}>
+        <Text style={styles.stepTitle}>{title}</Text>
+        <Text style={styles.stepBody}>{body}</Text>
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   screen: {
     flexGrow: 1,
-    justifyContent: 'center',
     paddingBottom: spacing.xl,
     paddingHorizontal: spacing.xl,
     paddingTop: spacing.xl,
@@ -103,6 +146,66 @@ const styles = StyleSheet.create({
     color: colors.muted,
     fontSize: 16,
     lineHeight: 24,
+  },
+  startPanel: {
+    backgroundColor: colors.surface,
+    borderRadius: 8,
+    marginTop: spacing.xl,
+    padding: spacing.lg,
+  },
+  startEyebrow: {
+    color: colors.primary,
+    fontSize: 13,
+    fontWeight: '900',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
+  startTitle: {
+    color: colors.text,
+    fontSize: 20,
+    fontWeight: '900',
+    lineHeight: 26,
+    marginTop: spacing.xs,
+  },
+  stepList: {
+    gap: spacing.md,
+    marginTop: spacing.lg,
+  },
+  stepItem: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    gap: spacing.md,
+  },
+  stepNumber: {
+    alignItems: 'center',
+    backgroundColor: colors.primarySoft,
+    borderRadius: 14,
+    height: 28,
+    justifyContent: 'center',
+    width: 28,
+  },
+  stepNumberText: {
+    color: colors.primary,
+    fontSize: 13,
+    fontWeight: '900',
+  },
+  stepText: {
+    flex: 1,
+  },
+  stepTitle: {
+    color: colors.text,
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  stepBody: {
+    color: colors.muted,
+    fontSize: 13,
+    lineHeight: 19,
+    marginTop: 2,
+  },
+  startActions: {
+    gap: spacing.sm,
+    marginTop: spacing.lg,
   },
   statsGrid: {
     flexDirection: 'row',
