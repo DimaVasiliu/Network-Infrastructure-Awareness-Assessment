@@ -36,18 +36,19 @@
         }
       ],
       [
-        "@sentry/react-native/expo",
+        "@sentry/react-native",
         {
-          "organization": "REPLACE_WITH_SENTRY_ORG_SLUG",
-          "project": "REPLACE_WITH_SENTRY_PROJECT_SLUG"
+          "organization": "network-infrastructure-trainer",
+          "project": "network-infrastructure-trainer"
         }
-      ]
+      ],
+      "expo-font"
     ],
     "extra": {
       "eas": {
         "projectId": "9280728c-c54a-4d47-8536-ee673544a354"
       },
-      "sentryDsn": "REPLACE_WITH_SENTRY_DSN_AT_BUILD_TIME"
+      "sentryDsn": "https://f8152e2e33d99674e6205756c8fb30dd@o4511477524594688.ingest.de.sentry.io/4511477533573200"
     }
   }
 }

@@ -29,7 +29,7 @@ Owner: founder. Update statuses inline. Anything still red blocks launch.
 - `{{EMAIL_PROVIDER}}` / `{{EMAIL_PROVIDER_REGION}}` — who hosts the `support@` mailbox (e.g. "Fastmail", "Ireland")
 - `{{PRIVACY_URL}}` / `{{TERMS_URL}}` / `{{REFUND_URL}}` / `{{EULA_URL}}` — public URLs after hosting
 - `{{ADDITIONAL_COUNTRIES}}` — leave blank for UK-only launch; or add e.g. "and the European Union"
-- `{{SENTRY_REGION}}` — `eu` or `us` (matches the region you picked when creating the Sentry organisation)
+- `{{SENTRY_REGION}}` — **`EU`** (Frankfurt). Confirmed by the DSN ingest host `ingest.de.sentry.io`.
 
 Hosting: any static URL is fine. Cheapest path: a single static page per document, served from
 S3 + CloudFront, Cloudflare Pages, or GitHub Pages. The URLs in `SettingsScreen.tsx` must point to
@@ -98,7 +98,7 @@ Done inside App Store Connect → your app → App Privacy.
 |---|---|
 | Privacy URL added in App Store Connect | [ ] |
 | App Privacy questionnaire submitted | [ ] |
-| Account holder Apple Developer Program ($99/yr) active | [ ] |
+| Account holder Apple Developer Program ($99/yr) active | [x] Active (Dumitru Vasiliu) |
 | ITSAppUsesNonExemptEncryption set (`app.json` ios.infoPlist) | [x] |
 
 ---
@@ -202,7 +202,12 @@ Template: https://ico.org.uk/for-organisations/sme-web-hub/documentation/
 | Google (Play Store) | No DPA — Google is independent controller for store data | [x] |
 | Email provider (`support@`) | Yes | [ ] Accept their standard DPA on signup |
 | Hosting provider for legal pages | Yes if pages contain forms; no if static-only | [ ] N/A while static |
-| **Sentry (sentry.io)** | **Yes** — they process crash diagnostics on our behalf | [ ] Sign Sentry's standard DPA (sentry.io → Settings → Legal & Compliance) and record the date |
+| **Sentry (sentry.io)** | **Yes** — they process crash diagnostics on our behalf | [x] Accepted 2026-05-30 (Dumitru Vasiliu) — see `docs/legal/SENTRY_DPA.md` |
+
+> **Sentry DPA accepted 2026-05-30** as customer entity **Dumitru Vasiliu**.
+> Full signed text archived at `docs/legal/SENTRY_DPA.md` (do not delete —
+> this is the authoritative record). Re-accept and bump the file/date here
+> whenever Sentry publishes a revised DPA.
 
 ---
 
@@ -236,9 +241,9 @@ Run this top-to-bottom on the day you submit the binary.
 [ ] ROPA saved
 [ ] Calendar reminder for ICO renewal set
 [ ] Build version + buildNumber / versionCode incremented from any prior submission
-[ ] Sentry DSN set in `app.json` extra.sentryDsn (or via EAS Secret) — not the placeholder
-[ ] Sentry org + project slugs set in the `@sentry/react-native/expo` plugin block in `app.json`
-[ ] Sentry DPA accepted (sentry.io → Settings → Legal & Compliance)
+[x] Sentry DSN set in `app.json` extra.sentryDsn — EU region (ingest.de.sentry.io)
+[x] Sentry org + project slugs set in the `@sentry/react-native/expo` plugin block in `app.json` (both: network-infrastructure-trainer — verify project slug after first click into the project page)
+[x] Sentry DPA accepted (2026-05-30, Dumitru Vasiliu) — archived at docs/legal/SENTRY_DPA.md
 [ ] Source-map upload working in the production EAS build (see `docs/SENTRY.md`)
 [ ] Final TestFlight / Play Internal Test run on real iOS + Android device
 ```

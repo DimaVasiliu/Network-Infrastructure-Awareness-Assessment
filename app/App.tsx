@@ -4,14 +4,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ErrorBoundary } from './src/components/ErrorBoundary';
 import { AppTabs } from './src/navigation/AppTabs';
-import { Sentry, initCrashReporting } from './src/lib/crashReporting';
+import { applyCrashReportingPreference } from './src/lib/crashReporting';
 import { useProgressStore } from './src/store/progressStore';
 
-function App() {
+export default function App() {
   const crashReportingOptOut = useProgressStore((state) => state.crashReportingOptOut);
 
   useEffect(() => {
-    initCrashReporting(crashReportingOptOut);
+    applyCrashReportingPreference(crashReportingOptOut);
   }, [crashReportingOptOut]);
 
   return (
@@ -23,5 +23,3 @@ function App() {
     </SafeAreaProvider>
   );
 }
-
-export default Sentry.wrap(App);

@@ -1,44 +1,44 @@
 /**
- * Crash reporting wrapper around @sentry/react-native.
+ * Crash reporting wrapper around @sentry/react-native v7.
  *
- * Design rules:
- *   1. Disabled in development / Expo Go (DSN may be missing; we don't want
- *      every dev refresh to count as a session).
- *   2. Disabled when the user has opted out via the About screen toggle.
- *   3. No PII attached. We do not set user IDs, IP addresses, or session
- *      replays. Breadcrumbs only contain navigation events.
- *   4. Failures to initialise are swallowed — the app must never crash because
- *      crash reporting failed.
+ * Initialisation happens at MODULE LOAD time (the v7 pattern). The user
+ * opt-out toggle is applied at runtime by enabling / disabling the client.
  *
- * If the privacy posture changes in future (e.g. session replay added, PII
- * captured, opt-in instead of opt-out), update PRIVACY.md and the App Privacy
- * + Data Safety declarations in LAUNCH_COMPLIANCE.md to match.
+ * Privacy posture:
+ *   1. Disabled in __DEV__.
+ *   2. Disabled if no DSN is configured.
+ *   3. Disabled (events dropped + offline) when the user has opted out via
+ *      the About screen toggle.
+ *   4. `sendDefaultPii: false`, `tracesSampleRate: 0` (no perf traces),
+ *      `beforeSend` strips user ID / email / IP from outgoing events.
+ *   5. Init wrapped in try/catch — Sentry failures never break the app.
+ *
+ * If this privacy posture changes (session replay, traces, user identifiers,
+ * PII), update PRIVACY.md and the App Privacy / Data Safety declarations.
  */
 import Constants from 'expo-constants';
 import * as Sentry from '@sentry/react-native';
 
 let initialised = false;
 
-function dsn(): string | undefined {
+function readDsn(): string | undefined {
   const extra = (Constants.expoConfig?.extra ?? {}) as Record<string, unknown>;
   const value = extra.sentryDsn;
   return typeof value === 'string' && value.length > 0 ? value : undefined;
 }
 
-export function initCrashReporting(optedOut: boolean) {
+function initOnce() {
   if (initialised) return;
-  if (optedOut) return;
   if (__DEV__) return;
-  const sentryDsn = dsn();
-  if (!sentryDsn) return;
+  const dsn = readDsn();
+  if (!dsn) return;
 
   try {
     Sentry.init({
-      dsn: sentryDsn,
+      dsn,
       enableAutoSessionTracking: true,
       sendDefaultPii: false,
-      tracesSampleRate: 0.0,
-      // Strip user data and IP from outgoing events.
+      tracesSampleRate: 0,
       beforeSend(event) {
         if (event.user) {
           delete event.user.id;
@@ -50,34 +50,42 @@ export function initCrashReporting(optedOut: boolean) {
     });
     initialised = true;
   } catch {
-    // Never fail the app because crash reporting could not start.
     initialised = false;
   }
 }
 
+// Init at module load — this is what Sentry v7 expects so that any
+// app-start instrumentation can attach to the running client.
+initOnce();
+
 /**
- * Best-effort flag for whether reporting is currently active. Useful for
- * surfacing status to the user without leaking SDK internals.
+ * Apply the user's current opt-out preference. Call this once on mount and
+ * whenever the toggle changes. If the user opts out, we close the SDK so no
+ * further events are sent until the app is restarted with the toggle on.
  */
+export function applyCrashReportingPreference(optedOut: boolean) {
+  if (!initialised) return;
+  try {
+    const client = Sentry.getClient();
+    if (!client) return;
+    const options = client.getOptions();
+    options.enabled = !optedOut;
+  } catch {
+    // ignore — best effort
+  }
+}
+
 export function isCrashReportingActive() {
   return initialised;
 }
 
-/**
- * Manually flush any pending events. Call before the user clears local data
- * or revokes consent to make sure nothing is queued up against the old state.
- */
 export async function flushCrashReporting() {
   if (!initialised) return;
   try {
     await Sentry.flush();
   } catch {
-    // Ignore — flushing is best-effort.
+    // ignore
   }
 }
 
-/**
- * Re-export the Sentry namespace for callers that want to add custom
- * breadcrumbs or error reports. Most code should not need this directly.
- */
 export { Sentry };

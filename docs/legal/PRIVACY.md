@@ -91,9 +91,9 @@ What Sentry **does not** receive from us:
 - any persistent identifier we control. We do not set a Sentry user ID.
 
 Lawful basis: legitimate interests (Art. 6(1)(f) UK GDPR) — improving the
-reliability of the App for all users. Sentry processes the data in Europe (or
-in the United States if you choose the US Sentry region; we use the
-{{SENTRY_REGION}} region).
+reliability of the App for all users. Sentry processes the data in the **EU
+(Frankfurt, Germany)** region — data does not leave the EEA in normal
+operation.
 
 **You can turn this off at any time.** Open the **About** screen and use the
 "Send anonymous crash reports" toggle. When off, no crash data leaves your

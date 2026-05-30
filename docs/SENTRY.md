@@ -61,20 +61,33 @@ before the first production build.
    embedded in the binary. (Sentry's *auth token* used to upload source maps
    is a different thing and is private — see the next step.)
 
-4. **Set up source-map uploads (EAS Secret).**
+4. **Set up source-map uploads (EAS environment variable).**
    The Sentry plugin uploads JS source maps during the production build so
    stack traces are readable. It needs an auth token.
-   - sentry.io → **Settings → Account → API → Auth Tokens** → create a token
-     with scope `project:releases` and `project:write` for the
-     `network-infrastructure-trainer` project.
-   - Add it as an EAS secret so the build can read it without exposing it in
-     the repo:
+   - sentry.io → **Settings → Account → API → Personal Tokens** → create a
+     token named `network-infrastructure-trainer` with scopes:
+     - Project: **Write** (`project:read`, `project:write`)
+     - Release: **Admin** (`project:releases`)
+     - Organization: **Read** (`org:read`)
+     Copy the new token — Sentry only shows it once.
+   - Register the token as an EAS environment variable with `secret`
+     visibility so the build can read it without exposing it in the repo:
      ```bash
      cd app
-     eas secret:create --scope project --name SENTRY_AUTH_TOKEN --type string --value "sntrys_..."
+     eas env:create \
+       --environment production \
+       --environment preview \
+       --name SENTRY_AUTH_TOKEN \
+       --value "sntryu_..." \
+       --visibility secret \
+       --type string
      ```
-   - EAS automatically exposes the secret to the Sentry plugin during the
+   - Verify with `eas env:list --environment production`. The value will
+     appear masked (`********`) because visibility is `secret`.
+   - EAS automatically exposes the variable to the Sentry plugin during the
      build. **Never** commit the token.
+   - Note: the older `eas secret:create` command is deprecated in current
+     EAS CLI versions. Use `eas env:create` instead.
 
 5. **Update the `{{SENTRY_REGION}}` placeholder** in
    `docs/legal/PRIVACY.md` (§3) to either `EU` or `US` to match the region
