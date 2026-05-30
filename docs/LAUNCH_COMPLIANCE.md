@@ -204,8 +204,9 @@ Template: https://ico.org.uk/for-organisations/sme-web-hub/documentation/
 |---|---|---|
 | Apple (App Store) | No DPA — Apple is independent controller for store data | [x] |
 | Google (Play Store) | No DPA — Google is independent controller for store data | [x] |
-| Email provider (`support@`) | Yes | [ ] Accept their standard DPA on signup |
-| Hosting provider for legal pages | Yes if pages contain forms; no if static-only | [ ] N/A while static |
+| **Neo.Space (inbound `support@timrx.live`)** | **Yes** | [x] Auto-incorporated via Neo Customer Terms of Use at signup. Reference: https://support.neo.space/hc/en-us/articles/14462505748121-Neo-Privacy-Policy and Terms of Use at https://support.neo.space/hc/en-us/articles/14461974928281-Neo-Customer-Terms-of-Use |
+| **AWS SES (outbound replies — eu-west-2 / London)** | **Yes** | [x] Auto-incorporated via the AWS GDPR DPA, which AWS publishes and applies to all customers automatically (no signing step). Reference: https://aws.amazon.com/compliance/gdpr-center/ |
+| Hosting provider for legal pages (Cloudflare Pages) | Yes if pages collect personal data; the legal pages are static | [x] N/A — pages are static read-only HTML with no forms |
 | **Sentry (sentry.io)** | **Yes** — they process crash diagnostics on our behalf | [x] Accepted 2026-05-30 (Dumitru Vasiliu) — see `docs/legal/SENTRY_DPA.md` |
 
 > **Sentry DPA accepted 2026-05-30** as customer entity **Dumitru Vasiliu**.
@@ -246,8 +247,8 @@ Run this top-to-bottom on the day you submit the binary.
 [ ] Calendar reminder for ICO renewal set
 [ ] Build version + buildNumber / versionCode incremented from any prior submission
 [x] Sentry DSN set in `app.json` extra.sentryDsn — EU region (ingest.de.sentry.io)
-[x] Sentry org + project slugs set in the `@sentry/react-native/expo` plugin block in `app.json` (both: network-infrastructure-trainer — verify project slug after first click into the project page)
+[x] Sentry org + project slugs set in the `@sentry/react-native` plugin block in `app.json` (both: network-infrastructure-trainer — verified via /projects/network-infrastructure-trainer URL)
 [x] Sentry DPA accepted (2026-05-30, Dumitru Vasiliu) — archived at docs/legal/SENTRY_DPA.md
-[ ] Source-map upload working in the production EAS build (see `docs/SENTRY.md`)
+[x] Source-map upload working in the production EAS build — verified 2026-05-30 (Crash Free Sessions 100%, session received from real iOS device, release `uk.networkinfrastructure.trainer@1.0.0+5` tagged correctly)
 [ ] Final TestFlight / Play Internal Test run on real iOS + Android device
 ```
