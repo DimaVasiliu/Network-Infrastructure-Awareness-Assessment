@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 import { PrimaryButton } from '../components/PrimaryButton';
+import { ReadinessCard } from '../components/ReadinessCard';
 import type { RootTabParamList } from '../navigation/AppTabs';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
@@ -35,6 +36,19 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
         </View>
       </View>
 
+      <View style={styles.readinessSlot}>
+        <ReadinessCard
+          onOpenPractice={() => navigation.navigate('PracticeTab')}
+          onPracticeWeakest={() =>
+            navigation.navigate('PracticeTab', {
+              screen: 'PracticeFocus',
+              params: { focus: 'weakest' },
+            })
+          }
+          onStartMock={() => navigation.navigate('MockExamTab')}
+        />
+      </View>
+
       {latestAttempt ? (
         <View style={styles.panel}>
           <Text style={styles.panelTitle}>Latest result</Text>
@@ -43,14 +57,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             {latestAttempt.mode === 'mockExam' ? 'Mock Exam' : latestAttempt.section}
           </Text>
         </View>
-      ) : (
-        <View style={styles.panel}>
-          <Text style={styles.panelTitle}>Start here</Text>
-          <Text style={styles.panelBody}>
-            Use Practice first, then take Mock Exam once you have covered the sections.
-          </Text>
-        </View>
-      )}
+      ) : null}
 
       <View style={styles.disclaimerPanel}>
         <Text style={styles.disclaimerTitle}>Independent study aid</Text>
@@ -119,10 +126,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginTop: spacing.xs,
   },
+  readinessSlot: {
+    marginTop: spacing.xl,
+  },
   panel: {
     backgroundColor: colors.surface,
     borderRadius: 8,
-    marginTop: spacing.xl,
+    marginTop: spacing.lg,
     padding: spacing.lg,
   },
   panelTitle: {
