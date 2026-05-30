@@ -1,5 +1,13 @@
-# ECS Network Infrastructure Awareness — Training App
-## Implementation Plan (Phase 0: Setup)
+# Network Infrastructure Trainer — Implementation Plan
+
+> **Historical document.** Phases 0–5 are complete. The actual delivered product
+> differs in places from the original plan: the question bank grew to **155
+> questions**, the mock exam uses the published **30 / 45 min / 24-pass-mark**
+> format, the build/deploy stack is **EAS only** (web export dropped), and
+> hosting for the legal pages is **Cloudflare Pages on `timrx.live`** (not S3 +
+> CloudFront). The §9 compliance notes were superseded by `LAUNCH_COMPLIANCE.md`.
+> Treat this file as background reading; for current state see `README.md` and
+> the docs in `docs/`.
 
 ---
 
@@ -67,7 +75,7 @@ None for launch. The product is mobile-only for iOS and Android.
 
 **Phase 2 — Quiz engine.**
 - Practice mode (by section, shuffled).
-- Mock exam mode (50 random Qs, 30-min timer, pass = 35/50 or whatever ECS uses).
+- Mock exam mode — actual format adopted: 30 random Qs drawn from a 155-question bank weighted across the 9 sections, 45-minute timer, pass mark 24/30 (80%).
 - Wrong-answer review.
 - Progress stored in AsyncStorage (no backend).
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { BackHandler, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, BackHandler, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
@@ -100,13 +100,32 @@ export function QuizRunner({
     [mode, onComplete, questions, section, startedAt],
   );
 
+  const requestExit = useCallback(() => {
+    // Only confirm when the user could lose an in-progress mock attempt.
+    if (mode === 'mockExam' && status === 'answering' && !hasFinishedRef.current) {
+      Alert.alert(
+        'Leave mock exam?',
+        'Your progress on this attempt will be lost. The timer will stop and the attempt will not be recorded.',
+        [
+          { text: 'Keep going', style: 'cancel' },
+          { text: 'Leave', style: 'destructive', onPress: () => onExit() },
+        ],
+      );
+      return;
+    }
+    onExit();
+  }, [mode, onExit, status]);
+
+  const requestExitRef = useRef(requestExit);
+
   useEffect(() => {
     onExitRef.current = onExit;
-  }, [onExit]);
+    requestExitRef.current = requestExit;
+  }, [onExit, requestExit]);
 
   useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-      onExitRef.current();
+      requestExitRef.current();
       return true;
     });
 
@@ -200,10 +219,13 @@ export function QuizRunner({
                 <Text style={styles.reviewMeta}>Question {index + 1}</Text>
                 <Text style={styles.reviewQuestion}>{question.question}</Text>
                 <Text style={[styles.reviewAnswer, isCorrect ? styles.correctText : styles.incorrectText]}>
-                  Your answer: {answer ?? 'No answer'} {isCorrect ? 'correct' : 'incorrect'}
+                  Your answer: {answer ? `${answer} — ${question.choices[answer]}` : 'No answer'}{' '}
+                  {isCorrect ? '✓' : '✗'}
                 </Text>
                 {!isCorrect ? (
-                  <Text style={styles.reviewAnswer}>Correct answer: {question.correctAnswer}</Text>
+                  <Text style={styles.reviewAnswer}>
+                    Correct answer: {question.correctAnswer} — {question.choices[question.correctAnswer]}
+                  </Text>
                 ) : null}
                 <Text style={styles.explanation}>{question.explanation}</Text>
                 {question.standardRef ? (
@@ -243,6 +265,38 @@ export function QuizRunner({
           </Pressable>
         </View>
       </View>
+
+      {mode === 'mockExam' ? (
+        <View style={styles.navGrid}>
+          {questions.map((q, idx) => {
+            const isAnswered = Boolean(answers[q.id]);
+            const isCurrent = idx === currentIndex;
+            return (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={`Question ${idx + 1}${isAnswered ? ', answered' : ', unanswered'}`}
+                key={q.id}
+                onPress={() => setCurrentIndex(idx)}
+                style={[
+                  styles.navCell,
+                  isAnswered && styles.navCellAnswered,
+                  isCurrent && styles.navCellCurrent,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.navCellLabel,
+                    isAnswered && styles.navCellLabelAnswered,
+                    isCurrent && styles.navCellLabelCurrent,
+                  ]}
+                >
+                  {idx + 1}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      ) : null}
 
       <Text style={styles.section}>{currentQuestion.section}</Text>
       <Text style={styles.title}>{currentQuestion.question}</Text>
@@ -293,7 +347,7 @@ export function QuizRunner({
         <PrimaryButton disabled={!selectedAnswer && mode === 'practice'} onPress={goNext}>
           {isLastQuestion ? 'Finish' : 'Next'}
         </PrimaryButton>
-        <PrimaryButton onPress={onExit} variant="secondary">
+        <PrimaryButton onPress={requestExit} variant="secondary">
           Exit
         </PrimaryButton>
       </View>
@@ -351,6 +405,41 @@ const styles = StyleSheet.create({
   },
   bookmarkIconActive: {
     color: colors.warning,
+  },
+  navGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginBottom: spacing.lg,
+  },
+  navCell: {
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
+    borderRadius: 6,
+    borderWidth: 1,
+    height: 36,
+    justifyContent: 'center',
+    width: 36,
+  },
+  navCellAnswered: {
+    backgroundColor: colors.successSoft,
+    borderColor: colors.success,
+  },
+  navCellCurrent: {
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
+  navCellLabel: {
+    color: colors.text,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  navCellLabelAnswered: {
+    color: colors.success,
+  },
+  navCellLabelCurrent: {
+    color: colors.surface,
   },
   kicker: {
     color: colors.primary,

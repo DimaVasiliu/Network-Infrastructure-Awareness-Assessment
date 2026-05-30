@@ -7,6 +7,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
 import { HelpModal } from '../components/HelpModal';
+import { DecoderScreen } from '../screens/DecoderScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MockExamRunScreen, MockExamScreen } from '../screens/MockExamScreen';
 import {
@@ -39,6 +40,7 @@ export type MockExamStackParamList = {
 export type RootTabParamList = {
   HomeTab: undefined;
   PracticeTab: NavigatorScreenParams<PracticeStackParamList> | undefined;
+  DecoderTab: undefined;
   MockExamTab: NavigatorScreenParams<MockExamStackParamList> | undefined;
   StatsTab: undefined;
   SettingsTab: undefined;
@@ -53,6 +55,7 @@ type TabIconName = React.ComponentProps<typeof Ionicons>['name'];
 const tabIcons: Record<keyof RootTabParamList, { active: TabIconName; inactive: TabIconName }> = {
   HomeTab: { active: 'home', inactive: 'home-outline' },
   PracticeTab: { active: 'school', inactive: 'school-outline' },
+  DecoderTab: { active: 'reader', inactive: 'reader-outline' },
   MockExamTab: { active: 'timer', inactive: 'timer-outline' },
   StatsTab: { active: 'bar-chart', inactive: 'bar-chart-outline' },
   SettingsTab: { active: 'information-circle', inactive: 'information-circle-outline' },
@@ -134,6 +137,7 @@ const linking = {
           MockExamRun: 'run',
         },
       },
+      DecoderTab: 'decoder',
       StatsTab: 'stats',
       SettingsTab: 'settings',
     },
@@ -174,6 +178,11 @@ export function AppTabs() {
           >
             {() => <PracticeNavigator openHelp={() => setIsHelpOpen(true)} />}
           </Tab.Screen>
+          <Tab.Screen
+            name="DecoderTab"
+            component={DecoderScreen}
+            options={{ title: 'Decoder', tabBarLabel: 'Decoder' }}
+          />
           <Tab.Screen
             name="MockExamTab"
             options={{ headerShown: false, title: 'Mock Exam', tabBarLabel: 'Mock Exam' }}
