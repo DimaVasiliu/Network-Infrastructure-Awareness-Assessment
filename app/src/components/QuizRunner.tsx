@@ -35,6 +35,7 @@ export function QuizRunner({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, AnswerChoice>>({});
   const [status, setStatus] = useState<QuizStatus>('answering');
+  const [isNavigatorOpen, setIsNavigatorOpen] = useState(false);
   const [startedAt] = useState(() => Date.now());
   const [remainingSeconds, setRemainingSeconds] = useState(timerSeconds);
   const answersRef = useRef<Record<string, AnswerChoice>>({});
@@ -267,34 +268,52 @@ export function QuizRunner({
       </View>
 
       {mode === 'mockExam' ? (
-        <View style={styles.navGrid}>
-          {questions.map((q, idx) => {
-            const isAnswered = Boolean(answers[q.id]);
-            const isCurrent = idx === currentIndex;
-            return (
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={`Question ${idx + 1}${isAnswered ? ', answered' : ', unanswered'}`}
-                key={q.id}
-                onPress={() => setCurrentIndex(idx)}
-                style={[
-                  styles.navCell,
-                  isAnswered && styles.navCellAnswered,
-                  isCurrent && styles.navCellCurrent,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.navCellLabel,
-                    isAnswered && styles.navCellLabelAnswered,
-                    isCurrent && styles.navCellLabelCurrent,
-                  ]}
-                >
-                  {idx + 1}
-                </Text>
-              </Pressable>
-            );
-          })}
+        <View>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityState={{ expanded: isNavigatorOpen }}
+            onPress={() => setIsNavigatorOpen((open) => !open)}
+            style={styles.navToggle}
+          >
+            <Text style={styles.navToggleText}>
+              {Object.keys(answers).length}/{questions.length} answered
+            </Text>
+            <Text style={styles.navToggleAction}>{isNavigatorOpen ? 'Hide' : 'Jump to…'}</Text>
+          </Pressable>
+          {isNavigatorOpen ? (
+            <View style={styles.navGrid}>
+              {questions.map((q, idx) => {
+                const isAnswered = Boolean(answers[q.id]);
+                const isCurrent = idx === currentIndex;
+                return (
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={`Question ${idx + 1}${isAnswered ? ', answered' : ', unanswered'}`}
+                    key={q.id}
+                    onPress={() => {
+                      setCurrentIndex(idx);
+                      setIsNavigatorOpen(false);
+                    }}
+                    style={[
+                      styles.navCell,
+                      isAnswered && styles.navCellAnswered,
+                      isCurrent && styles.navCellCurrent,
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.navCellLabel,
+                        isAnswered && styles.navCellLabelAnswered,
+                        isCurrent && styles.navCellLabelCurrent,
+                      ]}
+                    >
+                      {idx + 1}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+          ) : null}
         </View>
       ) : null}
 
@@ -405,6 +424,28 @@ const styles = StyleSheet.create({
   },
   bookmarkIconActive: {
     color: colors.warning,
+  },
+  navToggle: {
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
+    borderRadius: 8,
+    borderWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: spacing.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  navToggleText: {
+    color: colors.muted,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  navToggleAction: {
+    color: colors.primary,
+    fontSize: 13,
+    fontWeight: '900',
   },
   navGrid: {
     flexDirection: 'row',
