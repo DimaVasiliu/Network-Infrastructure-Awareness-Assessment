@@ -159,7 +159,6 @@ export function AppTabs() {
               <AppHeader
                 canGoBack={false}
                 onBack={navigation.goBack}
-                onHelp={() => setIsHelpOpen(true)}
                 title={getHeaderTitle(options, route.name)}
               />
             ),
@@ -182,7 +181,7 @@ export function AppTabs() {
             options={{ title: t.tabs.home, tabBarLabel: t.tabs.home }}
           />
           <Tab.Screen name="PracticeTab" options={{ headerShown: false, tabBarLabel: t.tabs.practice }}>
-            {() => <PracticeNavigator openHelp={() => setIsHelpOpen(true)} />}
+            {() => <PracticeNavigator />}
           </Tab.Screen>
           <Tab.Screen
             name="DecoderTab"
@@ -190,7 +189,7 @@ export function AppTabs() {
             options={{ title: t.tabs.decoder, tabBarLabel: t.tabs.decoder }}
           />
           <Tab.Screen name="MockExamTab" options={{ headerShown: false, tabBarLabel: t.tabs.mock }}>
-            {() => <MockExamNavigator openHelp={() => setIsHelpOpen(true)} />}
+            {() => <MockExamNavigator />}
           </Tab.Screen>
           <Tab.Screen
             name="StatsTab"
@@ -204,6 +203,7 @@ export function AppTabs() {
           />
         </Tab.Navigator>
       </NavigationContainer>
+      <FloatingHelpButton onPress={() => setIsHelpOpen(true)} />
       <HelpModal
         isVisible={isHelpOpen}
         language={language}
@@ -214,7 +214,7 @@ export function AppTabs() {
   );
 }
 
-function PracticeNavigator({ openHelp }: { openHelp: () => void }) {
+function PracticeNavigator() {
   const t = useT();
   return (
     <PracticeStack.Navigator
@@ -223,7 +223,6 @@ function PracticeNavigator({ openHelp }: { openHelp: () => void }) {
           <AppHeader
             canGoBack={Boolean(back)}
             onBack={navigation.goBack}
-            onHelp={openHelp}
             title={getHeaderTitle(options, route.name)}
           />
         ),
@@ -265,7 +264,7 @@ function PracticeNavigator({ openHelp }: { openHelp: () => void }) {
   );
 }
 
-function MockExamNavigator({ openHelp }: { openHelp: () => void }) {
+function MockExamNavigator() {
   const t = useT();
   return (
     <MockExamStack.Navigator
@@ -274,7 +273,6 @@ function MockExamNavigator({ openHelp }: { openHelp: () => void }) {
           <AppHeader
             canGoBack={Boolean(back)}
             onBack={navigation.goBack}
-            onHelp={openHelp}
             title={getHeaderTitle(options, route.name)}
           />
         ),
@@ -298,17 +296,7 @@ function getHeaderTitle(options: { headerTitle?: unknown; title?: string }, fall
   return typeof options.headerTitle === 'string' ? options.headerTitle : (options.title ?? fallback);
 }
 
-function AppHeader({
-  canGoBack,
-  onBack,
-  onHelp,
-  title,
-}: {
-  canGoBack: boolean;
-  onBack: () => void;
-  onHelp: () => void;
-  title: string;
-}) {
+function AppHeader({ canGoBack, onBack, title }: { canGoBack: boolean; onBack: () => void; title: string }) {
   const insets = useSafeAreaInsets();
 
   return (
@@ -330,9 +318,19 @@ function AppHeader({
         <Text numberOfLines={1} style={styles.headerTitle}>
           {title}
         </Text>
-        <View style={[styles.headerSide, styles.headerRight]}>
-          <HelpButton onPress={onHelp} />
-        </View>
+        <View style={styles.headerSide} />
+      </View>
+    </View>
+  );
+}
+
+function FloatingHelpButton({ onPress }: { onPress: () => void }) {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <View pointerEvents="box-none" style={StyleSheet.absoluteFill}>
+      <View pointerEvents="box-none" style={[styles.floatingHelpSlot, { top: insets.top + 12 }]}>
+        <HelpButton onPress={onPress} />
       </View>
     </View>
   );
@@ -369,9 +367,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 48,
   },
-  headerRight: {
-    alignItems: 'flex-end',
-  },
   headerTitle: {
     color: colors.text,
     flex: 1,
@@ -393,6 +388,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 40,
     justifyContent: 'center',
+    width: 40,
+  },
+  floatingHelpSlot: {
+    alignItems: 'center',
+    height: 40,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 24,
     width: 40,
   },
   headerButtonPressed: {
