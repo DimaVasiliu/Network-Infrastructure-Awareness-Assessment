@@ -64,9 +64,17 @@ export function SettingsScreen() {
           value={SUPPORT_EMAIL}
           onPress={() => Linking.openURL(`mailto:${SUPPORT_EMAIL}?subject=NIA Trainer support`)}
         />
-        <LinkRow label={t.settings.privacyPolicy} value={PRIVACY_URL} onPress={() => Linking.openURL(PRIVACY_URL)} />
+        <LinkRow
+          label={t.settings.privacyPolicy}
+          value={PRIVACY_URL}
+          onPress={() => Linking.openURL(PRIVACY_URL)}
+        />
         <LinkRow label={t.settings.termsOfUse} value={TERMS_URL} onPress={() => Linking.openURL(TERMS_URL)} />
-        <LinkRow label={t.settings.refundPolicy} value={REFUND_URL} onPress={() => Linking.openURL(REFUND_URL)} />
+        <LinkRow
+          label={t.settings.refundPolicy}
+          value={REFUND_URL}
+          onPress={() => Linking.openURL(REFUND_URL)}
+        />
         <LinkRow label={t.settings.eula} value={EULA_URL} onPress={() => Linking.openURL(EULA_URL)} />
       </View>
 

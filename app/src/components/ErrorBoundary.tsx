@@ -32,7 +32,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
           <Text style={styles.title}>{t.error.title}</Text>
           <Text style={styles.body}>{t.error.body}</Text>
           <Text style={styles.errorText}>{this.state.error.message}</Text>
-          <PrimaryButton onPress={() => this.setState({ error: undefined })}>{t.error.tryAgain}</PrimaryButton>
+          <PrimaryButton onPress={() => this.setState({ error: undefined })}>
+            {t.error.tryAgain}
+          </PrimaryButton>
         </View>
       );
     }

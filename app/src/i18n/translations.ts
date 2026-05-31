@@ -45,7 +45,8 @@ const en = {
   },
   quiz: {
     leaveTitle: 'Leave mock exam?',
-    leaveBody: 'Your progress on this attempt will be lost. The timer will stop and the attempt will not be recorded.',
+    leaveBody:
+      'Your progress on this attempt will be lost. The timer will stop and the attempt will not be recorded.',
     keepGoing: 'Keep going',
     leave: 'Leave',
     noQuestions: 'No questions available',
@@ -108,7 +109,8 @@ const en = {
     weakestEmpty: 'No question stats yet. Answer a few questions to build a weak-area list.',
   },
   mock: {
-    intro: 'Matches the published Network Infrastructure Awareness format: 30 questions across the assessment topics, 45 minutes, pass mark 24 correct answers.',
+    intro:
+      'Matches the published Network Infrastructure Awareness format: 30 questions across the assessment topics, 45 minutes, pass mark 24 correct answers.',
     discardTitle: 'Discard saved attempt?',
     discardBody: 'The paused mock exam will be cleared.',
     discard: 'Discard',
@@ -158,6 +160,9 @@ const en = {
     disclaimerTitle: 'Independent study aid',
     disclaimerText:
       'This app is not affiliated with, endorsed by, or sponsored by The JIB or the Electrotechnical Certification Scheme. ECS is a trademark of The JIB.',
+    aboutExamTitle: 'About the assessment',
+    aboutExamBody:
+      'The UK Network Infrastructure Awareness Assessment is a multiple-choice exam: 30 questions in 45 minutes, with a pass mark of 24 out of 30 (80%). It covers nine topics — from product selection and containment to fire regulations, safe installation and waste management. This app mirrors that format so you can practise under the same conditions.',
     startPractice: 'Start Practice',
     takeMock: 'Take Mock Exam',
   },
@@ -182,7 +187,8 @@ const en = {
     aboutBody:
       'Network Infrastructure Trainer is an independent offline study aid for the UK Network Infrastructure Awareness Assessment.',
     languageTitle: 'Language',
-    languageSub: 'Choose the language for the app interface. Questions stay in English, matching the real assessment.',
+    languageSub:
+      'Choose the language for the app interface. Questions stay in English, matching the real assessment.',
     appInfoTitle: 'App information',
     version: 'Version',
     build: 'Build',
@@ -240,7 +246,8 @@ const ro: Translations = {
   },
   quiz: {
     leaveTitle: 'Părăsești simularea?',
-    leaveBody: 'Progresul acestei încercări se va pierde. Cronometrul se oprește și încercarea nu va fi înregistrată.',
+    leaveBody:
+      'Progresul acestei încercări se va pierde. Cronometrul se oprește și încercarea nu va fi înregistrată.',
     keepGoing: 'Continuă',
     leave: 'Părăsește',
     noQuestions: 'Nicio întrebare disponibilă',
@@ -293,17 +300,21 @@ const ro: Translations = {
     quizPracticeBody: 'Răspunde la o întrebare pe rând, apoi citește explicația.',
     startQuiz: 'Începe quizul',
     studyCorrect: 'Studiază răspunsurile corecte',
-    studyCorrectBody: 'Citește toate cele {count} întrebări, cu răspunsul corect primul și cele greșite marcate.',
+    studyCorrectBody:
+      'Citește toate cele {count} întrebări, cu răspunsul corect primul și cele greșite marcate.',
     openAnswers: 'Deschide răspunsurile',
-    answersIntro: 'Răspunsurile corecte sunt afișate primele. Cele greșite sunt marcate dedesubt pentru comparație.',
+    answersIntro:
+      'Răspunsurile corecte sunt afișate primele. Cele greșite sunt marcate dedesubt pentru comparație.',
     backToPractice: 'Înapoi la Exersare',
     backToSections: 'Înapoi la secțiuni',
     wrongEmpty: 'Niciun răspuns greșit înregistrat încă. Răspunde mai întâi la câteva întrebări.',
     bookmarksEmpty: 'Niciun marcaj încă. Atinge steaua în timp ce răspunzi la o întrebare ca să o salvezi.',
-    weakestEmpty: 'Încă nu există statistici. Răspunde la câteva întrebări ca să construiești lista zonelor slabe.',
+    weakestEmpty:
+      'Încă nu există statistici. Răspunde la câteva întrebări ca să construiești lista zonelor slabe.',
   },
   mock: {
-    intro: 'Respectă formatul publicat al evaluării Network Infrastructure Awareness: 30 de întrebări din temele evaluării, 45 de minute, prag de promovare 24 de răspunsuri corecte.',
+    intro:
+      'Respectă formatul publicat al evaluării Network Infrastructure Awareness: 30 de întrebări din temele evaluării, 45 de minute, prag de promovare 24 de răspunsuri corecte.',
     discardTitle: 'Renunți la încercarea salvată?',
     discardBody: 'Simularea pusă pe pauză va fi ștearsă.',
     discard: 'Renunță',
@@ -334,7 +345,8 @@ const ro: Translations = {
   },
   home: {
     eyebrow: 'Mod studiu',
-    intro: 'Exersează pe teme, decodează codurile uzuale de cabluri, apoi testează-ți pregătirea pentru examen.',
+    intro:
+      'Exersează pe teme, decodează codurile uzuale de cabluri, apoi testează-ți pregătirea pentru examen.',
     startEyebrow: 'Începe aici',
     startTitle: 'Construiește bazele înainte de simulare',
     step1Title: 'Decodează codurile',
@@ -353,6 +365,9 @@ const ro: Translations = {
     disclaimerTitle: 'Ghid de studiu independent',
     disclaimerText:
       'Această aplicație nu este afiliată, aprobată sau sponsorizată de The JIB sau de Electrotechnical Certification Scheme. ECS este marcă înregistrată a The JIB.',
+    aboutExamTitle: 'Despre evaluare',
+    aboutExamBody:
+      'Evaluarea britanică Network Infrastructure Awareness este un test grilă: 30 de întrebări în 45 de minute, cu prag de promovare de 24 din 30 (80%). Acoperă nouă teme — de la selecția produselor și sisteme de susținere, la reglementări de incendiu, instalare în siguranță și gestionarea deșeurilor. Aplicația respectă acest format ca să exersezi în aceleași condiții.',
     startPractice: 'Începe exersarea',
     takeMock: 'Dă simularea',
   },
@@ -362,9 +377,11 @@ const ro: Translations = {
     openPractice: 'Deschide exersarea',
     takeMock: 'Dă simularea',
     do10Weakest: 'Rezolvă cele mai slabe 10 întrebări',
-    footer: 'Pregătit pentru simulare când fiecare secțiune are ≥ 75% acuratețe și suficiente întrebări parcurse.',
+    footer:
+      'Pregătit pentru simulare când fiecare secțiune are ≥ 75% acuratețe și suficiente întrebări parcurse.',
     suggestions: {
-      start: 'Începe cu Exersare — deschide o secțiune și răspunde la câteva întrebări ca să-ți construiești scorul de pregătire.',
+      start:
+        'Începe cu Exersare — deschide o secțiune și răspunde la câteva întrebări ca să-ți construiești scorul de pregătire.',
       mockReady: 'Ești pregătit pentru simulare. Dă o simulare și țintește 24/30 (80%).',
       weakWeakest: 'Zona cea mai slabă: {section}. Încearcă apoi modul „cele mai slabe 10 întrebări”.',
       nearlyWeakest: 'Aproape gata. Adu {section} peste {threshold}% acuratețe.',
@@ -493,10 +510,12 @@ const ru: Translations = {
     backToSections: 'Назад к разделам',
     wrongEmpty: 'Неверных ответов пока нет. Сначала ответьте на несколько вопросов.',
     bookmarksEmpty: 'Закладок пока нет. Нажмите звёздочку во время ответа, чтобы сохранить вопрос.',
-    weakestEmpty: 'Статистики пока нет. Ответьте на несколько вопросов, чтобы сформировать список слабых тем.',
+    weakestEmpty:
+      'Статистики пока нет. Ответьте на несколько вопросов, чтобы сформировать список слабых тем.',
   },
   mock: {
-    intro: 'Соответствует опубликованному формату экзамена Network Infrastructure Awareness: 30 вопросов по темам экзамена, 45 минут, проходной балл — 24 верных ответа.',
+    intro:
+      'Соответствует опубликованному формату экзамена Network Infrastructure Awareness: 30 вопросов по темам экзамена, 45 минут, проходной балл — 24 верных ответа.',
     discardTitle: 'Удалить сохранённую попытку?',
     discardBody: 'Приостановленный пробный экзамен будет удалён.',
     discard: 'Удалить',
@@ -527,7 +546,8 @@ const ru: Translations = {
   },
   home: {
     eyebrow: 'Режим обучения',
-    intro: 'Практикуйтесь по темам, разбирайте распространённые обозначения кабелей и проверяйте готовность к экзамену.',
+    intro:
+      'Практикуйтесь по темам, разбирайте распространённые обозначения кабелей и проверяйте готовность к экзамену.',
     startEyebrow: 'Начните здесь',
     startTitle: 'Освойте основы перед пробным экзаменом',
     step1Title: 'Разберите обозначения',
@@ -546,6 +566,9 @@ const ru: Translations = {
     disclaimerTitle: 'Независимое учебное пособие',
     disclaimerText:
       'Это приложение не связано с The JIB или Electrotechnical Certification Scheme, не одобрено и не спонсируется ими. ECS — товарный знак The JIB.',
+    aboutExamTitle: 'Об экзамене',
+    aboutExamBody:
+      'Британский экзамен Network Infrastructure Awareness — это тест с выбором ответа: 30 вопросов за 45 минут, проходной балл 24 из 30 (80%). Он охватывает девять тем — от выбора продукции и систем прокладки до правил пожарной безопасности, безопасного монтажа и управления отходами. Приложение повторяет этот формат, чтобы вы могли тренироваться в тех же условиях.',
     startPractice: 'Начать практику',
     takeMock: 'Пройти пробный экзамен',
   },
@@ -557,7 +580,8 @@ const ru: Translations = {
     do10Weakest: 'Решить 10 слабейших вопросов',
     footer: 'Готовность к экзамену — когда в каждом разделе ≥ 75% точности и достаточно пройдено.',
     suggestions: {
-      start: 'Начните с практики — откройте раздел и ответьте на несколько вопросов, чтобы сформировать оценку готовности.',
+      start:
+        'Начните с практики — откройте раздел и ответьте на несколько вопросов, чтобы сформировать оценку готовности.',
       mockReady: 'Вы готовы к пробному экзамену. Пройдите его и стремитесь к 24/30 (80%).',
       weakWeakest: 'Самая слабая тема: {section}. Дальше попробуйте режим «10 слабейших вопросов».',
       nearlyWeakest: 'Почти готово. Поднимите {section} выше {threshold}% точности.',

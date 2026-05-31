@@ -32,7 +32,9 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
           <StepItem number="3" title={t.home.step3Title} body={t.home.step3Body} />
         </View>
         <View style={styles.startActions}>
-          <PrimaryButton onPress={() => navigation.navigate('DecoderTab')}>{t.home.openDecoder}</PrimaryButton>
+          <PrimaryButton onPress={() => navigation.navigate('DecoderTab')}>
+            {t.home.openDecoder}
+          </PrimaryButton>
           <PrimaryButton onPress={() => navigation.navigate('PracticeTab')} variant="secondary">
             {t.home.chooseSection}
           </PrimaryButton>
@@ -52,6 +54,11 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
           <Text style={styles.statNumber}>{totalAnswered}</Text>
           <Text style={styles.statLabel}>{t.home.statAnswered}</Text>
         </View>
+      </View>
+
+      <View style={styles.panel}>
+        <Text style={styles.panelTitle}>{t.home.aboutExamTitle}</Text>
+        <Text style={styles.panelBody}>{t.home.aboutExamBody}</Text>
       </View>
 
       <View style={styles.readinessSlot}>
@@ -83,7 +90,9 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
       </View>
 
       <View style={styles.actions}>
-        <PrimaryButton onPress={() => navigation.navigate('PracticeTab')}>{t.home.startPractice}</PrimaryButton>
+        <PrimaryButton onPress={() => navigation.navigate('PracticeTab')}>
+          {t.home.startPractice}
+        </PrimaryButton>
         <PrimaryButton onPress={() => navigation.navigate('MockExamTab')} variant="secondary">
           {t.home.takeMock}
         </PrimaryButton>

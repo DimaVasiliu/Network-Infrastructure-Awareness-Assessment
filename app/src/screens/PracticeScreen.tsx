@@ -53,7 +53,9 @@ export function PracticeScreen({ navigation }: PracticeHomeProps) {
           >
             <View style={styles.sectionCardText}>
               <Text style={styles.sectionTitle}>{section}</Text>
-              <Text style={styles.sectionMeta}>{count} {t.practice.questions}</Text>
+              <Text style={styles.sectionMeta}>
+                {count} {t.practice.questions}
+              </Text>
             </View>
             <Text style={styles.arrow}>{t.common.start}</Text>
           </Pressable>
@@ -85,7 +87,9 @@ export function PracticeScreen({ navigation }: PracticeHomeProps) {
           <FocusCard
             title={t.practice.reviewWrongTitle}
             subtitle={
-              wrongCount === 0 ? t.practice.noWrongYet : t.practice.toRevisit.replace('{n}', String(wrongCount))
+              wrongCount === 0
+                ? t.practice.noWrongYet
+                : t.practice.toRevisit.replace('{n}', String(wrongCount))
             }
             enabled={wrongCount > 0}
             onPress={() => navigation.navigate('PracticeFocus', { focus: 'wrong' })}
@@ -244,7 +248,9 @@ export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswers
 
           return (
             <View key={question.id} style={styles.answerCard}>
-              <Text style={styles.questionMeta}>{t.quiz.question} {index + 1}</Text>
+              <Text style={styles.questionMeta}>
+                {t.quiz.question} {index + 1}
+              </Text>
               <Text style={styles.answerQuestion}>{question.question}</Text>
 
               <View style={styles.choiceList}>
@@ -272,7 +278,9 @@ export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswers
 
               <Text style={styles.explanation}>{localizeExplanation(question, language)}</Text>
               {question.standardRef ? (
-                <Text style={styles.standardRef}>{t.quiz.reference} {question.standardRef}</Text>
+                <Text style={styles.standardRef}>
+                  {t.quiz.reference} {question.standardRef}
+                </Text>
               ) : null}
             </View>
           );

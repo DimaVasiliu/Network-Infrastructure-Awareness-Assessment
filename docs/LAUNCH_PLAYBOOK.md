@@ -87,7 +87,7 @@ Go to **App Privacy → Get Started**. Use the answer table from `LAUNCH_COMPLIA
 - Promotional Text (170 char limit): paste from `STORE_LISTING.md` → "Promotional Text"
 - Description: paste full description from `STORE_LISTING.md` (disclaimer block stays in)
 - Keywords: paste keyword string from `STORE_LISTING.md` (no "ECS", no "JIB")
-- Support URL: `https://timrx.live`
+- Support URL: `https://timrx.live/nia/support`
 - Marketing URL: `https://timrx.live`
 
 **Screenshots** — required sizes (one set of each is enough; Apple scales):
@@ -189,9 +189,11 @@ Same trader-identity block as Apple:
 - Trader name: Dumitru Vasiliu (TimrX)
 - Address, email, phone — must match ICO record
 
-### 7. Closed testing first (optional but recommended)
+### 7. Closed testing first (required for new personal Play accounts)
 
-Create a Closed Testing track with your own email + 2 friends. Upload the production AAB. Once it passes Google review (1–3 days), promote to Production.
+If your Google Play developer account is a **personal** account created after **November 2023**, closed testing is **mandatory before you can publish to Production**: Google requires at least **12 testers opted in for 14 continuous days** before it unlocks production access. (Organisation/company accounts are exempt.)
+
+Steps: create a Closed Testing track, add **≥12 testers** (each must accept the opt-in link), upload the production AAB, and keep the test running for **14 days**. Once eligible and the build passes Google review, apply for production access and promote to Production. Allow extra calendar time for this in your launch plan.
 
 ---
 

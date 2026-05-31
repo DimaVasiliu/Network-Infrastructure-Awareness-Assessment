@@ -13,7 +13,9 @@ function localisedSuggestion(report: ReadinessReport, s: Translations['readiness
   if (mockReady) return s.mockReady;
   if (weakest.score < 50) return s.weakWeakest.replace('{section}', weakest.section);
   if (weakest.score < mockReadyThreshold) {
-    return s.nearlyWeakest.replace('{section}', weakest.section).replace('{threshold}', String(mockReadyThreshold));
+    return s.nearlyWeakest
+      .replace('{section}', weakest.section)
+      .replace('{threshold}', String(mockReadyThreshold));
   }
   if (overall < mockReadyThreshold) return s.keepPracticing;
   return s.solid;

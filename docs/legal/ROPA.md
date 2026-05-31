@@ -32,7 +32,7 @@ ICO on request. Review at least annually and whenever processing changes.
 | Field | Detail |
 |---|---|
 | Purpose of processing | Detecting and fixing crashes and faults to keep the App stable |
-| Lawful basis | Consent — diagnostics are optional and can be turned off in the App's About screen |
+| Lawful basis | Legitimate interests (Art. 6(1)(f) UK GDPR) — improving app reliability for all users. Data is minimised (no user ID, no IP) and users can opt out via the "Send anonymous crash reports" toggle in About |
 | Categories of data subjects | Users who leave crash reporting enabled |
 | Categories of personal data | Crash logs: device model, OS version, app version, stack traces. No user ID, no account ID, no IP address linkage |
 | Special category data | None |
