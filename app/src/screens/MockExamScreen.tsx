@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -103,19 +103,21 @@ export function MockExamScreen({ navigation }: MockExamHomeProps) {
 }
 
 export function MockExamRunScreen({ navigation }: MockExamRunProps) {
-  const mockSession = useProgressStore((state) => state.mockSession);
   const saveMockSession = useProgressStore((state) => state.saveMockSession);
   const clearMockSession = useProgressStore((state) => state.clearMockSession);
   const addAttempt = useProgressStore((state) => state.addAttempt);
 
-  // Build a fresh exam OR rehydrate the persisted one. Captured once on mount
-  // so changes to the saved session don't reshuffle questions mid-attempt.
+  // Build a fresh exam OR rehydrate the persisted one. The saved session is read
+  // non-reactively (getState) and captured once on mount, so the per-second
+  // snapshot saves during the attempt don't re-render this screen or reshuffle
+  // questions mid-attempt.
   const [examQuestions] = useState<Question[]>(() => {
-    if (mockSession) {
-      const rehydrated = mockSession.questionIds
+    const saved = useProgressStore.getState().mockSession;
+    if (saved) {
+      const rehydrated = saved.questionIds
         .map((id) => questionMap[id])
         .filter((q): q is Question => Boolean(q));
-      if (rehydrated.length === mockSession.questionIds.length) {
+      if (rehydrated.length === saved.questionIds.length) {
         return rehydrated;
       }
       // Saved exam references unknown ids (rare). Fall through to fresh exam.
@@ -124,32 +126,37 @@ export function MockExamRunScreen({ navigation }: MockExamRunProps) {
   });
 
   const resumeFrom = useMemo<QuizSnapshot | undefined>(() => {
-    if (!mockSession) return undefined;
+    const saved = useProgressStore.getState().mockSession;
+    if (!saved) return undefined;
     return {
-      answers: mockSession.answers,
-      choiceOrders: mockSession.choiceOrders,
-      currentIndex: mockSession.currentIndex,
-      remainingSeconds: mockSession.remainingSeconds,
+      answers: saved.answers,
+      choiceOrders: saved.choiceOrders,
+      currentIndex: saved.currentIndex,
+      remainingSeconds: saved.remainingSeconds,
     };
-    // intentionally NOT depending on mockSession changes after mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function persistSnapshot(snapshot: QuizSnapshot) {
-    saveMockSession({
-      questionIds: examQuestions.map((q) => q.id),
-      answers: snapshot.answers,
-      choiceOrders: snapshot.choiceOrders,
-      currentIndex: snapshot.currentIndex,
-      remainingSeconds: snapshot.remainingSeconds ?? 0,
-      savedAt: new Date().toISOString(),
-    });
-  }
+  const persistSnapshot = useCallback(
+    (snapshot: QuizSnapshot) => {
+      saveMockSession({
+        questionIds: examQuestions.map((q) => q.id),
+        answers: snapshot.answers,
+        choiceOrders: snapshot.choiceOrders,
+        currentIndex: snapshot.currentIndex,
+        remainingSeconds: snapshot.remainingSeconds ?? 0,
+        savedAt: new Date().toISOString(),
+      });
+    },
+    [saveMockSession, examQuestions],
+  );
 
-  function completeAttempt(attempt: QuizAttempt) {
-    addAttempt(attempt);
-    clearMockSession();
-  }
+  const completeAttempt = useCallback(
+    (attempt: QuizAttempt) => {
+      addAttempt(attempt);
+      clearMockSession();
+    },
+    [addAttempt, clearMockSession],
+  );
 
   return (
     <QuizRunner

@@ -60,6 +60,7 @@ export function QuizRunner({
   const answersRef = useRef<Record<string, AnswerChoice>>(resumeFrom?.answers ?? {});
   const hasFinishedRef = useRef(false);
   const onExitRef = useRef(onExit);
+  const onSnapshotRef = useRef(onSnapshot);
   const bookmarks = useProgressStore((state) => state.bookmarks);
   const toggleBookmark = useProgressStore((state) => state.toggleBookmark);
   const currentQuestion = questions[currentIndex];
@@ -136,15 +137,18 @@ export function QuizRunner({
 
   useEffect(() => {
     onExitRef.current = onExit;
+    onSnapshotRef.current = onSnapshot;
     requestExitRef.current = requestExit;
-  }, [onExit, requestExit]);
+  }, [onExit, onSnapshot, requestExit]);
 
   // Tell the parent whenever live state changes so it can persist a snapshot.
   // Skipped once the attempt has finished — the snapshot is no longer useful.
+  // onSnapshot is read through a ref so an unstable callback identity from the
+  // parent cannot retrigger this effect (which previously caused an update loop).
   useEffect(() => {
-    if (!onSnapshot || hasFinishedRef.current || status !== 'answering') return;
-    onSnapshot({ answers, choiceOrders, currentIndex, remainingSeconds });
-  }, [answers, choiceOrders, currentIndex, onSnapshot, remainingSeconds, status]);
+    if (!onSnapshotRef.current || hasFinishedRef.current || status !== 'answering') return;
+    onSnapshotRef.current({ answers, choiceOrders, currentIndex, remainingSeconds });
+  }, [answers, choiceOrders, currentIndex, remainingSeconds, status]);
 
   useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -314,10 +318,11 @@ export function QuizRunner({
               {questions.map((q, idx) => {
                 const isAnswered = Boolean(answers[q.id]);
                 const isCurrent = idx === currentIndex;
+                const isBookmarked = bookmarks.includes(q.id);
                 return (
                   <Pressable
                     accessibilityRole="button"
-                    accessibilityLabel={`${t.quiz.question} ${idx + 1}${isAnswered ? `, ${t.quiz.answered}` : `, ${t.quiz.unanswered}`}`}
+                    accessibilityLabel={`${t.quiz.question} ${idx + 1}${isAnswered ? `, ${t.quiz.answered}` : `, ${t.quiz.unanswered}`}${isBookmarked ? `, ${t.quiz.bookmarked}` : ''}`}
                     key={q.id}
                     onPress={() => {
                       setCurrentIndex(idx);
@@ -326,6 +331,7 @@ export function QuizRunner({
                     style={[
                       styles.navCell,
                       isAnswered && styles.navCellAnswered,
+                      isBookmarked && styles.navCellBookmarked,
                       isCurrent && styles.navCellCurrent,
                     ]}
                   >
@@ -338,6 +344,7 @@ export function QuizRunner({
                     >
                       {idx + 1}
                     </Text>
+                    {isBookmarked ? <Text style={styles.navCellStar}>★</Text> : null}
                   </Pressable>
                 );
               })}
@@ -501,6 +508,16 @@ const styles = StyleSheet.create({
   navCellCurrent: {
     backgroundColor: colors.primary,
     borderColor: colors.primary,
+  },
+  navCellBookmarked: {
+    borderColor: colors.warning,
+  },
+  navCellStar: {
+    color: colors.warning,
+    fontSize: 9,
+    position: 'absolute',
+    right: 2,
+    top: 1,
   },
   navCellLabel: {
     color: colors.text,
