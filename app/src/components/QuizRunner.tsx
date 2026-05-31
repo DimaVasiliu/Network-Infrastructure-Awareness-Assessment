@@ -1,14 +1,18 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, BackHandler, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { useLanguage, useT } from '../i18n';
+import { localizeExplanation } from '../i18n/questionContent';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
 import type { AnswerChoice, Question, QuestionSection } from '../types/question';
 import type { AttemptAnswer, QuizAttempt, QuizMode } from '../types/progress';
+import { answerChoices, buildChoiceOrderMap } from '../utils/questions';
 import { PrimaryButton } from './PrimaryButton';
 
 export type QuizSnapshot = {
   answers: Record<string, AnswerChoice>;
+  choiceOrders?: Record<string, AnswerChoice[]>;
   currentIndex: number;
   remainingSeconds: number | undefined;
 };
@@ -30,8 +34,6 @@ type QuizRunnerProps = {
 
 type QuizStatus = 'answering' | 'review';
 
-const choices: AnswerChoice[] = ['A', 'B', 'C', 'D'];
-
 export function QuizRunner({
   mode,
   questions,
@@ -44,8 +46,13 @@ export function QuizRunner({
   resumeFrom,
   onSnapshot,
 }: QuizRunnerProps) {
+  const language = useLanguage();
+  const t = useT();
   const [currentIndex, setCurrentIndex] = useState(resumeFrom?.currentIndex ?? 0);
   const [answers, setAnswers] = useState<Record<string, AnswerChoice>>(resumeFrom?.answers ?? {});
+  const [choiceOrders] = useState<Record<string, AnswerChoice[]>>(
+    () => resumeFrom?.choiceOrders ?? buildChoiceOrderMap(questions),
+  );
   const [status, setStatus] = useState<QuizStatus>('answering');
   const [isNavigatorOpen, setIsNavigatorOpen] = useState(false);
   const [startedAt] = useState(() => Date.now());
@@ -116,18 +123,14 @@ export function QuizRunner({
   const requestExit = useCallback(() => {
     // Only confirm when the user could lose an in-progress mock attempt.
     if (mode === 'mockExam' && status === 'answering' && !hasFinishedRef.current) {
-      Alert.alert(
-        'Leave mock exam?',
-        'Your progress on this attempt will be lost. The timer will stop and the attempt will not be recorded.',
-        [
-          { text: 'Keep going', style: 'cancel' },
-          { text: 'Leave', style: 'destructive', onPress: () => onExit() },
-        ],
-      );
+      Alert.alert(t.quiz.leaveTitle, t.quiz.leaveBody, [
+        { text: t.quiz.keepGoing, style: 'cancel' },
+        { text: t.quiz.leave, style: 'destructive', onPress: () => onExit() },
+      ]);
       return;
     }
     onExit();
-  }, [mode, onExit, status]);
+  }, [mode, onExit, status, t]);
 
   const requestExitRef = useRef(requestExit);
 
@@ -140,8 +143,8 @@ export function QuizRunner({
   // Skipped once the attempt has finished — the snapshot is no longer useful.
   useEffect(() => {
     if (!onSnapshot || hasFinishedRef.current || status !== 'answering') return;
-    onSnapshot({ answers, currentIndex, remainingSeconds });
-  }, [answers, currentIndex, onSnapshot, remainingSeconds, status]);
+    onSnapshot({ answers, choiceOrders, currentIndex, remainingSeconds });
+  }, [answers, choiceOrders, currentIndex, onSnapshot, remainingSeconds, status]);
 
   useEffect(() => {
     const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -203,8 +206,8 @@ export function QuizRunner({
   if (!currentQuestion) {
     return (
       <View style={styles.emptyState}>
-        <Text style={styles.title}>No questions available</Text>
-        <PrimaryButton onPress={onExit}>Back</PrimaryButton>
+        <Text style={styles.title}>{t.quiz.noQuestions}</Text>
+        <PrimaryButton onPress={onExit}>{t.quiz.back}</PrimaryButton>
       </View>
     );
   }
@@ -216,7 +219,9 @@ export function QuizRunner({
 
     return (
       <ScrollView contentContainerStyle={styles.reviewContent} style={styles.container}>
-        <Text style={styles.kicker}>{mode === 'mockExam' ? 'Mock exam complete' : 'Practice complete'}</Text>
+        <Text style={styles.kicker}>
+          {mode === 'mockExam' ? t.quiz.mockComplete : t.quiz.practiceComplete}
+        </Text>
         <Text style={styles.score}>
           {correct}/{questions.length}
         </Text>
@@ -224,9 +229,9 @@ export function QuizRunner({
           {score}%{' '}
           {requiredScore
             ? correct >= requiredScore
-              ? 'Pass'
-              : `Pass mark ${requiredScore}`
-            : 'answered correctly'}
+              ? t.quiz.pass
+              : t.quiz.passMark.replace('{n}', String(requiredScore))
+            : t.quiz.answeredCorrectly}
         </Text>
 
         <View style={styles.reviewList}>
@@ -236,27 +241,32 @@ export function QuizRunner({
 
             return (
               <View key={question.id} style={styles.reviewCard}>
-                <Text style={styles.reviewMeta}>Question {index + 1}</Text>
+                <Text style={styles.reviewMeta}>
+                  {t.quiz.question} {index + 1}
+                </Text>
                 <Text style={styles.reviewQuestion}>{question.question}</Text>
                 <Text style={[styles.reviewAnswer, isCorrect ? styles.correctText : styles.incorrectText]}>
-                  Your answer: {answer ? `${answer} — ${question.choices[answer]}` : 'No answer'}{' '}
+                  {t.quiz.yourAnswer} {answer ? `${answer} — ${question.choices[answer]}` : t.quiz.noAnswer}{' '}
                   {isCorrect ? '✓' : '✗'}
                 </Text>
                 {!isCorrect ? (
                   <Text style={styles.reviewAnswer}>
-                    Correct answer: {question.correctAnswer} — {question.choices[question.correctAnswer]}
+                    {t.quiz.correctAnswer} {question.correctAnswer} —{' '}
+                    {question.choices[question.correctAnswer]}
                   </Text>
                 ) : null}
-                <Text style={styles.explanation}>{question.explanation}</Text>
+                <Text style={styles.explanation}>{localizeExplanation(question, language)}</Text>
                 {question.standardRef ? (
-                  <Text style={styles.standardRef}>Reference: {question.standardRef}</Text>
+                  <Text style={styles.standardRef}>
+                    {t.quiz.reference} {question.standardRef}
+                  </Text>
                 ) : null}
               </View>
             );
           })}
         </View>
 
-        <PrimaryButton onPress={onExit}>Done</PrimaryButton>
+        <PrimaryButton onPress={onExit}>{t.quiz.done}</PrimaryButton>
       </ScrollView>
     );
   }
@@ -265,7 +275,7 @@ export function QuizRunner({
     <ScrollView contentContainerStyle={styles.content} style={styles.container}>
       <View style={styles.topRow}>
         <Text style={styles.kicker}>
-          {currentIndex + 1} of {questions.length}
+          {currentIndex + 1} {t.quiz.of} {questions.length}
         </Text>
         <View style={styles.topRowRight}>
           {remainingSeconds !== undefined ? (
@@ -273,7 +283,7 @@ export function QuizRunner({
           ) : null}
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={isBookmarked ? 'Remove bookmark' : 'Bookmark question'}
+            accessibilityLabel={isBookmarked ? t.quiz.removeBookmark : t.quiz.bookmarkQuestion}
             accessibilityState={{ selected: isBookmarked }}
             hitSlop={8}
             onPress={() => toggleBookmark(currentQuestion.id)}
@@ -295,9 +305,9 @@ export function QuizRunner({
             style={styles.navToggle}
           >
             <Text style={styles.navToggleText}>
-              {Object.keys(answers).length}/{questions.length} answered
+              {Object.keys(answers).length}/{questions.length} {t.quiz.answered}
             </Text>
-            <Text style={styles.navToggleAction}>{isNavigatorOpen ? 'Hide' : 'Jump to…'}</Text>
+            <Text style={styles.navToggleAction}>{isNavigatorOpen ? t.quiz.hide : t.quiz.jumpTo}</Text>
           </Pressable>
           {isNavigatorOpen ? (
             <View style={styles.navGrid}>
@@ -307,7 +317,7 @@ export function QuizRunner({
                 return (
                   <Pressable
                     accessibilityRole="button"
-                    accessibilityLabel={`Question ${idx + 1}${isAnswered ? ', answered' : ', unanswered'}`}
+                    accessibilityLabel={`${t.quiz.question} ${idx + 1}${isAnswered ? `, ${t.quiz.answered}` : `, ${t.quiz.unanswered}`}`}
                     key={q.id}
                     onPress={() => {
                       setCurrentIndex(idx);
@@ -340,7 +350,7 @@ export function QuizRunner({
       <Text style={styles.title}>{currentQuestion.question}</Text>
 
       <View style={styles.choiceList}>
-        {choices.map((choice) => {
+        {(choiceOrders[currentQuestion.id] ?? answerChoices).map((choice) => {
           const isSelected = selectedAnswer === choice;
           const isCorrect = currentQuestion.correctAnswer === choice;
           const shouldShowFeedback = showImmediateFeedback && selectedAnswer;
@@ -372,21 +382,23 @@ export function QuizRunner({
               selectedAnswer === currentQuestion.correctAnswer ? styles.correctText : styles.incorrectText
             }
           >
-            {selectedAnswer === currentQuestion.correctAnswer ? 'Correct' : 'Incorrect'}
+            {selectedAnswer === currentQuestion.correctAnswer ? t.quiz.correct : t.quiz.incorrect}
           </Text>
-          <Text style={styles.explanation}>{currentQuestion.explanation}</Text>
+          <Text style={styles.explanation}>{localizeExplanation(currentQuestion, language)}</Text>
           {currentQuestion.standardRef ? (
-            <Text style={styles.standardRef}>Reference: {currentQuestion.standardRef}</Text>
+            <Text style={styles.standardRef}>
+              {t.quiz.reference} {currentQuestion.standardRef}
+            </Text>
           ) : null}
         </View>
       ) : null}
 
       <View style={styles.actions}>
         <PrimaryButton disabled={!selectedAnswer && mode === 'practice'} onPress={goNext}>
-          {isLastQuestion ? 'Finish' : 'Next'}
+          {isLastQuestion ? t.quiz.finish : t.quiz.next}
         </PrimaryButton>
         <PrimaryButton onPress={requestExit} variant="secondary">
-          Exit
+          {t.quiz.exit}
         </PrimaryButton>
       </View>
     </ScrollView>

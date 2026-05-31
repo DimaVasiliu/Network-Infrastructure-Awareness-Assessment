@@ -20,3 +20,13 @@ export type Question = {
   explanation: string;
   standardRef?: string;
 };
+
+/**
+ * Localized overlay for a question. By design only the EXPLANATION is
+ * translated — question text and answer choices stay in English to match the
+ * real (English-only) assessment. id, section, correctAnswer and standardRef
+ * are unaffected.
+ */
+export type QuestionTranslation = {
+  explanation: string;
+};

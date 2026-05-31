@@ -3,6 +3,8 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { QuizRunner } from '../components/QuizRunner';
+import { useLanguage, useT, type Translations } from '../i18n';
+import { localizeExplanation } from '../i18n/questionContent';
 import type { PracticeStackParamList } from '../navigation/AppTabs';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
@@ -25,6 +27,7 @@ type PracticeAnswersProps = NativeStackScreenProps<PracticeStackParamList, 'Prac
 type PracticeFocusProps = NativeStackScreenProps<PracticeStackParamList, 'PracticeFocus'>;
 
 export function PracticeScreen({ navigation }: PracticeHomeProps) {
+  const t = useT();
   const bookmarks = useProgressStore((state) => state.bookmarks);
   const stats = useProgressStore((state) => state.stats);
   const [isFocusOpen, setIsFocusOpen] = useState(false);
@@ -36,12 +39,10 @@ export function PracticeScreen({ navigation }: PracticeHomeProps) {
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
-      <Text style={styles.title}>Practice</Text>
-      <Text style={styles.body}>
-        Start with a section. Focused practice is available when you have progress.
-      </Text>
+      <Text style={styles.title}>{t.practice.title}</Text>
+      <Text style={styles.body}>{t.practice.intro}</Text>
 
-      <Text style={styles.subheading}>By section</Text>
+      <Text style={styles.subheading}>{t.practice.bySection}</Text>
       <View style={styles.sectionList}>
         {sectionCounts().map(({ section, count }) => (
           <Pressable
@@ -52,9 +53,9 @@ export function PracticeScreen({ navigation }: PracticeHomeProps) {
           >
             <View style={styles.sectionCardText}>
               <Text style={styles.sectionTitle}>{section}</Text>
-              <Text style={styles.sectionMeta}>{count} questions</Text>
+              <Text style={styles.sectionMeta}>{count} {t.practice.questions}</Text>
             </View>
-            <Text style={styles.arrow}>Start</Text>
+            <Text style={styles.arrow}>{t.common.start}</Text>
           </Pressable>
         ))}
       </View>
@@ -66,11 +67,14 @@ export function PracticeScreen({ navigation }: PracticeHomeProps) {
         style={styles.focusToggle}
       >
         <View style={styles.focusToggleText}>
-          <Text style={styles.focusToggleTitle}>Focused practice</Text>
+          <Text style={styles.focusToggleTitle}>{t.practice.focusedPractice}</Text>
           <Text style={styles.focusToggleSubtitle}>
             {focusTotal === 0
-              ? 'Wrong answers, weakest questions and bookmarks appear here.'
-              : `${focusTotal} saved focus item${focusTotal === 1 ? '' : 's'}`}
+              ? t.practice.focusEmptyHint
+              : (focusTotal === 1 ? t.practice.focusItemsOne : t.practice.focusItemsMany).replace(
+                  '{n}',
+                  String(focusTotal),
+                )}
           </Text>
         </View>
         <Text style={styles.focusChevron}>{isFocusOpen ? '-' : '+'}</Text>
@@ -79,27 +83,32 @@ export function PracticeScreen({ navigation }: PracticeHomeProps) {
       {isFocusOpen ? (
         <View style={styles.focusList}>
           <FocusCard
-            title="Review wrong answers"
-            subtitle={wrongCount === 0 ? 'No wrong answers logged yet' : `${wrongCount} to revisit`}
+            title={t.practice.reviewWrongTitle}
+            subtitle={
+              wrongCount === 0 ? t.practice.noWrongYet : t.practice.toRevisit.replace('{n}', String(wrongCount))
+            }
             enabled={wrongCount > 0}
             onPress={() => navigation.navigate('PracticeFocus', { focus: 'wrong' })}
           />
           <FocusCard
-            title="10 weakest questions"
+            title={t.practice.weakestTitle}
             subtitle={
               weakestCount === 0
-                ? 'Answer more questions to build a weak-area list'
-                : `${weakestCount} question${weakestCount === 1 ? '' : 's'} by lowest accuracy`
+                ? t.practice.weakestEmptyHint
+                : (weakestCount === 1
+                    ? t.practice.weakestByAccuracyOne
+                    : t.practice.weakestByAccuracyMany
+                  ).replace('{n}', String(weakestCount))
             }
             enabled={weakestCount > 0}
             onPress={() => navigation.navigate('PracticeFocus', { focus: 'weakest' })}
           />
           <FocusCard
-            title="Bookmarked questions"
+            title={t.practice.bookmarkedTitle}
             subtitle={
               bookmarkCount === 0
-                ? 'Tap the star while answering to bookmark a question'
-                : `${bookmarkCount} saved`
+                ? t.practice.bookmarksEmptyHint
+                : t.practice.savedCount.replace('{n}', String(bookmarkCount))
             }
             enabled={bookmarkCount > 0}
             onPress={() => navigation.navigate('PracticeFocus', { focus: 'bookmarks' })}
@@ -111,13 +120,14 @@ export function PracticeScreen({ navigation }: PracticeHomeProps) {
 }
 
 export function PracticeSectionScreen({ navigation, route }: PracticeSectionProps) {
+  const t = useT();
   const { section } = route.params;
   const count = questionsForSection(section).length;
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <Text style={styles.title}>{section}</Text>
-      <Text style={styles.body}>Choose how you want to practise this section.</Text>
+      <Text style={styles.body}>{t.practice.sectionIntro}</Text>
 
       <View style={styles.modeList}>
         <Pressable
@@ -125,9 +135,9 @@ export function PracticeSectionScreen({ navigation, route }: PracticeSectionProp
           onPress={() => navigation.navigate('PracticeQuiz', { section })}
           style={styles.modeCard}
         >
-          <Text style={styles.modeTitle}>Quiz practice</Text>
-          <Text style={styles.modeBody}>Answer one question at a time, then review the explanation.</Text>
-          <Text style={styles.modeAction}>Start quiz</Text>
+          <Text style={styles.modeTitle}>{t.practice.quizPractice}</Text>
+          <Text style={styles.modeBody}>{t.practice.quizPracticeBody}</Text>
+          <Text style={styles.modeAction}>{t.practice.startQuiz}</Text>
         </Pressable>
 
         <Pressable
@@ -135,11 +145,9 @@ export function PracticeSectionScreen({ navigation, route }: PracticeSectionProp
           onPress={() => navigation.navigate('PracticeAnswers', { section })}
           style={styles.modeCard}
         >
-          <Text style={styles.modeTitle}>Study correct answers</Text>
-          <Text style={styles.modeBody}>
-            Read all {count} questions with the correct answer first and wrong answers marked.
-          </Text>
-          <Text style={styles.modeAction}>Open answers</Text>
+          <Text style={styles.modeTitle}>{t.practice.studyCorrect}</Text>
+          <Text style={styles.modeBody}>{t.practice.studyCorrectBody.replace('{count}', String(count))}</Text>
+          <Text style={styles.modeAction}>{t.practice.openAnswers}</Text>
         </Pressable>
       </View>
     </ScrollView>
@@ -168,6 +176,7 @@ export function PracticeQuizScreen({ navigation, route }: PracticeQuizProps) {
 }
 
 export function PracticeFocusScreen({ navigation, route }: PracticeFocusProps) {
+  const t = useT();
   const { focus } = route.params;
   const addAttempt = useProgressStore((state) => state.addAttempt);
   const bookmarks = useProgressStore((state) => state.bookmarks);
@@ -186,10 +195,10 @@ export function PracticeFocusScreen({ navigation, route }: PracticeFocusProps) {
   if (sessionQuestions.length === 0) {
     return (
       <ScrollView contentContainerStyle={styles.screen}>
-        <Text style={styles.title}>{titleForFocus(focus)}</Text>
-        <Text style={styles.body}>{emptyMessageForFocus(focus)}</Text>
+        <Text style={styles.title}>{titleForFocus(focus, t.practice)}</Text>
+        <Text style={styles.body}>{emptyMessageForFocus(focus, t.practice)}</Text>
         <Pressable accessibilityRole="button" onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Text style={styles.backButtonText}>Back to Practice</Text>
+          <Text style={styles.backButtonText}>{t.practice.backToPractice}</Text>
         </Pressable>
       </ScrollView>
     );
@@ -206,28 +215,28 @@ export function PracticeFocusScreen({ navigation, route }: PracticeFocusProps) {
   );
 }
 
-function titleForFocus(focus: 'wrong' | 'bookmarks' | 'weakest') {
-  if (focus === 'wrong') return 'Review wrong answers';
-  if (focus === 'bookmarks') return 'Bookmarked questions';
-  return '10 weakest questions';
+function titleForFocus(focus: 'wrong' | 'bookmarks' | 'weakest', p: Translations['practice']) {
+  if (focus === 'wrong') return p.reviewWrongTitle;
+  if (focus === 'bookmarks') return p.bookmarkedTitle;
+  return p.weakestTitle;
 }
 
-function emptyMessageForFocus(focus: 'wrong' | 'bookmarks' | 'weakest') {
-  if (focus === 'wrong') return 'No wrong answers logged yet. Answer some questions first.';
-  if (focus === 'bookmarks') return 'No bookmarks yet. Tap the star while answering a question to save it.';
-  return 'No question stats yet. Answer a few questions to build a weak-area list.';
+function emptyMessageForFocus(focus: 'wrong' | 'bookmarks' | 'weakest', p: Translations['practice']) {
+  if (focus === 'wrong') return p.wrongEmpty;
+  if (focus === 'bookmarks') return p.bookmarksEmpty;
+  return p.weakestEmpty;
 }
 
 export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswersProps) {
+  const t = useT();
+  const language = useLanguage();
   const { section } = route.params;
   const questions = questionsForSection(section);
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <Text style={styles.title}>{section}</Text>
-      <Text style={styles.body}>
-        Correct answers are shown first. Wrong answers are marked below for comparison.
-      </Text>
+      <Text style={styles.body}>{t.practice.answersIntro}</Text>
 
       <View style={styles.answerList}>
         {questions.map((question, index) => {
@@ -235,7 +244,7 @@ export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswers
 
           return (
             <View key={question.id} style={styles.answerCard}>
-              <Text style={styles.questionMeta}>Question {index + 1}</Text>
+              <Text style={styles.questionMeta}>{t.quiz.question} {index + 1}</Text>
               <Text style={styles.answerQuestion}>{question.question}</Text>
 
               <View style={styles.choiceList}>
@@ -261,9 +270,9 @@ export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswers
                 })}
               </View>
 
-              <Text style={styles.explanation}>{question.explanation}</Text>
+              <Text style={styles.explanation}>{localizeExplanation(question, language)}</Text>
               {question.standardRef ? (
-                <Text style={styles.standardRef}>Reference: {question.standardRef}</Text>
+                <Text style={styles.standardRef}>{t.quiz.reference} {question.standardRef}</Text>
               ) : null}
             </View>
           );
@@ -271,7 +280,7 @@ export function PracticeAnswerStudyScreen({ navigation, route }: PracticeAnswers
       </View>
 
       <Pressable accessibilityRole="button" onPress={() => navigation.popToTop()} style={styles.backButton}>
-        <Text style={styles.backButtonText}>Back to sections</Text>
+        <Text style={styles.backButtonText}>{t.practice.backToSections}</Text>
       </Pressable>
     </ScrollView>
   );

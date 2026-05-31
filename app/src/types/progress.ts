@@ -34,6 +34,7 @@ export type QuestionStat = {
 export type MockSessionSnapshot = {
   questionIds: string[];
   answers: Record<string, AnswerChoice>;
+  choiceOrders?: Record<string, AnswerChoice[]>;
   currentIndex: number;
   remainingSeconds: number;
   savedAt: string;

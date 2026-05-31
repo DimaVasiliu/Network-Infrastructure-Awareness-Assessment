@@ -1,6 +1,7 @@
 import { Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 
 import appJson from '../../app.json';
+import { languageNames, useLanguage, useSetLanguage, useT, type Language } from '../i18n';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
 
@@ -11,51 +12,73 @@ const REFUND_URL = 'https://timrx.live/legal/nia/refunds';
 const EULA_URL = 'https://timrx.live/legal/nia/eula';
 
 const appVersion = appJson.expo.version;
+const LANGUAGE_ORDER: Language[] = ['en', 'ro', 'ru'];
 
 export function SettingsScreen() {
+  const t = useT();
+  const language = useLanguage();
+  const setLanguage = useSetLanguage();
   const crashReportingOptOut = useProgressStore((state) => state.crashReportingOptOut);
   const setCrashReportingOptOut = useProgressStore((state) => state.setCrashReportingOptOut);
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
-      <Text style={styles.title}>About</Text>
-      <Text style={styles.body}>
-        Network Infrastructure Trainer is an independent offline study aid for the UK Network Infrastructure
-        Awareness Assessment.
-      </Text>
+      <Text style={styles.title}>{t.settings.aboutTitle}</Text>
+      <Text style={styles.body}>{t.settings.aboutBody}</Text>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>App information</Text>
-        <Row label="Version" value={appVersion} />
-        <Row label="Build" value="Production" />
-        <Row label="Data" value="Stored only on this device" />
+        <Text style={styles.cardTitle}>{t.settings.languageTitle}</Text>
+        <Text style={styles.cardText}>{t.settings.languageSub}</Text>
+        <View style={styles.languageRow}>
+          {LANGUAGE_ORDER.map((item) => {
+            const isActive = item === language;
+            return (
+              <Pressable
+                key={item}
+                accessibilityRole="button"
+                accessibilityState={{ selected: isActive }}
+                accessibilityLabel={languageNames[item]}
+                onPress={() => setLanguage(item)}
+                style={[styles.languageButton, isActive && styles.activeLanguageButton]}
+              >
+                <Text style={[styles.languageLabel, isActive && styles.activeLanguageLabel]}>
+                  {languageNames[item]}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Support</Text>
+        <Text style={styles.cardTitle}>{t.settings.appInfoTitle}</Text>
+        <Row label={t.settings.version} value={appVersion} />
+        <Row label={t.settings.build} value={t.settings.buildValue} />
+        <Row label={t.settings.data} value={t.settings.dataValue} />
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>{t.settings.supportTitle}</Text>
         <LinkRow
-          label="Email support"
+          label={t.settings.emailSupport}
           value={SUPPORT_EMAIL}
           onPress={() => Linking.openURL(`mailto:${SUPPORT_EMAIL}?subject=NIA Trainer support`)}
         />
-        <LinkRow label="Privacy policy" value={PRIVACY_URL} onPress={() => Linking.openURL(PRIVACY_URL)} />
-        <LinkRow label="Terms of use" value={TERMS_URL} onPress={() => Linking.openURL(TERMS_URL)} />
-        <LinkRow label="Refund policy" value={REFUND_URL} onPress={() => Linking.openURL(REFUND_URL)} />
-        <LinkRow label="EULA" value={EULA_URL} onPress={() => Linking.openURL(EULA_URL)} />
+        <LinkRow label={t.settings.privacyPolicy} value={PRIVACY_URL} onPress={() => Linking.openURL(PRIVACY_URL)} />
+        <LinkRow label={t.settings.termsOfUse} value={TERMS_URL} onPress={() => Linking.openURL(TERMS_URL)} />
+        <LinkRow label={t.settings.refundPolicy} value={REFUND_URL} onPress={() => Linking.openURL(REFUND_URL)} />
+        <LinkRow label={t.settings.eula} value={EULA_URL} onPress={() => Linking.openURL(EULA_URL)} />
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Privacy controls</Text>
+        <Text style={styles.cardTitle}>{t.settings.privacyControlsTitle}</Text>
         <View style={styles.toggleRow}>
           <View style={styles.toggleText}>
-            <Text style={styles.toggleLabel}>Send anonymous crash reports</Text>
-            <Text style={styles.toggleSub}>
-              Helps us fix crashes. No personal data, no usage tracking. Off here means no crash data leaves
-              your device.
-            </Text>
+            <Text style={styles.toggleLabel}>{t.settings.crashLabel}</Text>
+            <Text style={styles.toggleSub}>{t.settings.crashSub}</Text>
           </View>
           <Switch
-            accessibilityLabel="Send anonymous crash reports"
+            accessibilityLabel={t.settings.crashLabel}
             onValueChange={(value) => setCrashReportingOptOut(!value)}
             value={!crashReportingOptOut}
           />
@@ -63,21 +86,20 @@ export function SettingsScreen() {
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Disclaimer</Text>
-        <Text style={styles.cardText}>
-          This app is an independent study aid. It is not affiliated with, endorsed by, or sponsored by The
-          JIB or the Electrotechnical Certification Scheme. "ECS" is a trademark of The JIB.
-        </Text>
+        <Text style={styles.cardTitle}>{t.settings.disclaimerTitle}</Text>
+        <Text style={styles.cardText}>{t.settings.disclaimerText}</Text>
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Deep links</Text>
+        <Text style={styles.cardTitle}>{t.settings.deepLinksTitle}</Text>
         <Text style={styles.cardText}>networktrainer://practice/fire-regulations</Text>
         <Text style={styles.cardText}>networktrainer://practice/focus/weakest</Text>
         <Text style={styles.cardText}>networktrainer://mock-exam</Text>
       </View>
 
-      <Text style={styles.footer}>© {new Date().getFullYear()} Network Infrastructure Trainer</Text>
+      <Text style={styles.footer}>
+        © {new Date().getFullYear()} {t.settings.footer}
+      </Text>
     </ScrollView>
   );
 }
@@ -200,5 +222,31 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 18,
     marginTop: spacing.xs,
+  },
+  languageRow: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+    marginTop: spacing.md,
+  },
+  languageButton: {
+    alignItems: 'center',
+    backgroundColor: colors.background,
+    borderColor: colors.border,
+    borderRadius: 8,
+    borderWidth: StyleSheet.hairlineWidth,
+    flex: 1,
+    paddingVertical: spacing.sm,
+  },
+  activeLanguageButton: {
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
+  languageLabel: {
+    color: colors.text,
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  activeLanguageLabel: {
+    color: colors.background,
   },
 });

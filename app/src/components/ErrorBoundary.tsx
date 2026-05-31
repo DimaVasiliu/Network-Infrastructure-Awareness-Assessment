@@ -1,6 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { getT } from '../i18n';
 import { colors, spacing } from '../theme';
 import { PrimaryButton } from './PrimaryButton';
 
@@ -25,14 +26,13 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   render() {
     if (this.state.error) {
+      const t = getT();
       return (
         <View style={styles.container}>
-          <Text style={styles.title}>Something went wrong</Text>
-          <Text style={styles.body}>
-            The app hit an unexpected rendering error. Try again, or restart the app if it keeps happening.
-          </Text>
+          <Text style={styles.title}>{t.error.title}</Text>
+          <Text style={styles.body}>{t.error.body}</Text>
           <Text style={styles.errorText}>{this.state.error.message}</Text>
-          <PrimaryButton onPress={() => this.setState({ error: undefined })}>Try again</PrimaryButton>
+          <PrimaryButton onPress={() => this.setState({ error: undefined })}>{t.error.tryAgain}</PrimaryButton>
         </View>
       );
     }

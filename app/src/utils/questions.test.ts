@@ -1,4 +1,6 @@
 import {
+  answerChoices,
+  buildChoiceOrderMap,
   buildMockExam,
   mockExamBlueprint,
   mockExamDurationSeconds,
@@ -9,6 +11,7 @@ import {
   questionsByIds,
   questionsForSection,
   sectionAccuracy,
+  shuffleAnswerChoices,
   shuffleQuestions,
   weakestPracticeSize,
   weakestQuestions,
@@ -55,6 +58,14 @@ describe('utils/questions', () => {
       const exam = buildMockExam();
       const ids = new Set(exam.map((q) => q.id));
       expect(ids.size).toBe(exam.length);
+    });
+
+    it('never repeats a question within a mock exam across repeated builds', () => {
+      for (let attempt = 0; attempt < 200; attempt += 1) {
+        const exam = buildMockExam();
+        const ids = exam.map((q) => q.id);
+        expect(new Set(ids).size).toBe(ids.length);
+      }
     });
 
     it('returns a different ordering between subsequent calls (probabilistic)', () => {
@@ -111,6 +122,31 @@ describe('utils/questions', () => {
       const input = questions.slice(0, 20);
       const shuffled = shuffleQuestions(input);
       expect(new Set(shuffled.map((q) => q.id))).toEqual(new Set(input.map((q) => q.id)));
+    });
+  });
+
+  describe('shuffleAnswerChoices', () => {
+    it('returns the same answer labels, just reordered', () => {
+      const shuffled = shuffleAnswerChoices();
+      expect(shuffled).toHaveLength(answerChoices.length);
+      expect(new Set(shuffled)).toEqual(new Set(answerChoices));
+    });
+
+    it('does not mutate the input answer-label array', () => {
+      const input = [...answerChoices];
+      shuffleAnswerChoices(input);
+      expect(input).toEqual(answerChoices);
+    });
+  });
+
+  describe('buildChoiceOrderMap', () => {
+    it('creates one four-choice display order for every supplied question', () => {
+      const sample = questions.slice(0, 12);
+      const orders = buildChoiceOrderMap(sample);
+      expect(Object.keys(orders).sort()).toEqual(sample.map((q) => q.id).sort());
+      for (const question of sample) {
+        expect(new Set(orders[question.id])).toEqual(new Set(answerChoices));
+      }
     });
   });
 

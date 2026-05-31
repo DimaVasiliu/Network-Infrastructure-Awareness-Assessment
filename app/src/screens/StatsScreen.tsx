@@ -2,11 +2,13 @@ import { useMemo } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { PrimaryButton } from '../components/PrimaryButton';
+import { useT } from '../i18n';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
 import { sectionAccuracy } from '../utils/questions';
 
 export function StatsScreen() {
+  const t = useT();
   const attempts = useProgressStore((state) => state.attempts);
   const stats = useProgressStore((state) => state.stats);
   const clearProgress = useProgressStore((state) => state.clearProgress);
@@ -22,45 +24,43 @@ export function StatsScreen() {
   const perSection = useMemo(() => sectionAccuracy(stats), [stats]);
 
   function confirmClear() {
-    Alert.alert('Clear progress?', 'This removes attempt history and per-question stats from this device.', [
-      { text: 'Cancel', style: 'cancel' },
-      { text: 'Clear', onPress: clearProgress, style: 'destructive' },
+    Alert.alert(t.stats.clearTitle, t.stats.clearBody, [
+      { text: t.common.cancel, style: 'cancel' },
+      { text: t.stats.clear, onPress: clearProgress, style: 'destructive' },
     ]);
   }
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
-      <Text style={styles.title}>Stats</Text>
-      <Text style={styles.body}>Progress is stored only on this device.</Text>
+      <Text style={styles.title}>{t.tabs.stats}</Text>
+      <Text style={styles.body}>{t.stats.subtitle}</Text>
 
       <View style={styles.grid}>
         <View style={styles.card}>
           <Text style={styles.value}>{attempts.length}</Text>
-          <Text style={styles.label}>Attempts</Text>
+          <Text style={styles.label}>{t.stats.attempts}</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.value}>{averageScore}%</Text>
-          <Text style={styles.label}>Average</Text>
+          <Text style={styles.label}>{t.stats.average}</Text>
         </View>
         <View style={styles.card}>
           <Text style={styles.value}>{bestMock === null ? '-' : `${bestMock}%`}</Text>
-          <Text style={styles.label}>Best mock</Text>
+          <Text style={styles.label}>{t.stats.bestMock}</Text>
         </View>
       </View>
 
       <View style={styles.sectionPanel}>
-        <Text style={styles.panelTitle}>By section</Text>
+        <Text style={styles.panelTitle}>{t.practice.bySection}</Text>
         {perSection.every((row) => row.accuracy === null) ? (
-          <Text style={styles.empty}>
-            Section accuracy will appear here once you complete some questions.
-          </Text>
+          <Text style={styles.empty}>{t.stats.sectionEmpty}</Text>
         ) : (
           perSection.map((row) => (
             <View key={row.section} style={styles.sectionRow}>
               <View style={styles.sectionRowText}>
                 <Text style={styles.sectionRowTitle}>{row.section}</Text>
                 <Text style={styles.sectionRowMeta}>
-                  {row.seen === 0 ? 'No data yet' : `${row.correct}/${row.seen} correct`}
+                  {row.seen === 0 ? t.stats.noDataYet : `${row.correct}/${row.seen} ${t.stats.correctSuffix}`}
                 </Text>
               </View>
               <View style={styles.sectionRowRight}>
@@ -85,15 +85,15 @@ export function StatsScreen() {
       </View>
 
       <View style={styles.history}>
-        <Text style={styles.historyTitle}>Recent attempts</Text>
+        <Text style={styles.historyTitle}>{t.stats.recentAttempts}</Text>
         {attempts.length === 0 ? (
-          <Text style={styles.empty}>Complete a practice section or mock exam to see results here.</Text>
+          <Text style={styles.empty}>{t.stats.historyEmpty}</Text>
         ) : (
           attempts.slice(0, 10).map((attempt) => (
             <View key={attempt.id} style={styles.historyItem}>
               <View>
                 <Text style={styles.historyItemTitle}>
-                  {attempt.mode === 'mockExam' ? 'Mock Exam' : (attempt.section ?? 'Practice')}
+                  {attempt.mode === 'mockExam' ? t.nav.mockTitle : (attempt.section ?? t.tabs.practice)}
                 </Text>
                 <Text style={styles.historyItemMeta}>{new Date(attempt.completedAt).toLocaleString()}</Text>
               </View>
@@ -107,7 +107,7 @@ export function StatsScreen() {
 
       {attempts.length > 0 ? (
         <PrimaryButton onPress={confirmClear} variant="danger">
-          Clear Progress
+          {t.stats.clearProgress}
         </PrimaryButton>
       ) : null}
     </ScrollView>

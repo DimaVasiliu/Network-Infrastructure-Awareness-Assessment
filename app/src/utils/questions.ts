@@ -1,8 +1,9 @@
 import { questions as questionBank } from '../data/questionBank';
-import type { Question, QuestionSection } from '../types/question';
+import type { AnswerChoice, Question, QuestionSection } from '../types/question';
 import type { QuestionStat } from '../types/progress';
 
 export const questions = questionBank;
+export const answerChoices: AnswerChoice[] = ['A', 'B', 'C', 'D'];
 
 export const sections = Array.from(
   new Set(questions.map((question) => question.section)),
@@ -42,6 +43,24 @@ export function shuffleQuestions(source: Question[]) {
   }
 
   return shuffled;
+}
+
+export function shuffleAnswerChoices(source: AnswerChoice[] = answerChoices) {
+  const shuffled = [...source];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+
+  return shuffled;
+}
+
+export function buildChoiceOrderMap(source: Question[]) {
+  return Object.fromEntries(source.map((question) => [question.id, shuffleAnswerChoices()])) as Record<
+    string,
+    AnswerChoice[]
+  >;
 }
 
 export function buildMockExam() {

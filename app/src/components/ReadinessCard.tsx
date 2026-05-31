@@ -1,10 +1,23 @@
 import { useMemo } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { useT, type Translations } from '../i18n';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
-import { computeReadiness } from '../utils/readiness';
+import { computeReadiness, mockReadyThreshold } from '../utils/readiness';
 import type { ReadinessReport } from '../utils/readiness';
+
+function localisedSuggestion(report: ReadinessReport, s: Translations['readiness']['suggestions']): string {
+  const { overall, weakest, mockReady } = report;
+  if (weakest === null) return s.start;
+  if (mockReady) return s.mockReady;
+  if (weakest.score < 50) return s.weakWeakest.replace('{section}', weakest.section);
+  if (weakest.score < mockReadyThreshold) {
+    return s.nearlyWeakest.replace('{section}', weakest.section).replace('{threshold}', String(mockReadyThreshold));
+  }
+  if (overall < mockReadyThreshold) return s.keepPracticing;
+  return s.solid;
+}
 
 type ReadinessCardProps = {
   onPracticeWeakest: () => void;
@@ -13,6 +26,7 @@ type ReadinessCardProps = {
 };
 
 export function ReadinessCard({ onPracticeWeakest, onStartMock, onOpenPractice }: ReadinessCardProps) {
+  const t = useT();
   const stats = useProgressStore((state) => state.stats);
   const report = useMemo(() => computeReadiness(stats), [stats]);
 
@@ -22,7 +36,7 @@ export function ReadinessCard({ onPracticeWeakest, onStartMock, onOpenPractice }
   return (
     <View style={styles.card}>
       <View style={styles.headerRow}>
-        <Text style={styles.eyebrow}>Exam readiness</Text>
+        <Text style={styles.eyebrow}>{t.readiness.eyebrow}</Text>
         <Text style={[styles.scoreValue, { color: tint }]}>{report.overall}%</Text>
       </View>
 
@@ -30,11 +44,11 @@ export function ReadinessCard({ onPracticeWeakest, onStartMock, onOpenPractice }
         <View style={[styles.barFill, { backgroundColor: tint, width: `${report.overall}%` }]} />
       </View>
 
-      <Text style={styles.suggestion}>{report.suggestion}</Text>
+      <Text style={styles.suggestion}>{localisedSuggestion(report, t.readiness.suggestions)}</Text>
 
       {hasData ? (
         <View style={styles.metaRow}>
-          <Text style={styles.metaLabel}>Weakest topic</Text>
+          <Text style={styles.metaLabel}>{t.readiness.weakestTopic}</Text>
           <Text style={styles.metaValue}>
             {report.weakest!.section} · {report.weakest!.score}%
           </Text>
@@ -42,10 +56,10 @@ export function ReadinessCard({ onPracticeWeakest, onStartMock, onOpenPractice }
       ) : null}
 
       <View style={styles.actions}>
-        {pickAction(report, { onPracticeWeakest, onStartMock, onOpenPractice })}
+        {pickAction(report, { onPracticeWeakest, onStartMock, onOpenPractice }, t.readiness)}
       </View>
 
-      <Text style={styles.footer}>Mock-ready when every section ≥ 75% accuracy with enough coverage.</Text>
+      <Text style={styles.footer}>{t.readiness.footer}</Text>
     </View>
   );
 }
@@ -57,14 +71,15 @@ function pickAction(
     onStartMock: () => void;
     onOpenPractice: () => void;
   },
+  labels: Translations['readiness'],
 ) {
   if (report.weakest === null) {
-    return <ActionButton label="Open Practice" onPress={actions.onOpenPractice} />;
+    return <ActionButton label={labels.openPractice} onPress={actions.onOpenPractice} />;
   }
   if (report.mockReady) {
-    return <ActionButton label="Take Mock Exam" onPress={actions.onStartMock} primary />;
+    return <ActionButton label={labels.takeMock} onPress={actions.onStartMock} primary />;
   }
-  return <ActionButton label="Do 10 weakest questions" onPress={actions.onPracticeWeakest} primary />;
+  return <ActionButton label={labels.do10Weakest} onPress={actions.onPracticeWeakest} primary />;
 }
 
 function ActionButton({

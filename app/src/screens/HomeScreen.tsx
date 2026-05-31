@@ -3,6 +3,7 @@ import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
 import { PrimaryButton } from '../components/PrimaryButton';
 import { ReadinessCard } from '../components/ReadinessCard';
+import { useT } from '../i18n';
 import type { RootTabParamList } from '../navigation/AppTabs';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
@@ -11,42 +12,29 @@ import { questions, sectionCounts } from '../utils/questions';
 type HomeScreenProps = BottomTabScreenProps<RootTabParamList, 'HomeTab'>;
 
 export function HomeScreen({ navigation }: HomeScreenProps) {
+  const t = useT();
   const attempts = useProgressStore((state) => state.attempts);
   const latestAttempt = attempts[0];
   const totalAnswered = attempts.reduce((sum, attempt) => sum + attempt.total, 0);
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
-      <Text style={styles.eyebrow}>Study mode</Text>
+      <Text style={styles.eyebrow}>{t.home.eyebrow}</Text>
       <Text style={styles.title}>Network Infrastructure Trainer</Text>
-      <Text style={styles.body}>
-        Practice by topic, decode the common cable codes, then test exam readiness.
-      </Text>
+      <Text style={styles.body}>{t.home.intro}</Text>
 
       <View style={styles.startPanel}>
-        <Text style={styles.startEyebrow}>Start here</Text>
-        <Text style={styles.startTitle}>Build the basics before the mock exam</Text>
+        <Text style={styles.startEyebrow}>{t.home.startEyebrow}</Text>
+        <Text style={styles.startTitle}>{t.home.startTitle}</Text>
         <View style={styles.stepList}>
-          <StepItem
-            number="1"
-            title="Decode the codes"
-            body="Review CPR, EuroClass, fibre sizes and Class EA limits."
-          />
-          <StepItem
-            number="2"
-            title="Practise one section"
-            body="Work through Product Selection first, then continue by topic."
-          />
-          <StepItem
-            number="3"
-            title="Use the mock later"
-            body="Take the timed exam after every section has been covered."
-          />
+          <StepItem number="1" title={t.home.step1Title} body={t.home.step1Body} />
+          <StepItem number="2" title={t.home.step2Title} body={t.home.step2Body} />
+          <StepItem number="3" title={t.home.step3Title} body={t.home.step3Body} />
         </View>
         <View style={styles.startActions}>
-          <PrimaryButton onPress={() => navigation.navigate('DecoderTab')}>Open Code Decoder</PrimaryButton>
+          <PrimaryButton onPress={() => navigation.navigate('DecoderTab')}>{t.home.openDecoder}</PrimaryButton>
           <PrimaryButton onPress={() => navigation.navigate('PracticeTab')} variant="secondary">
-            Choose a Section
+            {t.home.chooseSection}
           </PrimaryButton>
         </View>
       </View>
@@ -54,15 +42,15 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
       <View style={styles.statsGrid}>
         <View style={styles.statCard}>
           <Text style={styles.statNumber}>{questions.length}</Text>
-          <Text style={styles.statLabel}>Questions</Text>
+          <Text style={styles.statLabel}>{t.home.statQuestions}</Text>
         </View>
         <View style={styles.statCard}>
           <Text style={styles.statNumber}>{sectionCounts().length}</Text>
-          <Text style={styles.statLabel}>Sections</Text>
+          <Text style={styles.statLabel}>{t.home.statSections}</Text>
         </View>
         <View style={styles.statCard}>
           <Text style={styles.statNumber}>{totalAnswered}</Text>
-          <Text style={styles.statLabel}>Answered</Text>
+          <Text style={styles.statLabel}>{t.home.statAnswered}</Text>
         </View>
       </View>
 
@@ -81,26 +69,23 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
 
       {latestAttempt ? (
         <View style={styles.panel}>
-          <Text style={styles.panelTitle}>Latest result</Text>
+          <Text style={styles.panelTitle}>{t.home.latestResult}</Text>
           <Text style={styles.panelBody}>
-            {latestAttempt.correct}/{latestAttempt.total} correct in{' '}
-            {latestAttempt.mode === 'mockExam' ? 'Mock Exam' : latestAttempt.section}
+            {latestAttempt.correct}/{latestAttempt.total} {t.home.correctIn}{' '}
+            {latestAttempt.mode === 'mockExam' ? t.nav.mockTitle : latestAttempt.section}
           </Text>
         </View>
       ) : null}
 
       <View style={styles.disclaimerPanel}>
-        <Text style={styles.disclaimerTitle}>Independent study aid</Text>
-        <Text style={styles.disclaimerText}>
-          This app is not affiliated with, endorsed by, or sponsored by The JIB or the Electrotechnical
-          Certification Scheme. ECS is a trademark of The JIB.
-        </Text>
+        <Text style={styles.disclaimerTitle}>{t.home.disclaimerTitle}</Text>
+        <Text style={styles.disclaimerText}>{t.home.disclaimerText}</Text>
       </View>
 
       <View style={styles.actions}>
-        <PrimaryButton onPress={() => navigation.navigate('PracticeTab')}>Start Practice</PrimaryButton>
+        <PrimaryButton onPress={() => navigation.navigate('PracticeTab')}>{t.home.startPractice}</PrimaryButton>
         <PrimaryButton onPress={() => navigation.navigate('MockExamTab')} variant="secondary">
-          Take Mock Exam
+          {t.home.takeMock}
         </PrimaryButton>
       </View>
     </ScrollView>

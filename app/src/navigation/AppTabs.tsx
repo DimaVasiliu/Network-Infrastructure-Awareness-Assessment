@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import type { NavigatorScreenParams } from '@react-navigation/native';
-import { DefaultTheme, getFocusedRouteNameFromRoute, NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { HelpModal } from '../components/HelpModal';
+import { useLanguage, useSetLanguage, useT } from '../i18n';
 import { DecoderScreen } from '../screens/DecoderScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MockExamRunScreen, MockExamScreen } from '../screens/MockExamScreen';
@@ -21,8 +23,6 @@ import { SettingsScreen } from '../screens/SettingsScreen';
 import { StatsScreen } from '../screens/StatsScreen';
 import { colors } from '../theme';
 import type { QuestionSection } from '../types/question';
-
-type HelpLanguage = 'en' | 'ro' | 'ru';
 
 export type PracticeStackParamList = {
   PracticeHome: undefined;
@@ -89,21 +89,6 @@ const navigationTheme = {
   },
 };
 
-const baseHeaderOptions = {
-  headerShadowVisible: false,
-  headerStyle: {
-    backgroundColor: colors.background,
-  },
-  headerTitleStyle: {
-    color: colors.text,
-    fontSize: 18,
-    fontWeight: '800' as const,
-  },
-  headerRightContainerStyle: {
-    paddingRight: 0,
-  },
-};
-
 const linking = {
   prefixes: ['networktrainer://'],
   config: {
@@ -160,16 +145,24 @@ const linking = {
 };
 
 export function AppTabs() {
+  const t = useT();
+  const language = useLanguage();
+  const setLanguage = useSetLanguage();
   const [isHelpOpen, setIsHelpOpen] = useState(false);
-  const [helpLanguage, setHelpLanguage] = useState<HelpLanguage>('en');
 
   return (
     <>
       <NavigationContainer linking={linking} theme={navigationTheme}>
         <Tab.Navigator
           screenOptions={({ route }) => ({
-            ...baseHeaderOptions,
-            headerRight: () => <HeaderHelpButton onPress={() => setIsHelpOpen(true)} />,
+            header: ({ navigation, options }) => (
+              <AppHeader
+                canGoBack={false}
+                onBack={navigation.goBack}
+                onHelp={() => setIsHelpOpen(true)}
+                title={getHeaderTitle(options, route.name)}
+              />
+            ),
             tabBarIcon: ({ color, focused, size }) => (
               <Ionicons
                 color={color}
@@ -186,55 +179,35 @@ export function AppTabs() {
           <Tab.Screen
             name="HomeTab"
             component={HomeScreen}
-            options={{ title: 'Home', tabBarLabel: 'Home' }}
+            options={{ title: t.tabs.home, tabBarLabel: t.tabs.home }}
           />
-          <Tab.Screen
-            name="PracticeTab"
-            options={({ route }) => {
-              const routeName = getFocusedRouteNameFromRoute(route) ?? 'PracticeHome';
-              return {
-                headerShown: routeName === 'PracticeHome',
-                title: 'Practice',
-                tabBarLabel: 'Practice',
-              };
-            }}
-          >
+          <Tab.Screen name="PracticeTab" options={{ headerShown: false, tabBarLabel: t.tabs.practice }}>
             {() => <PracticeNavigator openHelp={() => setIsHelpOpen(true)} />}
           </Tab.Screen>
           <Tab.Screen
             name="DecoderTab"
             component={DecoderScreen}
-            options={{ title: 'Decoder', tabBarLabel: 'Decoder' }}
+            options={{ title: t.tabs.decoder, tabBarLabel: t.tabs.decoder }}
           />
-          <Tab.Screen
-            name="MockExamTab"
-            options={({ route }) => {
-              const routeName = getFocusedRouteNameFromRoute(route) ?? 'MockExamHome';
-              return {
-                headerShown: routeName === 'MockExamHome',
-                title: 'Mock Exam',
-                tabBarLabel: 'Mock',
-              };
-            }}
-          >
+          <Tab.Screen name="MockExamTab" options={{ headerShown: false, tabBarLabel: t.tabs.mock }}>
             {() => <MockExamNavigator openHelp={() => setIsHelpOpen(true)} />}
           </Tab.Screen>
           <Tab.Screen
             name="StatsTab"
             component={StatsScreen}
-            options={{ title: 'Stats', tabBarLabel: 'Stats' }}
+            options={{ title: t.tabs.stats, tabBarLabel: t.tabs.stats }}
           />
           <Tab.Screen
             name="SettingsTab"
             component={SettingsScreen}
-            options={{ title: 'About', tabBarLabel: 'About' }}
+            options={{ title: t.tabs.about, tabBarLabel: t.tabs.about }}
           />
         </Tab.Navigator>
       </NavigationContainer>
       <HelpModal
         isVisible={isHelpOpen}
-        language={helpLanguage}
-        onChangeLanguage={setHelpLanguage}
+        language={language}
+        onChangeLanguage={setLanguage}
         onClose={() => setIsHelpOpen(false)}
       />
     </>
@@ -242,17 +215,24 @@ export function AppTabs() {
 }
 
 function PracticeNavigator({ openHelp }: { openHelp: () => void }) {
+  const t = useT();
   return (
     <PracticeStack.Navigator
       screenOptions={{
-        ...baseHeaderOptions,
-        headerRight: () => <HeaderHelpButton onPress={openHelp} />,
+        header: ({ navigation, options, route, back }) => (
+          <AppHeader
+            canGoBack={Boolean(back)}
+            onBack={navigation.goBack}
+            onHelp={openHelp}
+            title={getHeaderTitle(options, route.name)}
+          />
+        ),
       }}
     >
       <PracticeStack.Screen
         name="PracticeHome"
         component={PracticeScreen}
-        options={{ headerShown: false, title: 'Practice' }}
+        options={{ title: t.tabs.practice }}
       />
       <PracticeStack.Screen
         name="PracticeSection"
@@ -275,10 +255,10 @@ function PracticeNavigator({ openHelp }: { openHelp: () => void }) {
         options={({ route }) => ({
           title:
             route.params.focus === 'wrong'
-              ? 'Review wrong'
+              ? t.nav.reviewWrong
               : route.params.focus === 'bookmarks'
-                ? 'Bookmarks'
-                : 'Weakest 10',
+                ? t.nav.bookmarks
+                : t.nav.weakest10,
         })}
       />
     </PracticeStack.Navigator>
@@ -286,43 +266,87 @@ function PracticeNavigator({ openHelp }: { openHelp: () => void }) {
 }
 
 function MockExamNavigator({ openHelp }: { openHelp: () => void }) {
+  const t = useT();
   return (
     <MockExamStack.Navigator
       screenOptions={{
-        ...baseHeaderOptions,
-        headerRight: () => <HeaderHelpButton onPress={openHelp} />,
+        header: ({ navigation, options, route, back }) => (
+          <AppHeader
+            canGoBack={Boolean(back)}
+            onBack={navigation.goBack}
+            onHelp={openHelp}
+            title={getHeaderTitle(options, route.name)}
+          />
+        ),
       }}
     >
       <MockExamStack.Screen
         name="MockExamHome"
         component={MockExamScreen}
-        options={{ headerShown: false, title: 'Mock Exam' }}
+        options={{ title: t.nav.mockTitle }}
       />
       <MockExamStack.Screen
         name="MockExamRun"
         component={MockExamRunScreen}
-        options={{ title: 'Mock Exam' }}
+        options={{ title: t.nav.mockTitle }}
       />
     </MockExamStack.Navigator>
   );
 }
 
-function HeaderHelpButton({ onPress }: { onPress: () => void }) {
+function getHeaderTitle(options: { headerTitle?: unknown; title?: string }, fallback: string) {
+  return typeof options.headerTitle === 'string' ? options.headerTitle : (options.title ?? fallback);
+}
+
+function AppHeader({
+  canGoBack,
+  onBack,
+  onHelp,
+  title,
+}: {
+  canGoBack: boolean;
+  onBack: () => void;
+  onHelp: () => void;
+  title: string;
+}) {
+  const insets = useSafeAreaInsets();
+
   return (
-    <View pointerEvents="box-none" style={styles.helpSlot}>
-      <HelpButton onPress={onPress} />
+    <View style={[styles.header, { paddingTop: insets.top }]}>
+      <View style={styles.headerRow}>
+        <View style={styles.headerSide}>
+          {canGoBack ? (
+            <Pressable
+              accessibilityLabel="Go back"
+              accessibilityRole="button"
+              hitSlop={8}
+              onPress={onBack}
+              style={({ pressed }) => [styles.backButton, pressed && styles.headerButtonPressed]}
+            >
+              <Ionicons color={colors.muted} name="chevron-back" size={28} />
+            </Pressable>
+          ) : null}
+        </View>
+        <Text numberOfLines={1} style={styles.headerTitle}>
+          {title}
+        </Text>
+        <View style={[styles.headerSide, styles.headerRight]}>
+          <HelpButton onPress={onHelp} />
+        </View>
+      </View>
     </View>
   );
 }
 
 function HelpButton({ onPress }: { onPress: () => void }) {
+  const t = useT();
   return (
     <Pressable
-      accessibilityLabel="Open help"
+      accessibilityLabel={t.nav.openHelp}
       accessibilityRole="button"
       hitSlop={8}
       onPress={onPress}
-      style={({ pressed }) => [styles.helpButton, pressed && styles.helpButtonPressed]}
+      style={({ pressed }) => [styles.helpButton, pressed && styles.headerButtonPressed]}
     >
       <Ionicons color={colors.surface} name="help-circle" size={22} />
     </Pressable>
@@ -330,12 +354,38 @@ function HelpButton({ onPress }: { onPress: () => void }) {
 }
 
 const styles = StyleSheet.create({
-  helpSlot: {
+  header: {
+    backgroundColor: colors.background,
+  },
+  headerRow: {
     alignItems: 'center',
-    height: 48,
+    flexDirection: 'row',
+    height: 64,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+  },
+  headerSide: {
+    alignItems: 'flex-start',
     justifyContent: 'center',
-    paddingRight: 16,
-    width: 64,
+    width: 48,
+  },
+  headerRight: {
+    alignItems: 'flex-end',
+  },
+  headerTitle: {
+    color: colors.text,
+    flex: 1,
+    fontSize: 18,
+    fontWeight: '800',
+    paddingHorizontal: 12,
+    textAlign: 'center',
+  },
+  backButton: {
+    alignItems: 'center',
+    height: 40,
+    justifyContent: 'center',
+    marginLeft: -8,
+    width: 40,
   },
   helpButton: {
     alignItems: 'center',
@@ -345,7 +395,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 40,
   },
-  helpButtonPressed: {
+  headerButtonPressed: {
     opacity: 0.78,
   },
   tabBar: {

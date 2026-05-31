@@ -5,6 +5,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { PrimaryButton } from '../components/PrimaryButton';
 import { QuizRunner } from '../components/QuizRunner';
 import type { QuizSnapshot } from '../components/QuizRunner';
+import { useT } from '../i18n';
 import type { MockExamStackParamList } from '../navigation/AppTabs';
 import { useProgressStore } from '../store/progressStore';
 import { colors, spacing } from '../theme';
@@ -31,6 +32,7 @@ function formatRemaining(seconds: number) {
 }
 
 export function MockExamScreen({ navigation }: MockExamHomeProps) {
+  const t = useT();
   const mockSession = useProgressStore((state) => state.mockSession);
   const clearMockSession = useProgressStore((state) => state.clearMockSession);
 
@@ -39,9 +41,9 @@ export function MockExamScreen({ navigation }: MockExamHomeProps) {
   }
 
   function discardSession() {
-    Alert.alert('Discard saved attempt?', 'The paused mock exam will be cleared.', [
-      { text: 'Cancel', style: 'cancel' },
-      { text: 'Discard', style: 'destructive', onPress: clearMockSession },
+    Alert.alert(t.mock.discardTitle, t.mock.discardBody, [
+      { text: t.common.cancel, style: 'cancel' },
+      { text: t.mock.discard, style: 'destructive', onPress: clearMockSession },
     ]);
   }
 
@@ -49,41 +51,44 @@ export function MockExamScreen({ navigation }: MockExamHomeProps) {
 
   return (
     <ScrollView contentContainerStyle={styles.screen} style={styles.container}>
-      <Text style={styles.title}>Mock Exam</Text>
-      <Text style={styles.body}>
-        Matches the published Network Infrastructure Awareness format: 30 questions across the assessment
-        topics, 45 minutes, pass mark 24 correct answers.
-      </Text>
+      <Text style={styles.title}>{t.nav.mockTitle}</Text>
+      <Text style={styles.body}>{t.mock.intro}</Text>
 
       {mockSession ? (
         <View style={styles.resumePanel}>
-          <Text style={styles.resumeTitle}>Resume in-progress mock</Text>
+          <Text style={styles.resumeTitle}>{t.mock.resumeTitle}</Text>
           <Text style={styles.resumeText}>
-            {answered}/{mockSession.questionIds.length} answered ·{' '}
-            {formatRemaining(mockSession.remainingSeconds)} left on the clock
+            {t.mock.resumeStatus
+              .replace('{a}', String(answered))
+              .replace('{t}', String(mockSession.questionIds.length))
+              .replace('{time}', formatRemaining(mockSession.remainingSeconds))}
           </Text>
           <View style={styles.resumeActions}>
-            <PrimaryButton onPress={startExam}>Resume mock exam</PrimaryButton>
+            <PrimaryButton onPress={startExam}>{t.mock.resumeMock}</PrimaryButton>
             <PrimaryButton onPress={discardSession} variant="danger">
-              Discard
+              {t.mock.discard}
             </PrimaryButton>
           </View>
         </View>
       ) : null}
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Exam settings</Text>
+        <Text style={styles.cardTitle}>{t.mock.examSettings}</Text>
         <Text style={styles.cardText}>
-          {mockExamQuestionCount} questions from {questions.length} practice questions
+          {t.mock.settingsCount
+            .replace('{n}', String(mockExamQuestionCount))
+            .replace('{m}', String(questions.length))}
         </Text>
-        <Text style={styles.cardText}>45 minute timer</Text>
+        <Text style={styles.cardText}>{t.mock.timer}</Text>
         <Text style={styles.cardText}>
-          Pass mark: {mockExamPassMark}/{mockExamQuestionCount}
+          {t.mock.passMark
+            .replace('{n}', String(mockExamPassMark))
+            .replace('{m}', String(mockExamQuestionCount))}
         </Text>
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Topic weighting</Text>
+        <Text style={styles.cardTitle}>{t.mock.topicWeighting}</Text>
         {mockExamBlueprint.map((item) => (
           <View key={item.section} style={styles.blueprintRow}>
             <Text style={styles.blueprintSection}>{item.section}</Text>
@@ -92,7 +97,7 @@ export function MockExamScreen({ navigation }: MockExamHomeProps) {
         ))}
       </View>
 
-      {mockSession ? null : <PrimaryButton onPress={startExam}>Start Mock Exam</PrimaryButton>}
+      {mockSession ? null : <PrimaryButton onPress={startExam}>{t.mock.start}</PrimaryButton>}
     </ScrollView>
   );
 }
@@ -122,6 +127,7 @@ export function MockExamRunScreen({ navigation }: MockExamRunProps) {
     if (!mockSession) return undefined;
     return {
       answers: mockSession.answers,
+      choiceOrders: mockSession.choiceOrders,
       currentIndex: mockSession.currentIndex,
       remainingSeconds: mockSession.remainingSeconds,
     };
@@ -133,6 +139,7 @@ export function MockExamRunScreen({ navigation }: MockExamRunProps) {
     saveMockSession({
       questionIds: examQuestions.map((q) => q.id),
       answers: snapshot.answers,
+      choiceOrders: snapshot.choiceOrders,
       currentIndex: snapshot.currentIndex,
       remainingSeconds: snapshot.remainingSeconds ?? 0,
       savedAt: new Date().toISOString(),
