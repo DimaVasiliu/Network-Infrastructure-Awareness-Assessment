@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { NavigatorScreenParams } from '@react-navigation/native';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, getFocusedRouteNameFromRoute, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -180,7 +180,18 @@ export function AppTabs() {
             component={HomeScreen}
             options={{ title: t.tabs.home, tabBarLabel: t.tabs.home }}
           />
-          <Tab.Screen name="PracticeTab" options={{ headerShown: false, tabBarLabel: t.tabs.practice }}>
+          <Tab.Screen
+            name="PracticeTab"
+            options={({ route }) => {
+              const focused = getFocusedRouteNameFromRoute(route);
+              const immersive = focused === 'PracticeQuiz' || focused === 'PracticeFocus';
+              return {
+                headerShown: false,
+                tabBarLabel: t.tabs.practice,
+                tabBarStyle: immersive ? { display: 'none' } : styles.tabBar,
+              };
+            }}
+          >
             {() => <PracticeNavigator />}
           </Tab.Screen>
           <Tab.Screen
@@ -188,7 +199,18 @@ export function AppTabs() {
             component={DecoderScreen}
             options={{ title: t.tabs.decoder, tabBarLabel: t.tabs.decoder }}
           />
-          <Tab.Screen name="MockExamTab" options={{ headerShown: false, tabBarLabel: t.tabs.mock }}>
+          <Tab.Screen
+            name="MockExamTab"
+            options={({ route }) => {
+              const focused = getFocusedRouteNameFromRoute(route);
+              const immersive = focused === 'MockExamRun';
+              return {
+                headerShown: false,
+                tabBarLabel: t.tabs.mock,
+                tabBarStyle: immersive ? { display: 'none' } : styles.tabBar,
+              };
+            }}
+          >
             {() => <MockExamNavigator />}
           </Tab.Screen>
           <Tab.Screen

@@ -87,7 +87,8 @@ None for launch. The product is mobile-only for iOS and Android.
 - Google Play Console, EAS build → internal testing → production.
 
 **Phase 5 — Post-launch.**
-- ASO (app store optimisation): titles like "ECS Network Infrastructure Test Prep".
+- ASO (app store optimisation): improve keywords and screenshots without using
+  "ECS" in the app name, subtitle, short description or keyword field.
 - Backlink from electriciantraining.co.uk, applyecscard.co.uk, the JIB forum, Reddit r/electricians.
 
 ---
