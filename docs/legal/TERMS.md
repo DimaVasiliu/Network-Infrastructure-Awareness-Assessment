@@ -1,10 +1,10 @@
 # Terms of Use
 
-**Effective date:** {{EFFECTIVE_DATE}}
-**Last updated:** {{LAST_UPDATED}}
+**Effective date:** 2026-05-30
+**Last updated:** 2026-05-30
 
 These Terms of Use ("Terms") form a binding agreement between you and
-**{{LEGAL_NAME}}** ("we", "us", "our") about your use of the **Network
+**Dumitru Vasiliu** ("we", "us", "our") about your use of the **Network
 Infrastructure Trainer** mobile application (the "App").
 
 By installing, opening or using the App you accept these Terms. If you do not
@@ -26,8 +26,7 @@ relationship or approval.
 ## 2. Eligibility
 
 You must be at least 16 years old, or have the consent of a parent or legal
-guardian, to use the App. The App is sold to consumers in the United Kingdom
-{{ADDITIONAL_COUNTRIES}}.
+guardian, to use the App. The App is sold to consumers in the United Kingdom only.
 
 ## 3. Your licence
 
@@ -48,7 +47,7 @@ You may not:
   Apple App Store or Google Play.
 
 The question bank, explanations, app code, branding and UI design are
-copyright **{{LEGAL_NAME}}** or its licensors. All rights are reserved except
+copyright **Dumitru Vasiliu** or its licensors. All rights are reserved except
 those expressly granted in these Terms.
 
 ## 4. App store terms (Apple / Google)
@@ -104,7 +103,7 @@ store's own refund process.
 
 ## 8. Refunds
 
-Our refund policy is published at {{REFUND_URL}}. Refunds for app-store
+Our refund policy is published at https://timrx.live/legal/nia/refunds. Refunds for app-store
 purchases must usually be requested through Apple or Google directly:
 
 - **Apple App Store:** https://reportaproblem.apple.com
@@ -158,6 +157,6 @@ the change constitutes acceptance.
 
 ## 14. Contact
 
-{{LEGAL_NAME}}
-Email: {{SUPPORT_EMAIL}}
-Postal: {{POSTAL_ADDRESS}}
+Dumitru Vasiliu
+Email: support@timrx.live
+Postal: 39 Spearpoint Gardens, Aldborough Road North, Ilford, Essex, IG2 7SX, United Kingdom

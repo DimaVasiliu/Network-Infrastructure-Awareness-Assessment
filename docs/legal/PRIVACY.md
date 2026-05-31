@@ -1,9 +1,9 @@
 # Privacy Policy
 
-**Effective date:** {{EFFECTIVE_DATE}}
-**Last updated:** {{LAST_UPDATED}}
+**Effective date:** 2026-05-30
+**Last updated:** 2026-05-30
 
-This Privacy Policy explains how **{{LEGAL_NAME}}** ("we", "us", "our") handles
+This Privacy Policy explains how **Dumitru Vasiliu** ("we", "us", "our") handles
 personal data in connection with the **Network Infrastructure Trainer** mobile
 application (the "App"). It applies to the App on iOS and Android.
 
@@ -11,13 +11,13 @@ We are the **data controller** for the limited personal data described below
 under the UK General Data Protection Regulation (UK GDPR) and the Data Protection
 Act 2018.
 
-- Legal entity: {{LEGAL_NAME}}
-- Contact email: {{SUPPORT_EMAIL}}
-- Postal address: {{POSTAL_ADDRESS}}
-- ICO data protection registration number: {{ICO_NUMBER}}
+- Legal entity: Dumitru Vasiliu
+- Contact email: support@timrx.live
+- Postal address: 39 Spearpoint Gardens, Aldborough Road North, Ilford, Essex, IG2 7SX, United Kingdom
+- ICO data protection registration number: _registration in progress; number to be added once issued_
 
 If you have questions about this policy or your rights, contact us at
-{{SUPPORT_EMAIL}}.
+support@timrx.live.
 
 ## 1. Plain-English summary
 
@@ -58,7 +58,7 @@ address or payment details from the store.
 
 ### 2.3 Support emails
 
-If you email {{SUPPORT_EMAIL}}, we receive your email address and the contents
+If you email support@timrx.live, we receive your email address and the contents
 of your message. We use it to respond and to keep an audit trail of support
 issues.
 
@@ -117,12 +117,12 @@ Play Store privacy declarations before the change ships.
 The App is rated 4+ / Everyone. It is intended for adult learners preparing for
 a UK trade assessment. We do not knowingly collect personal data from anyone
 under 13. If you believe a child has provided personal data through the support
-inbox, email {{SUPPORT_EMAIL}} and we will delete it.
+inbox, email support@timrx.live and we will delete it.
 
 ## 6. International transfers
 
-Support emails are processed via {{EMAIL_PROVIDER}} which may store data in the
-{{EMAIL_PROVIDER_REGION}}. Where personal data is transferred outside the UK,
+Support emails are processed via Neo.Space (inbound) and AWS SES (outbound replies),
+which may store data in the United Kingdom and the European Union. Where personal data is transferred outside the UK,
 it is protected by the UK's "adequacy" rules or by the UK International Data
 Transfer Addendum to the EU Standard Contractual Clauses, as applicable.
 
@@ -137,7 +137,7 @@ Under UK GDPR you have the right to:
 - Receive your data in a portable format.
 - Withdraw consent at any time where processing relies on consent.
 
-To exercise any of these rights, email {{SUPPORT_EMAIL}}. We will respond
+To exercise any of these rights, email support@timrx.live. We will respond
 within one calendar month. Most rights apply only to data we actually hold
 about you — for App data stored only on your device, the controls are inside
 the App ("Clear Progress", uninstall, etc.).
@@ -162,5 +162,5 @@ notice constitutes acceptance of the updated policy.
 
 ## 10. Contact
 
-Email: {{SUPPORT_EMAIL}}
+Email: support@timrx.live
 Subject suggestion: "Privacy enquiry — NIA Trainer"

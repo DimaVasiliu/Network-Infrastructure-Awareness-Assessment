@@ -77,7 +77,7 @@ SUPPORT
 Email support@timrx.live for questions, refund requests or feedback.
 
 PRIVACY
-Read the full privacy policy at {{PRIVACY_URL}}.
+Read the full privacy policy at https://timrx.live/legal/nia/privacy.
 ```
 
 ---
@@ -123,11 +123,12 @@ network infrastructure,NIA,cabling,JIB exam prep,datacomms,electrician,BS EN 501
 ## Support URL (both stores)
 
 ```
-mailto:support@timrx.live
+https://timrx.live/nia/support
 ```
 
-A simple `mailto:` is acceptable for both stores. A dedicated support page is
-nicer if the static site already hosts the legal docs.
+A dedicated support page is live at the URL above and links the privacy, terms,
+refund and EULA pages. A bare `mailto:support@timrx.live` is also accepted by
+both stores if the page is ever unavailable.
 
 ## Marketing URL (Apple — optional)
 
@@ -154,8 +155,11 @@ EULA:           https://timrx.live/legal/nia/eula
 ```
 This is an offline, paid study aid for a UK trade assessment.
 
-No login is required. No data is collected by the app. The app contains no
-in-app purchases and no third-party advertising or analytics SDKs.
+No account, no ads, no analytics, no tracking. Optional crash diagnostics
+(Sentry) are used for app reliability and can be disabled in About. A support
+email address is only collected if the user chooses to contact us. The app is a
+one-time paid download with no in-app purchases or subscriptions, and contains no
+third-party advertising or analytics SDKs.
 
 The app is independent and is not affiliated with The JIB or the
 Electrotechnical Certification Scheme. The full disclaimer is shown on the

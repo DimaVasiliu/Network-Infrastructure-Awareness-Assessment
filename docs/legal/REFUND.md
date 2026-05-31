@@ -1,12 +1,12 @@
 # Refund Policy
 
-**Effective date:** {{EFFECTIVE_DATE}}
-**Last updated:** {{LAST_UPDATED}}
+**Effective date:** 2026-05-30
+**Last updated:** 2026-05-30
 
 This policy explains how refunds work for the **Network Infrastructure
-Trainer** mobile application (the "App"), supplied by **{{LEGAL_NAME}}**.
+Trainer** mobile application (the "App"), supplied by **Dumitru Vasiliu**.
 
-It sits alongside the App's [Terms of Use]({{TERMS_URL}}) and the standard
+It sits alongside the App's [Terms of Use](https://timrx.live/legal/nia/terms) and the standard
 refund process of the app store you bought the App from. Where your statutory
 consumer rights are stronger than this policy, your statutory rights apply.
 
@@ -84,7 +84,7 @@ Google usually responds within a few business days.
 
 If Apple or Google decline a refund that you believe is owed because the App
 is faulty or because a payment was clearly made in error, contact us at
-{{SUPPORT_EMAIL}} with:
+support@timrx.live with:
 
 - the email address used to buy the App,
 - the date of purchase,
@@ -122,6 +122,6 @@ after a change constitutes acceptance.
 
 ## 8. Contact
 
-{{LEGAL_NAME}}
-Email: {{SUPPORT_EMAIL}}
-Postal: {{POSTAL_ADDRESS}}
+Dumitru Vasiliu
+Email: support@timrx.live
+Postal: 39 Spearpoint Gardens, Aldborough Road North, Ilford, Essex, IG2 7SX, United Kingdom

@@ -14,20 +14,24 @@ Owner: founder. Update statuses inline. Anything still red blocks launch.
 
 | Document | File | Public URL slot | Drafted | Hosted | Reviewed by solicitor |
 |---|---|---|---|---|---|
-| Privacy Policy | `docs/legal/PRIVACY.md` | `{{PRIVACY_URL}}` | [x] | [ ] | [ ] |
-| Terms of Use | `docs/legal/TERMS.md` | `{{TERMS_URL}}` | [x] | [ ] | [ ] |
-| Refund Policy | `docs/legal/REFUND.md` | `{{REFUND_URL}}` | [x] | [ ] | [ ] |
-| EULA | `docs/legal/EULA.md` | `{{EULA_URL}}` | [x] | [ ] | [ ] |
+| Privacy Policy | `docs/legal/PRIVACY.md` | https://timrx.live/legal/nia/privacy | [x] | [x] | [ ] |
+| Terms of Use | `docs/legal/TERMS.md` | https://timrx.live/legal/nia/terms | [x] | [x] | [ ] |
+| Refund Policy | `docs/legal/REFUND.md` | https://timrx.live/legal/nia/refunds | [x] | [x] | [ ] |
+| EULA | `docs/legal/EULA.md` | https://timrx.live/legal/nia/eula | [x] | [x] | [ ] |
+
+> **Solicitor review** (final table column) is optional best practice, **not** a store or UK legal
+> requirement to launch. Deferred by the founder; revisit if scope expands (user accounts, direct
+> web checkout, or processing data from under-16s).
 
 **Placeholders status** (the live pages on `timrx.live/legal/nia/*` are already
 populated; this list is the source of truth for the templates in `docs/legal/`):
 
 - `{{LEGAL_NAME}}` — **Dumitru Vasiliu** (sole trader, operating the TimrX portfolio).
 - `{{SUPPORT_EMAIL}}` — **support@timrx.live**. Matches `SettingsScreen.tsx`.
-- `{{POSTAL_ADDRESS}}` — _still to fill_. UK postal address (PO box is acceptable).
+- `{{POSTAL_ADDRESS}}` — **39 Spearpoint Gardens, Aldborough Road North, Ilford, Essex, IG2 7SX, United Kingdom**.
 - `{{EFFECTIVE_DATE}}` / `{{LAST_UPDATED}}` — set per page on hosting (currently 2026-05-30).
-- `{{ICO_NUMBER}}` — _still to fill_. Issued by the ICO after registration (see §3).
-- `{{EMAIL_PROVIDER}}` / `{{EMAIL_PROVIDER_REGION}}` — TimrX mail host (e.g. "Cloudflare Email Routing → Gmail / Ireland"). Confirm and record.
+- `{{ICO_NUMBER}}` — _awaiting issuance from the ICO_ — registration in progress (see §3).
+- `{{EMAIL_PROVIDER}}` / `{{EMAIL_PROVIDER_REGION}}` — **Neo.Space** (inbound `support@timrx.live`) and **AWS SES — eu-west-2 / London, UK** (outbound replies). See §10.
 - `{{PRIVACY_URL}}` — **https://timrx.live/legal/nia/privacy**
 - `{{TERMS_URL}}` — **https://timrx.live/legal/nia/terms**
 - `{{REFUND_URL}}` — **https://timrx.live/legal/nia/refunds**
@@ -61,12 +65,14 @@ these pages before submitting to the app stores.
 Required because the App's support inbox processes personal data (email addresses + message content),
 even though the App itself stores user data only on-device.
 
+> **Status (2026-05-31): registration in progress — awaiting ICO number.**
+
 | Step | Done | Notes |
 |---|---|---|
-| Confirm a UK legal entity / sole trader registration | [ ] | Needed before ICO registration |
+| Confirm a UK legal entity / sole trader registration | [x] | Operating as sole trader: Dumitru Vasiliu |
 | Self-assessment on `ico.org.uk` to confirm fee tier | [ ] | Tier 1 (micro org) is currently £40 — confirm at registration |
 | Pay annual data protection fee | [ ] | Direct debit recommended so it auto-renews |
-| Record ICO registration number | [ ] | Goes into `{{ICO_NUMBER}}` in `PRIVACY.md` |
+| Record ICO registration number | [ ] | **Awaiting number from ICO** — goes into `{{ICO_NUMBER}}` in `PRIVACY.md` |
 | Add ICO number to the live privacy policy URL | [ ] | Re-publish after editing |
 | Calendar reminder for annual renewal | [ ] | T-1 month before anniversary |
 
@@ -192,7 +198,7 @@ Template: https://ico.org.uk/for-organisations/sme-web-hub/documentation/
 
 | Item | Done |
 |---|---|
-| ROPA drafted | [ ] |
+| ROPA drafted (`docs/legal/ROPA.md`) | [x] |
 | ROPA saved alongside other compliance docs (not in this repo) | [ ] |
 | Reviewed annually | [ ] |
 
@@ -220,9 +226,9 @@ Template: https://ico.org.uk/for-organisations/sme-web-hub/documentation/
 
 | Item | Done |
 |---|---|
-| Single inbox monitored for security reports (`security@` or `support@`) | [ ] |
-| 72-hour ICO notification path documented | [ ] |
-| User notification template prepared | [ ] |
+| Single inbox monitored for security reports — `support@timrx.live` | [x] |
+| 72-hour ICO notification path documented (`docs/legal/BREACH_RESPONSE.md`) | [x] |
+| User notification template prepared (`docs/legal/BREACH_RESPONSE.md`) | [x] |
 
 ---
 

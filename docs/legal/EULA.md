@@ -1,15 +1,15 @@
 # End User Licence Agreement (EULA)
 
-**Effective date:** {{EFFECTIVE_DATE}}
-**Last updated:** {{LAST_UPDATED}}
+**Effective date:** 2026-05-30
+**Last updated:** 2026-05-30
 
 This End User Licence Agreement ("EULA") is a binding agreement between you
-(the "End User", "you") and **{{LEGAL_NAME}}** ("Licensor", "we", "us") for
+(the "End User", "you") and **Dumitru Vasiliu** ("Licensor", "we", "us") for
 your use of the **Network Infrastructure Trainer** mobile application (the
 "App").
 
-This EULA applies in addition to the App's [Terms of Use]({{TERMS_URL}}) and
-[Privacy Policy]({{PRIVACY_URL}}). In the case of conflict, the Terms of Use
+This EULA applies in addition to the App's [Terms of Use](https://timrx.live/legal/nia/terms) and
+[Privacy Policy](https://timrx.live/legal/nia/privacy). In the case of conflict, the Terms of Use
 prevail for general use of the App, and this EULA prevails for the scope and
 limits of the licence granted to you.
 
@@ -53,7 +53,7 @@ You must not, and you must not allow any third party to:
 
 The App, including its source code, design, branding, original question
 content, explanations, structure and arrangement, is owned by
-**{{LEGAL_NAME}}** or its licensors and is protected by UK and international
+**Dumitru Vasiliu** or its licensors and is protected by UK and international
 copyright, trademark and other intellectual property laws.
 
 This EULA does not transfer any intellectual property rights to you. All
@@ -117,7 +117,7 @@ consumer law.
 If you obtained the App from the Apple App Store, the following apply in
 addition to (and where conflicting, in place of) the rest of this EULA:
 
-- This EULA is between you and **{{LEGAL_NAME}}** only, and not with Apple.
+- This EULA is between you and **Dumitru Vasiliu** only, and not with Apple.
   Apple is not responsible for the App or its content.
 - The licence granted in section 1 is also limited to use on Apple-branded
   products that run iOS or iPadOS, as required by the Apple Media Services
@@ -137,7 +137,7 @@ addition to (and where conflicting, in place of) the rest of this EULA:
   legislation.
 - You and we acknowledge that, in the event of any third-party claim that the
   App or your possession and use of the App infringes that third party's
-  intellectual property rights, **{{LEGAL_NAME}}** (and not Apple) is solely
+  intellectual property rights, **Dumitru Vasiliu** (and not Apple) is solely
   responsible for the investigation, defence, settlement and discharge of any
   such intellectual property infringement claim.
 - You represent and warrant that (i) you are not located in a country that is
@@ -166,6 +166,6 @@ is void.
 
 ## 11. Contact
 
-{{LEGAL_NAME}}
-Email: {{SUPPORT_EMAIL}}
-Postal: {{POSTAL_ADDRESS}}
+Dumitru Vasiliu
+Email: support@timrx.live
+Postal: 39 Spearpoint Gardens, Aldborough Road North, Ilford, Essex, IG2 7SX, United Kingdom
