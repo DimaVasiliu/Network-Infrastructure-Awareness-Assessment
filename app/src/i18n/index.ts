@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -24,6 +25,22 @@ export const useLanguageStore = create<LanguageState>()(
     },
   ),
 );
+
+/**
+ * Whether the persisted language has finished rehydrating from AsyncStorage.
+ * Gate the app's first render on this so a saved RO/RU user doesn't see a brief
+ * flash of English before the stored language loads.
+ */
+export function useLanguageHydrated(): boolean {
+  const [hydrated, setHydrated] = useState(() => useLanguageStore.persist.hasHydrated());
+  useEffect(() => {
+    const unsub = useLanguageStore.persist.onFinishHydration(() => setHydrated(true));
+    // In case hydration completed between initial state and this effect.
+    if (useLanguageStore.persist.hasHydrated()) setHydrated(true);
+    return unsub;
+  }, []);
+  return hydrated;
+}
 
 /** Current UI language. */
 export function useLanguage(): Language {

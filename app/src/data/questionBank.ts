@@ -26,144 +26,132 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
   'Product Selection': [
     {
       question:
-        'A specification calls for a standard indoor data cable in a normal building route. Which EuroClass reaction-to-fire code is the one to learn for this scenario?',
+        'For a standard data cable run inside a building, what is the minimum EuroClass reaction-to-fire rating the cable must meet?',
       correct: 'Cca-s1b,d2,a2',
       distractors: ['Dca-s1b,d2,a2', 'Eca-s1b,d2,a2', 'Fca-s1b,d2,a2'],
       explanation:
-        'Indoor telecommunications cable in a normal building is typically rated Cca-s1b,d2,a2. The main letter (Cca) describes flame spread; the s, d and a sub-ratings describe smoke production, flaming droplets and acidity.',
-      standardRef: 'CPR / EN 13501-6 EuroClass',
+        'Indoor telecommunication cable must meet at least Cca-s1b,d2,a2 under the CPR/EuroClass system. The main class (Cca) describes flame spread; the s, d and a sub-ratings describe smoke, flaming droplets and acidity.',
+      standardRef: 'CPR / EuroClass',
     },
     {
-      question: 'Among the listed cable codes, which produces the least smoke when burning?',
+      question:
+        'Looking only at the smoke rating in these EuroClass codes, which cable would give off the least smoke in a fire?',
       correct: 'B2ca s1a d1 a1',
       distractors: ['Eca', 'Cca s1b d2 a2', 'Dca s2 d2 a2'],
       explanation:
-        'The "s" digit in the EuroClass notation indicates smoke production. s1a is the lowest smoke level available, so B2ca s1a d1 a1 produces less smoke than s1b or s2 alternatives.',
-      standardRef: 'CPR / EN 13501-6 EuroClass',
+        "The 's' digit indicates smoke production: s1a is the least, then s1b, s1, s2 and s3 the most. B2ca s1a d1 a1 has the lowest smoke rating shown.",
+      standardRef: 'CPR / EuroClass',
     },
     {
-      question:
-        'Which one of the following is NOT a telecommunications cable and instead belongs to the electrical power installation?',
+      question: 'Three of the cables below are communications cables. Which one is really a power cable?',
       correct: '3 core 13 amp 230 volt mains cable',
-      distractors: ['Cat5e 4 pair data cable', '1308 3 pair telephone cable', '2 pair intruder alarm cable'],
+      distractors: ['Cat 5e 4 pair data cable', '1308 3 pair telephone cable', '2 pair intruder alarm cable'],
       explanation:
-        'Data, telephone and intruder-alarm cables are communications-type cables. A 230 V mains lead is a low-voltage power cable and falls under the electrical installation, not the telecoms installation.',
-      standardRef: 'BS EN 50173-1 (definitions)',
+        'Data, telephone and intruder-alarm cables are communications cables. A 230 V mains lead is a power cable, not a telecommunication cable. Selecting the wrong cable can be costly to the installer.',
+      standardRef: 'BS EN 50173-1',
     },
     {
       question:
-        'A data cable will run on the outside of a building, exposed to sunlight and weather, with no duct or conduit cover. What is the right selection criterion?',
-      correct: 'Choose a UV-resistant cable with a sheath rated for outdoor exposure',
+        'A cable will run on the outside of a building, exposed to sun and weather, with no duct or conduit. What must the chosen cable provide?',
+      correct: 'Installation cables shall be UV resistant with weather resistant, protective outer sheaths',
       distractors: [
-        'Choose a standard indoor white-sheath cable',
-        'Choose Cat 5e S/FTP and consider nothing else',
-        'Choose Cat 6 F/FTP and consider nothing else',
+        'Installation cables shall be white cables',
+        'Installation cables shall be a minimum of Cat 5e and S/FTP',
+        'Installation cables shall be a minimum of Cat 6 and F/FTP',
       ],
       explanation:
-        'External installation introduces UV and weather exposure. Sheath material and rating, not just the data category, decide whether the cable is suitable. BS EN 50174-3 covers external installation requirements.',
+        "Exposed external cables need extra protection from sunlight and weather, so the outer sheath is treated to resist UV and wear. The cable specification is the designer's responsibility.",
       standardRef: 'BS EN 50174-3',
     },
     {
-      question:
-        'For a Class EA balanced copper installation, what is the design length limit for the permanent link?',
+      question: 'What is the maximum length allowed for a Class Ea permanent link?',
       correct: '90 metres',
       distractors: ['55 metres', '100 metres', '1000 metres'],
       explanation:
-        'The Class EA permanent link is limited to 90 m. The 100 m figure is the total channel length, which includes the permanent link plus equipment and patch cords.',
+        "The Class Ea permanent link (the fixed installed cable) is limited to 90 m so the standard's performance can be guaranteed.",
       standardRef: 'BS EN 50173-1',
     },
     {
-      question:
-        'What is the standard maximum channel length for a Class EA balanced copper link, including normal patch and equipment cords?',
+      question: 'Including a patch cord at each end, what is the maximum length of a Class Ea channel?',
       correct: '100 metres',
       distractors: ['55 metres', '90 metres', '1000 metres'],
       explanation:
-        'The channel is the permanent link plus cords at each end. For Class EA the total channel length is 100 m, leaving 10 m for the cords above the 90 m permanent link.',
+        'The Class Ea channel is the 90 m permanent link plus a patch cord at each end (often called 90+10), giving a 100 m maximum.',
       standardRef: 'BS EN 50173-1',
     },
     {
       question:
-        'If patch cords on a Class EA channel are longer than 20 m, what channel length should the design use?',
+        'If the patch cords on a Class Ea channel are longer than 20 metres, the maximum channel length drops to:',
       correct: '95 metres',
       distractors: ['80 metres', '90 metres', '100 metres'],
       explanation:
-        'Where total cord length exceeds 20 m, the channel allowance for the fixed cabling is reduced to 95 m to keep insertion loss within the Class EA budget.',
+        'Long patch cords behave electrically differently to the permanent cable, so where patch cords exceed 20 m the channel is shortened to 95 m to keep performance.',
       standardRef: 'BS EN 50173-1',
     },
     {
       question:
-        'Under HD 60364-5-54, a cabinet, frame or rack of 21U or less requires what minimum bonding conductor size?',
-      correct: '4 mm² minimum bonding conductor',
-      distractors: [
-        '2.5 mm² minimum bonding conductor',
-        '10 mm² minimum bonding conductor',
-        '16 mm² minimum bonding conductor',
-      ],
+        'For a cabinet, frame or rack of 21 U or fewer, what is the smallest bonding-conductor cross-section allowed?',
+      correct: '4 mm²',
+      distractors: ['2.5 mm²', '10 mm²', '16 mm²'],
       explanation:
-        'Smaller cabinets (≤21U) require at least a 4 mm² protective bonding conductor under HD 60364-5-54. Larger frames require a 16 mm² conductor.',
-      standardRef: 'HD 60364-5-54 / BS 7671',
-    },
-    {
-      question:
-        'Under HD 60364-5-54, what is the minimum bonding conductor size for a cabinet, frame or rack larger than 21U?',
-      correct: '16 mm² minimum bonding conductor',
-      distractors: [
-        '2.5 mm² minimum bonding conductor',
-        '4 mm² minimum bonding conductor',
-        '10 mm² minimum bonding conductor',
-      ],
-      explanation:
-        'For larger racks (>21U), HD 60364-5-54 calls for at least a 16 mm² bonding conductor. The same standard sits behind BS 7671 earthing and bonding rules.',
-      standardRef: 'HD 60364-5-54 / BS 7671',
-    },
-    {
-      question:
-        'A 12U wall-mounted communications cabinet with a glass door is being installed. What size protective bonding conductor is required?',
-      correct: '4 mm² minimum bonding conductor',
-      distractors: [
-        'No bonding conductor is needed',
-        '2.5 mm² minimum bonding conductor',
-        '10 mm² minimum bonding conductor',
-      ],
-      explanation:
-        'A 12U wall cabinet is within the small-cabinet bracket (≤21U), so the 4 mm² minimum bonding conductor applies regardless of the door material.',
+        'Per HD 60364-5-54, a rack of 21 U or fewer uses a bonding conductor of at least 4 mm². Incorrectly sized earth conductors are a safety issue.',
       standardRef: 'HD 60364-5-54',
     },
     {
-      question: 'Of the Ethernet application names listed, which is supported over Cat5e balanced cabling?',
+      question:
+        'For a cabinet, frame or rack larger than 21 U, what is the smallest bonding-conductor cross-section allowed?',
+      correct: '16 mm²',
+      distractors: ['2.5 mm²', '4 mm²', '10 mm²'],
+      explanation:
+        'Per HD 60364-5-54, a rack larger than 21 U uses a bonding conductor of at least 16 mm². Incorrectly sized earth conductors are a safety issue.',
+      standardRef: 'HD 60364-5-54',
+    },
+    {
+      question: 'What size earth bond does a wall-mounted 12 U communication cabinet with a glass door need?',
+      correct: 'Minimum cross-sectional area of 4 mm²',
+      distractors: [
+        'It does not need one',
+        'Minimum cross-sectional area of 2.5 mm²',
+        'Minimum cross-sectional area of 10 mm²',
+      ],
+      explanation:
+        'A 12 U cabinet (≤ 21 U) requires a bonding conductor of at least 4 mm². Always check the requirement before installing.',
+      standardRef: 'HD 60364-5-54',
+    },
+    {
+      question: 'Which Ethernet standard from the list will Cat 5e cable carry?',
       correct: '100baseT',
       distractors: ['100baseSX', '10base2', '10base5'],
       explanation:
-        '100baseT runs over balanced twisted-pair such as Cat5e. 100baseSX is optical, while 10base2 and 10base5 are legacy coaxial Ethernet variants.',
-      standardRef: 'IEEE 802.3',
+        'Cat 5e supports 100baseT (and up to 1000baseT). The 10base2/10base5 standards are legacy coaxial Ethernet, and 100baseSX is a fibre standard.',
+      standardRef: 'BS EN 50173-1',
     },
     {
-      question: 'A 10 Gb/s link must run 500 m between two buildings. Which media family is appropriate?',
+      question: 'You need a 10 Gbps link that runs 500 metres. Which cable type is suitable?',
       correct: 'Fibre optic cable',
-      distractors: ['Co-axial cable', 'Cat 6A balanced cable', 'Cat 7 or Cat 8 balanced cable'],
+      distractors: ['Co-ax cable', 'Cat 6A cable', 'Cat 7 cable'],
       explanation:
-        'Balanced copper categories such as Cat 6A, Cat 7 or Cat 8 are limited to about 100 m at 10 Gb/s. At 500 m, fibre is the correct media family.',
-      standardRef: 'ISO/IEC 11801-1',
+        'Cat 6A and Cat 7 can carry 10 Gbps but not over 500 m, so a fibre optic link must be used for that distance.',
+      standardRef: 'BS EN 50173-1',
     },
     {
-      question: 'A 10 Gb/s link must reach 2 km. Which media is the correct choice?',
+      question: 'A 10 Gbps link has to reach 2000 metres. Which cable type should be used?',
       correct: 'Single-mode fibre optic cable',
-      distractors: ['Multimode fibre OM1 or OM2', 'Multimode fibre OM3 or OM4', 'Multimode fibre OM5'],
+      distractors: ['Multi-mode fibre optic cable OM2', 'Multi-mode fibre optic cable OM4', 'Co-ax cable'],
       explanation:
-        'Multimode fibre grades are intended for short reach, typically a few hundred metres at 10 Gb/s. For kilometre-scale 10 Gb/s links, single-mode fibre is used.',
-      standardRef: 'ISO/IEC 11801-1',
+        'OM4 multi-mode can carry 10 Gbps but not to 2000 m, so a single-mode fibre link is required for that distance.',
+      standardRef: 'BS EN 50173-1',
     },
     {
-      question: 'Which of the following core/cladding fibre sizes is NOT a standard telecoms fibre size?',
+      question: 'Three of these are real fibre core/cladding sizes. Which one does not exist?',
       correct: '100/125',
       distractors: ['9/125', '50/125', '62.5/125'],
       explanation:
-        '9/125 µm is single-mode; 50/125 µm and 62.5/125 µm are multimode. 100/125 is not a recognised standard size for telecoms fibre.',
-      standardRef: 'ITU-T G.652 / ISO/IEC 11801-1',
+        '9/125 is single-mode; 50/125 and 62.5/125 are multi-mode. 100/125 is not an available core/cladding size.',
+      standardRef: 'BS EN 50173-1',
     },
     {
-      question:
-        'In the context of construction-product cable performance, what does the abbreviation CPR stand for?',
+      question: 'In construction, the abbreviation CPR stands for what?',
       correct: 'Construction Products Regulations',
       distractors: [
         'Cable Product Regulations',
@@ -171,1619 +159,1346 @@ const sectionSpecs: Record<QuestionSection, Spec[]> = {
         'Construction Protection Regulations',
       ],
       explanation:
-        'CPR refers to the Construction Products Regulations, which set the framework for declaring the performance of construction products, including reaction-to-fire performance for cables.',
-      standardRef: 'EU Regulation 305/2011 / UK CPR 2013',
+        'The Construction Products Regulations provide a common technical language to assess the performance of construction products, including data cabling.',
+      standardRef: 'Construction Products Regulations',
     },
     {
-      question:
-        'When discussing construction-product cable documentation, what does the abbreviation DoP stand for?',
+      question: 'What is meant by the abbreviation DoP?',
       correct: 'Declaration of Performance',
       distractors: ['Declaration of Product', 'Details of Performance', 'Declaration of Personnel'],
       explanation:
-        'A Declaration of Performance is the document in which a manufacturer states the declared characteristics of a construction product, including any reaction-to-fire EuroClass rating.',
-      standardRef: 'CPR Article 4',
+        "The Declaration of Performance describes a product's characteristics in relation to its fire resistance.",
+      standardRef: 'Construction Products Regulations',
     },
     {
-      question: 'What does CE marking on a cable product actually indicate?',
-      correct: 'The product meets the applicable EU safety, health or environmental requirements',
+      question: 'When a product carries CE marking, what does that mark confirm?',
+      correct: 'Meet EU safety, health or environmental requirements',
       distractors: [
-        'The product meets every worldwide standard',
-        'The product was manufactured in the European Union',
-        'The product meets only data transmission requirements',
+        'Meet worldwide requirements',
+        'Were made in the European Union',
+        'Meet EU performance requirements',
       ],
       explanation:
-        'CE marking is a conformity mark covering the relevant EU directives or regulations that apply to that product class. It is not a statement of origin and is not a worldwide approval.',
-      standardRef: 'EU Regulation 765/2008',
+        'CE marking indicates conformity with health, safety and environmental protection standards for products sold within the European Economic Area.',
+      standardRef: 'CE marking / CPR',
     },
   ],
   'Containment Systems': [
     {
       question:
-        'When laying 4-pair balanced cable into containment, what minimum bend radius does BS EN 50174-2 generally suggest?',
-      correct: 'Eight times the cable outside diameter',
+        'What is the smallest installed bend radius BS EN 50174-2 allows for 4-pair balanced (twisted-pair) cable?',
+      correct: 'Eight times the cable diameter',
       distractors: [
-        'Four times the cable outside diameter',
-        'Ten times the cable outside diameter',
-        'Twelve times the cable outside diameter',
+        'Four times the cable diameter',
+        'Ten times the cable diameter',
+        'Twelve times the cable diameter',
       ],
       explanation:
-        'For 4-pair balanced cabling, BS EN 50174-2 uses 8× the outside diameter as the installed bend-radius guide. Tighter bends affect crosstalk and return loss.',
+        'For 4-pair balanced cabling the standard sets the installed minimum bend radius at eight times the cable diameter. Tighter bends degrade crosstalk and return-loss performance.',
       standardRef: 'BS EN 50174-2',
     },
     {
       question:
-        'For optical fibre and coaxial cables in installed containment, what minimum bend radius does BS EN 50174-2 indicate?',
-      correct: 'Ten times the cable outside diameter',
+        'For optical fibre and coaxial cable, what minimum installed bend radius does BS EN 50174-2 set?',
+      correct: 'Ten times the cable diameter',
       distractors: [
-        'Four times the cable outside diameter',
-        'Eight times the cable outside diameter',
-        'Twelve times the cable outside diameter',
+        'Four times the cable diameter',
+        'Eight times the cable diameter',
+        'Twelve times the cable diameter',
       ],
       explanation:
-        'For fibre and coax, BS EN 50174-2 uses 10× the cable outside diameter as the installed bend-radius reference. Manufacturer values may be tighter for short-term pulling but installed bends should follow the standard.',
+        'Optical fibre and coaxial cables use ten times the cable diameter as the installed minimum bend radius. Manufacturer figures may allow tighter short-term pulling, but the installed cable must meet the standard.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'What is one rack unit (1U) on a standard 19 inch frame?',
+      question: 'Equipment for a 19-inch rack is measured in U (or RU). How tall is one rack unit?',
       correct: '44.45 mm (1.75 inches)',
-      distractors: ['50 mm (2 inches)', '30 mm (approximately 1.2 inches)', '25 mm (1 inch)'],
+      distractors: ['50 mm (2 inches)', '30 mm (1 inch)', '25 mm (1 inch)'],
       explanation:
-        '1U on a 19 inch rack is 44.45 mm (1.75 inches) high. Rack-mountable equipment is sized in whole rack units (1U, 2U, 4U, etc.).',
-      standardRef: 'EIA-310 / IEC 60297',
+        'One rack unit (1U) is 44.45 mm, i.e. 1.75 inches. Rack equipment is sized in whole units (1U, 2U, 4U, etc.).',
+      standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'Which statement best describes a cable management system?',
+      question: 'Under BS EN 50174-2, which statement best describes a cable management system?',
       correct:
-        'A set of pathway products such as tray, basket, ducts and tubes used to support or contain cabling',
+        'It includes ducts and tubes housing, or intended to house, blown IT cables and/or cable elements',
       distractors: [
-        'Only metallic tray installed below floor level',
-        'Only tubes intended for blown fibre or blown copper',
-        'The boxes or drums in which cables are delivered to site',
+        'It does not include ducts and tubes',
+        'It does not include tubes for blown IT cables or cable elements',
+        'It means the boxes or drums the cables are delivered in',
       ],
       explanation:
-        'A cable management system covers the full range of pathway products designed to contain or support cabling, including ducts and tubes for blown installation. The shipping packaging is not a management system.',
+        'A cable management system is anything designed to contain or support cabling along its route, including ducts and tubes used for blown fibre or copper. Delivery packaging is not part of it.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'Can a suspended ceiling grid be used to support a network cabling pathway?',
-      correct: 'No — pathway systems must be fixed to suitable building fabric, not to the ceiling grid',
+      question: 'What does BS EN 50174-2 say about using the grid of a suspended ceiling to carry a pathway?',
+      correct: 'It shall not be used as support for pathway systems',
       distractors: [
-        'Yes, provided the cable bundle is small',
-        'Yes, provided devices are mounted in the same ceiling',
-        'Yes, for short pathway runs only',
+        'It may be used as support for multiple cables',
+        'It may be used to support devices within the suspended ceiling',
+        'It may be used as support for pathway systems',
       ],
       explanation:
-        'Suspended ceiling grids are not rated to carry cable pathway loads. Containment must be fixed to the structure itself so the ceiling grid only carries its own weight.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'Before adding more cables to an existing containment route, what should you check?',
-      correct: 'That the containment and its fixings can carry the additional cable load',
-      distractors: [
-        'Only that the new cables physically fit through the route',
-        'Only that the new cable colour matches existing cables',
-        'Only that the route remains visible from below',
-      ],
-      explanation:
-        'Adding cables increases weight and may exceed the design loading of the containment and its fixings. Loading should be verified before the additional cables are pulled in.',
+        'It is not good practice to loose-lay cables or fix pathways to suspended ceiling grids. Containment must be permanently affixed to the fabric of the building.',
       standardRef: 'BS EN 50174-2',
     },
     {
       question:
-        'When routing containment through a designated escape route, what is the primary installation requirement?',
-      correct: 'Use supports and materials suitable for the location and the fire-safety requirements',
-      distractors: [
-        'Use the cheapest containment available to keep costs down',
-        'Use plastic containment because it is easier to install',
-        'Hide the containment behind decorative panels regardless of fire rating',
-      ],
+        'Joints between sections of metallic containment should be bonded in line with which standard?',
+      correct: 'BS EN 50174-2',
+      distractors: ['ISO 11801', 'BS EN 57921', 'BS EN 50173'],
       explanation:
-        'Escape routes have specific fire-safety requirements. Containment, fixings and any sealing must be selected so that the route remains safe during evacuation or a fire condition.',
-      standardRef: 'BS EN 50174-2 / Building Regs Part B',
-    },
-    {
-      question: 'You are refitting trunking lids after pulling cables. What is the correct practice?',
-      correct: 'Replace the lids without trapping, pinching or crushing any cable',
-      distractors: [
-        'Force the lid closed and adjust cables later',
-        'Leave the lid loose if the cables seem tight',
-        'Tighten lid screws fully even if a cable is pinched',
-      ],
-      explanation:
-        'A trapped or crushed cable can fail performance tests and can be damaged over time. Lids should close cleanly without any pressure on cables.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'Several services are about to share the same containment. What must be confirmed first?',
-      correct: 'That separation, identification and compatibility between services are acceptable',
-      distractors: [
-        'That all services use the same coloured cable',
-        'That only one service has a written specification',
-        'That the largest service is installed last regardless of route',
-      ],
-      explanation:
-        'Shared containment must respect electrical separation, EMI considerations, identification and any client policy. The route should be managed so one service does not compromise another.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'When containment changes direction, which accessory choice is correct?',
-      correct: 'Use bend accessories that maintain the required cable bend radius',
-      distractors: [
-        'Use a sharp 90° angle to save material',
-        'Use any bend that physically fits the space',
-        'Cut the containment freehand and bend it manually',
-      ],
-      explanation:
-        'Bends in containment must not force cables below their permitted bend radius. Manufacturer-supplied bend accessories are designed to maintain that geometry.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'After cutting containment on site, what must be done before installing cable?',
-      correct: 'Deburr the cut edges and protect cables from any sharp metal or plastic',
-      distractors: [
-        'Leave the cut edges if the installation is hidden',
-        'Apply paint over burrs in place of removing them',
-        'Cover the burrs with PVC tape only',
-      ],
-      explanation:
-        'Site-cut containment can leave sharp burrs that abrade or cut cable sheaths during installation and later movement. Burrs should be removed or covered with a purpose-made bushing.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'You are fixing containment to a weak or unusual substrate. What is the right approach?',
-      correct: 'Use fixings rated for that substrate and for the expected containment load',
-      distractors: [
-        'Use the same fixings as elsewhere on site, regardless of substrate',
-        'Use longer screws and ignore the substrate type',
-        'Use double-sided tape if drilling is inconvenient',
-      ],
-      explanation:
-        'Containment is only as safe as its fixings and background. The substrate, the load and the environment all influence the correct fixing.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'When restraining cables on containment, what is the correct use of cable ties?',
-      correct: 'Use suitable restraints and avoid over-tightening that deforms the cable',
-      distractors: [
-        'Pull every tie as tight as possible for a neat finish',
-        'Use wire ties because they are cheaper than nylon',
-        'Tie groups of 50 cables together for speed',
-      ],
-      explanation:
-        'Over-tight ties can crush balanced cable and impair transmission performance. Restraints should hold the bundle without changing cable geometry.',
+        'Continuity bonding between sections of metallic containment is carried out in accordance with BS EN 50174-2 to ensure technical conformance of the installation.',
       standardRef: 'BS EN 50174-2',
     },
     {
       question:
-        'Containment is being installed in an area likely to need future additions. What must be considered?',
-      correct: 'Keep inspection and maintenance access available along the route',
+        'What working clearance does BS EN 50174 require on the faces of cabinets, frames and racks where access is needed?',
+      correct: 'A minimum clearance of 1.2 m on all faces where access is required',
       distractors: [
-        'Hide the route entirely so users cannot see it',
-        'Block access once the cables are pulled in',
-        'Run cabling tight to walls so no access is possible',
+        'A minimum clearance of 1 m on all faces where access is required',
+        'A minimum clearance of 1.2 m on all faces',
+        'A minimum clearance of 2 m on all faces where access is required',
       ],
       explanation:
-        'Network cabling routes need to remain testable and maintainable. Containment should be installed so that lids, joints and access points are reachable.',
+        'The standard sets a minimum 1.2 m clearance on the faces of cabinets, frames and racks where access is required, so equipment can be worked on safely.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'A cable route passes through a damp or corrosive area. Which choice is correct?',
-      correct: 'Select corrosion-resistant containment and fixings suitable for the environment',
-      distractors: [
-        'Use standard mild steel because painted finish is enough',
-        'Use plain plastic for all wet locations regardless of fire rating',
-        'Use any galvanised steel without checking the grade',
-      ],
+      question: 'In which location does BS EN 50174 say cabinets, frames and racks must NOT be sited?',
+      correct: 'In toilet facilities',
+      distractors: ['Outside', 'On a roof', 'In a basement'],
       explanation:
-        'Moisture and chemical environments shorten the life of unsuitable containment and can weaken support over time. The grade of containment and fixings should be chosen for the environment.',
+        'The standard prohibits siting cabinets, frames and racks in toilet or washroom facilities, which are damp and unsuitable environments for equipment.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'Containment is being installed across a building expansion joint. What must be allowed for?',
-      correct: 'Building movement, so containment and cables are not strained when the structure moves',
+      question: 'How far off the fixing surface should tray-work pathways sit under BS EN 50174?',
+      correct: 'At least 25 mm from the fixing surface',
       distractors: [
-        'No movement, because the joint is decorative',
-        'No movement, because the cable is flexible enough',
-        'A rigid bridge across the joint with no expansion accessory',
+        'Fixed flush to the fixing surface',
+        'At least 50 mm from the fixing surface',
+        'With no clearance from the fixing surface',
       ],
       explanation:
-        'Expansion joints exist because the building moves. Rigid containment across the joint will be damaged in time and may transfer strain to cabling.',
+        'Tray-work should stand at least 25 mm off the fixing surface, allowing access and air circulation around the cables.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'On a bent conduit run, how often does BS EN 50174 want draw-box access points?',
+      correct: 'At intervals no greater than 12 m, to allow draw-boxes',
+      distractors: [
+        'At intervals no greater than 90 m, to allow draw-boxes',
+        'At intervals greater than 12 m, to allow draw-boxes',
+        'At intervals greater than 20 m, to allow draw-boxes',
+      ],
+      explanation:
+        'Access (draw) points are needed at least every 12 m on bent conduit runs so cables can be drawn in without excessive tension or damage.',
       standardRef: 'BS EN 50174-2',
     },
     {
       question:
-        'When metallic containment forms part of the installation, what should be done about bonding?',
-      correct: 'Follow the electrical design for bonding the containment as required',
-      distractors: [
-        'Bond every section to every other section with mains earth',
-        'Never bond metallic containment under any circumstance',
-        'Bond only the section closest to the door',
-      ],
+        "With no maker's figure available, what is the widest spacing BS EN 50174 allows between non-continuous supports (basket, ladder or hooks)?",
+      correct: '1500 mm',
+      distractors: ['500 mm', '1000 mm', '2000 mm'],
       explanation:
-        'Metallic containment may need protective bonding depending on the design and on electrical safety requirements. The electrical design dictates the bonding strategy.',
-      standardRef: 'HD 60364-5-54 / BS 7671',
+        'Where the maker gives no figure, non-continuous supports such as basket, ladder or hooks should be no more than 1500 mm apart to control sag and load.',
+      standardRef: 'BS EN 50174-2',
     },
     {
       question:
-        'Cables are being installed in a void above suspended ceiling tiles. What is the correct practice?',
-      correct: 'Keep cables on supported containment, not loose on ceiling tiles',
-      distractors: [
-        'Lay cables loose on the ceiling tiles for speed',
-        'Tape cables to the ceiling grid hangers',
-        'Drape cables over the lighting fittings',
-      ],
+        "With no maker's figure available, what is the maximum cable stacking height BS EN 50174 allows on continuous supports such as trays?",
+      correct: '150 mm',
+      distractors: ['50 mm', '100 mm', '500 mm'],
       explanation:
-        'Ceiling tiles and grid members are not cable supports. Cabling above ceilings should run on proper tray, basket or another suitable pathway.',
+        'On continuous supports such as trays, cable stacking height is limited to 150 mm to avoid crushing lower cables and to manage heat build-up.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'When using basket tray for data cabling, what is the correct dressing principle?',
-      correct: 'Support cables without sharp pressure points, excessive sag or deformation',
-      distractors: [
-        'Stack cables as deep as possible to use all available space',
-        'Tie every metre as tight as possible regardless of sag',
-        'Leave large sags between supports to act as service loops',
-      ],
+      question:
+        'Cable management should be chosen against the MICE environmental classification taken from which standard?',
+      correct: 'BS EN 50173',
+      distractors: ['BS 50310', 'BS 6701', 'BS EN 50174'],
       explanation:
-        'Basket tray performs well when the cable is supported evenly. Sharp pressure points, heavy stacking and severe sag all distort cable geometry.',
+        'Cable management is selected against the MICE environmental classification defined in BS EN 50173, matching the system to the conditions it will face.',
+      standardRef: 'BS EN 50173',
+    },
+    {
+      question: 'How many 90° bends does BS EN 50174 allow in a conduit between pulling points?',
+      correct: 'No more than two',
+      distractors: ['No more than one', 'No more than three', 'No more than four'],
+      explanation:
+        'Too many bends between pull points makes it impossible to draw cable in safely, so the limit is two 90° bends between pulling points.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'What should be inspected on containment before handover?',
-      correct: 'Sharp edges, missing lids, poor support, overfilling and incomplete fire stopping',
+      question:
+        'What is the most cumulative change of direction BS EN 50174 permits in a conduit between pulling points?',
+      correct: '180°',
+      distractors: ['90°', '270°', '360°'],
+      explanation:
+        'The total (cumulative) change of direction between pull points must not exceed 180°, otherwise cables can snag, stretch or be damaged when drawn in.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'What is the largest number of cables BS EN 50174 allows in a single balanced-data bundle?',
+      correct: '24 cables',
+      distractors: ['19 cables', '48 cables', '100 cables'],
+      explanation:
+        'Oversized bundles trap heat and increase interference between cables, so bundle size is limited to 24 cables.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'How does BS EN 50174 say cables should be installed in a vertical pathway such as a riser?',
+      correct: 'Lowered rather than pulled upwards',
       distractors: [
-        'Only the colour of the containment',
-        'Only the brand name of the manufacturer',
-        'Only the position of unrelated services nearby',
+        'Pushed upwards in bundles',
+        'Pulled upwards rather than lowered',
+        'Pulled upwards in bundles',
       ],
       explanation:
-        'Containment quality directly affects safety, maintainability and link performance. The above items are common defects that should be picked up before handover.',
+        'Lowering cables down a riser puts far less strain on them than pulling them up, reducing the risk of stretching or damage.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'What do the letters in M.I.C.E stand for in BS EN 50173?',
+      correct: 'Mechanical, Ingress, Climatic/Chemical, Electromagnetic',
+      distractors: [
+        'Material, Insulation, Colour, Effect',
+        'Measure, Insure, Cut, Erect',
+        'Mechanical, Insulation, Cable, Earth',
+      ],
+      explanation:
+        'MICE classifies the environment by Mechanical, Ingress (dust/water), Climatic/Chemical and Electromagnetic conditions, guiding the choice of cabling and containment.',
+      standardRef: 'BS EN 50173',
+    },
+    {
+      question: 'Under BS EN 50174, what must the installer make sure of when selecting a pathway?',
+      correct: 'That it is able to support the mass of the cables to be installed',
+      distractors: [
+        'That it is the correct colour for the cables',
+        'That it is only for the cables installed today',
+        'That it is 100% bigger than the cables need',
+      ],
+      explanation:
+        'Pathways must be chosen to carry the weight of the cables they will hold; under-rated containment can fail and fall from the surface.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'How strong must the fixings and supports for a pathway be under BS EN 50174?',
+      correct: 'Able to carry twice the combined mass of the pathway and its cables',
+      distractors: [
+        'Able to carry only the cables to be installed today',
+        'Able to carry only the mass of the pathway system',
+        'Able to carry just the combined mass of the pathway and its cables',
+      ],
+      explanation:
+        'Fixings must carry twice the combined weight of the pathway plus its cables, giving a safety margin for future additions and dynamic loads.',
       standardRef: 'BS EN 50174-2',
     },
   ],
   'Cable Laying': [
     {
-      question: 'During installation of Cat 6A or shielded UTP, what minimum bend radius is generally used?',
-      correct: 'At least four times the cable outside diameter',
-      distractors: [
-        'At least two times the cable outside diameter',
-        'At least six times the cable outside diameter',
-        'At least ten times the cable outside diameter',
-      ],
+      question: 'Which fibre type has a core and cladding of 50/125 micrometres (µm)?',
+      correct: 'OM3',
+      distractors: ['OM1', 'OS2', 'OS1'],
       explanation:
-        'During installation, Cat 6A and shielded UTP normally use a 4× outside-diameter bend radius. The installed (in service) value can be tighter than during pulling.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'Of Cat 5, Cat 5e, Cat 6 and Cat 6A, which is most sensitive to tight bends?',
-      correct: 'Cat 6A',
-      distractors: ['Cat 5', 'Cat 5e', 'Cat 6'],
-      explanation:
-        'Higher-performance balanced cabling is more sensitive to geometry. Of the four categories listed, Cat 6A has the largest bend-radius concern.',
+        'OM3 multi-mode has a 50/125 core/cladding. OS1 and OS2 are 9/125 single-mode, and OM1 is 62.5/125.',
       standardRef: 'BS EN 50173-1',
     },
     {
-      question: 'How many Cat 6A cables does the guide use as the example fill for a 20 mm conduit?',
-      correct: '2 Cat 6A cables',
-      distractors: ['6 Cat 6A cables', '12 Cat 6A cables', '24 Cat 6A cables'],
+      question: 'Which copper category is rated for up to 10000 Mbps (10 Gbps)?',
+      correct: 'Cat6a',
+      distractors: ['Cat5e', 'Cat6', 'Cat7'],
       explanation:
-        'For Cat 6A in a 20 mm conduit, the example is 2 cables. Fill should always be checked against cable outside diameter, bends and pull length.',
+        'Cat6a is specified for 10 Gbps over the full 100 m. If unsure which cable to install, speak to the designer.',
+      standardRef: 'BS EN 50173-1',
+    },
+    {
+      question: 'Which cable would you use for multi-pair (multicore) telephone connections?',
+      correct: 'CW1308B',
+      distractors: ['Cat5e', 'Cat6a', 'Cat8'],
+      explanation: 'CW1308 is the traditional multi-pair telephone cable used for voice/multicore telephony.',
+      standardRef: 'BS EN 50173-1',
+    },
+    {
+      question: 'A fibre cable has a yellow jacket. Which fibre type does that colour usually indicate?',
+      correct: 'Single-mode',
+      distractors: ['Multi-mode', 'OM1', 'Cat6a'],
+      explanation:
+        'Typical jacket colours: orange OM2, aqua OM4, lime green OM5 and yellow single-mode. Always confirm by reading the print on the jacket, as colours can vary by client request.',
+      standardRef: 'BS EN 50173-1',
+    },
+    {
+      question: 'An RJ45 plug terminates which kind of cable?',
+      correct: 'Copper',
+      distractors: ['Fibre', 'OS1', 'Multi-mode'],
+      explanation:
+        'An RJ45 (Registered Jack 45, also called 8P8C) terminates copper twisted-pair data cable.',
+      standardRef: 'BS EN 50173-1',
+    },
+    {
+      question:
+        'For Cat 6 cable, which bend-radius figure is the lower one that the finished installation must meet?',
+      correct: 'The minimum bend radius installed',
+      distractors: [
+        'The minimum bend radius during installation',
+        'The minimum bend radius during termination',
+        'The minimum bend radius during testing',
+      ],
+      explanation:
+        'Standards state the minimum bend radius for the installed cable. You may exceed it briefly during installation/termination, but the final installed cable must comply or it will fail testing.',
       standardRef: 'BS EN 50174-2',
     },
     {
       question:
-        'For 12 Cat 6 cables routed at desk height in an office, which containment is suitable from the listed options?',
-      correct: '50 mm × 50 mm trunking',
-      distractors: ['18 mm conduit', '300 mm steel tray', '100 mm × 54 mm wire basket'],
+        "As a general rule, a fibre cable's minimum bend radius is at least how many times its outer diameter (OD)?",
+      correct: '10 times',
+      distractors: ['2 times', '8 times', '12 times'],
       explanation:
-        '50 mm × 50 mm trunking gives a tidy, accessible route at desk height for a small bundle such as 12 Cat 6 cables. The others are either too small or oversized for the location.',
+        'For fibre, the installed minimum bend radius is generally 10× the outer diameter. Exceeding it degrades performance and shows up on modern test equipment.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'When pulling a bundle of cables together, what should the installer manage?',
-      correct: 'The bundle so cables do not cross, twist or exceed tension limits',
-      distractors: [
-        'Only the speed of the pull, not the bundle geometry',
-        'Only the bundle weight, not the friction at bends',
-        'Only the box order, not the cable layout',
-      ],
+      question:
+        'To keep Cat6a performance, the minimum bend radius for UTP and shielded cable is how many times the outer diameter (OD)?',
+      correct: '4 times',
+      distractors: ['2 times', '6 times', '10 times'],
       explanation:
-        'A managed bundle reduces friction and avoids overstressing individual cables. Crossed or twisted cables increase pulling tension and damage risk.',
+        'Cat6a UTP and shielded cable use a minimum installed bend radius of 4× the outside diameter to maintain performance.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'If a pulling lubricant is needed, what must be verified?',
-      correct: 'That the lubricant is compatible with the cable sheath and the installation method',
-      distractors: [
-        'That it is the cheapest one on the van',
-        'That it is the same one used for electrical mains cable',
-        'That it is brightly coloured so leaks are visible',
-      ],
+      question: 'Which of these cables has a noticeably larger minimum bend radius?',
+      correct: 'Cat6a',
+      distractors: ['Cat 5', 'Cat 5e', 'Cat 6'],
       explanation:
-        'Incompatible lubricants can chemically attack the cable sheath or leave residue that affects later termination. Manufacturer-approved lubricant is the correct choice.',
+        'Cat6a is a larger, stiffer cable than Cat 5/5e/6, so it has a significantly larger minimum bend radius.',
+      standardRef: 'BS EN 50173-1',
+    },
+    {
+      question:
+        'What conduit fill percentage does BS EN 50174 recommend so there is room for bend radius and future growth?',
+      correct: '40%',
+      distractors: ['25%', '60%', '100%'],
+      explanation:
+        'A 40% fill ratio leaves room for bend radius and future cables. Because of gaps between cables, 40% looks surprisingly full in practice.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'How much spare cable should be left at an outlet?',
-      correct: 'A sensible service loop, without forcing tight coils or bends',
+      question: 'Which statement about pathways and containment is correct?',
+      correct:
+        'The pathway must have smooth surfaces, free of burrs, sharp edges, projections and pressure points that can damage cable insulation',
       distractors: [
-        'No slack at all, to keep the cable straight',
-        '10 metres in a tight coil for future use',
-        'Any amount, coiled around a screw head',
+        'Only rolled-edge tray should be used for copper cables',
+        'You should always take the most direct route',
+        'There is no need to bond/earth metallic containment',
       ],
       explanation:
-        'A short service loop supports termination and future re-work. The slack must respect bend radius and must not exceed any tested length budget.',
+        'Badly installed containment is the most likely cause of cable damage during installation, so pathways must be smooth and free of anything that could damage the cable.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'You are pulling cable in cold conditions. What is the first thing to check?',
-      correct: 'The manufacturer minimum installation temperature for that cable',
-      distractors: [
-        'The colour of the cable sheath',
-        'The retail price of the cable',
-        'The pack quantity on the box',
-      ],
+      question: "When choosing a cable type or category, what should be the installer's main concern?",
+      correct: 'Bandwidth',
+      distractors: ['Cost', 'Ease of install', 'What is already installed'],
       explanation:
-        'Many cables become brittle below their installation temperature limit. Pulling a cable below that temperature can crack the sheath and damage the conductors.',
-      standardRef: 'Manufacturer data / BS EN 50174-2',
+        "A designer weighs many factors, but the installer's primary driver is providing the required service (bandwidth).",
+      standardRef: 'BS EN 50173-1',
     },
     {
-      question: 'How should data cabling be separated from sources of electromagnetic interference?',
-      correct: 'Keep adequate distance, or use suitable barriers, between IT cable and noise sources',
+      question: 'Network connectivity is decided by which of the following?',
+      correct: 'All factors',
+      distractors: ['Standards compliance', 'Budget', 'Client preference'],
+      explanation:
+        'The installer is given the network specification, but the designer arrives at it by considering all of these factors.',
+      standardRef: 'BS EN 50173-1',
+    },
+    {
+      question: 'What health and safety risk is most associated with working on fibre optic cable?',
+      correct: 'Eye damage',
+      distractors: ['Electrocution', 'Crush injury', 'Back injury'],
+      explanation:
+        'Glass shards and invisible transmission light can both cause irreparable eye damage, so eye protection and care are essential when working with fibre.',
+      standardRef: 'Health & safety guidance',
+    },
+    {
+      question: 'What should cables be permanently fixed to?',
+      correct: 'The building structure',
       distractors: [
-        'Use ordinary insulating tape between cables',
-        'Rely on the cable colour for EMI immunity',
-        'Use distance only on cables shorter than 1 m',
+        'The false ceiling grid',
+        'Loose laid within the ceiling void',
+        'The ceiling support wires',
       ],
       explanation:
-        'Balanced cabling rejects common-mode noise, but is not immune. Adequate separation, screening and proper containment all reduce induced noise.',
+        'BS 7671 and BS 6701 require cables to be permanently affixed to the fabric of the building to prevent premature collapse in a fire.',
+      standardRef: 'BS 6701 / BS 7671',
+    },
+    {
+      question:
+        'When terminating Cat 6 at jacks and patch panels, how much untwist is the most that should be allowed?',
+      correct: '6 mm',
+      distractors: ['12 mm', '13 mm', '15 mm'],
+      explanation:
+        'Twist rates are carefully calculated for performance. For Cat 6, untwist should be no more than 6 mm at terminations.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'On a long vertical drop, how should the cable be supported?',
-      correct: 'Supported at appropriate intervals so strain is not carried by the termination',
-      distractors: [
-        'Hanging entirely from the top connector',
-        'Tied at the bottom only, with no support above',
-        'Coiled at the top to absorb the weight',
-      ],
+      question: 'How much slack cable is recommended inside the cabinet?',
+      correct: '6 m',
+      distractors: ['As much as is practicable', '4 m', '10 m'],
       explanation:
-        'Long vertical runs can exert significant weight on the termination if not supported. Intermediate supports prevent strain on connectors and conductors.',
+        'Leaving around 6 m of slack allows for re-termination or panel moves without leaving an unmanageable amount of excess cable.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'When passing cable through a drilled hole, what is the correct practice?',
-      correct: 'Protect the cable from rough edges and avoid compressing it in the opening',
-      distractors: [
-        'Wedge the cable in the hole to hold it in place',
-        'Drill the hole smaller than the cable for grip',
-        'Use the rough edge to strip the sheath',
-      ],
+      question: 'What is the maximum recommended pulling tension for a 24 AWG cable?',
+      correct: '110 N (25 lbf)',
+      distractors: ['100 N (22.5 lbf)', '120 N (26.9 lbf)', '125 N (28 lbf)'],
       explanation:
-        'Rough or oversized openings can damage the cable sheath. A grommet or bushing protects the cable and helps maintain fire compartmentation where required.',
-      standardRef: 'BS EN 50174-2 / Building Regs Part B',
-    },
-    {
-      question: 'You must cross a power cable with a data cable. What is the correct technique?',
-      correct: 'Cross at a right angle and avoid long parallel runs nearby',
-      distractors: [
-        'Cross in a long parallel section to keep the route tidy',
-        'Cross only where both cables share the same containment',
-        'Cross only where another data cable runs alongside',
-      ],
-      explanation:
-        'A right-angle crossing minimises the parallel exposure between the cables. Long parallel runs increase EMI coupling, even where a single crossing is necessary.',
+        'Excessive pulling tension stretches or deforms the copper and plastic. For 24 AWG cable the maximum recommended tension is 110 N (25 lbf).',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'Before pulling cable through a conduit, what must be checked?',
-      correct: 'The conduit fill, bend count and draw-in access',
-      distractors: [
-        'Only the conduit colour',
-        'Only the conduit length',
-        'Only the conduit manufacturer name',
-      ],
+      question: 'Why are hook and loop ties preferred over plastic ties?',
+      correct: 'They are safer for users and create fewer pressure points',
+      distractors: ['They are cheaper', 'They come in different colours', 'They are easier to install'],
       explanation:
-        'A conduit that is too full, has too many bends or has limited draw-in points can over-tension cable during installation. These factors must be checked before pulling.',
+        'Hook and loop ties adjust easily, create less pressure on cables, need no trimming and leave no sharp burrs.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'You plan to use an existing route for new cabling. What is the correct first step?',
-      correct: 'Survey the route to confirm capacity, condition and suitability',
+      question: 'Pulling copper data cable too hard mainly causes which problem?',
+      correct: "It changes the cable's electrical characteristics",
       distractors: [
-        'Assume the route is fine because it was used previously',
-        'Pull in cables and check capacity afterwards',
-        'Cut the existing containment to add the new cables',
+        "It changes the cable's category",
+        "It changes the cable's weight",
+        "It changes the cable's colour",
       ],
       explanation:
-        'Existing routes may be overloaded, damaged, blocked or no longer suitable. A short survey before pulling new cables avoids damage to existing services.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'How should cable ends be treated during installation, before termination?',
-      correct: 'Keep them clean, capped and protected from dust and moisture',
-      distractors: [
-        'Leave them in standing water for cooling',
-        'Drag them across the floor for identification',
-        'Tape them to live mains cables for support',
-      ],
-      explanation:
-        'Contamination at the cable end can affect later termination and test results. Caps or bags keep the ends clean until termination is ready.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'When during installation should cables be identified?',
-      correct: 'At both ends before final termination and testing',
-      distractors: [
-        'Only after handover, if the client asks',
-        'Only at the patch panel end',
-        'Only on cables longer than 50 m',
-      ],
-      explanation:
-        'Identifying both ends before termination prevents cross-connection and saves re-work during testing. Final labels can be applied at termination.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'What is the correct rule for protecting installed cable from crushing?',
-      correct: 'Do not stand on cables, trap them under materials or compress them with fixings',
-      distractors: [
-        'Stand on cables only briefly to flatten them',
-        'Use the bundle as a workbench for tools',
-        'Pin cables down with heavy fixings to keep them in place',
-      ],
-      explanation:
-        'Crushing changes cable geometry and can cause faults that are not visible from the outside. Even short crushing events can fail performance tests.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'How should the draw-in sequence be planned for a multi-cable pull?',
-      correct: 'Plan the order so cables do not tangle and pulling force stays within limits',
-      distractors: [
-        'Pull every cable at once with no planning',
-        'Pull the shortest cable last regardless of route',
-        'Pull cables in random order to save time',
-      ],
-      explanation:
-        'A planned sequence makes the pull safer, reduces friction and prevents tangles that can damage the bundle.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'When routing pre-terminated assemblies, what is the priority?',
-      correct: 'Protect connectors and pulling socks so terminations are not damaged',
-      distractors: [
-        'Pull connectors first without any cover',
-        'Use the connector as a drag handle',
-        'Remove pulling socks before pulling',
-      ],
-      explanation:
-        'Pre-terminated assemblies arrive ready to plug in. Damaged connectors mean a failed link, so pulling protection is essential.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'Before terminating an installed cable, what should be done?',
-      correct: 'Inspect for sheath damage, kinks, crushing and any route issue',
-      distractors: [
-        'Terminate immediately and rely on testing later',
-        'Cut off both ends without inspection',
-        'Tape over visible damage and terminate',
-      ],
-      explanation:
-        'Pre-termination inspection catches damage early so the link is not certified with hidden defects.',
+        'Over-tensioning stretches and deforms the cable, changing its electrical characteristics and leading to failed test results.',
       standardRef: 'BS EN 50174-2',
     },
   ],
   'Cable Dressing': [
     {
-      question: 'When dressing copper pairs into a patch panel, what is the rule about pair twist?',
-      correct: 'Keep the pair twist as close to the termination point as practical',
+      question: 'Is there a fixed industry standard for how much slack to leave on installed cable?',
+      correct: 'There are guidelines only',
       distractors: [
-        'Untwist pairs as far as needed to make conductors lie flat',
-        'Remove the pair separator and untwist all pairs before dressing',
-        'Use cable colour to decide how much twist can be removed',
+        'Yes, as per electrical industry standard',
+        'Yes, as per data industry standard',
+        'Yes, as per Telecommunications standard',
       ],
       explanation:
-        'Excessive untwisting at the termination increases crosstalk and reduces NEXT/return loss performance. Each cable category has a maximum untwist value, typically very short.',
+        'No specific standard dictates the amount of slack; it is best practice to leave enough for re-termination or minor moves.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'What is the maximum copper data cable bundle size given in the guide?',
-      correct: '24 cables in a bundle',
-      distractors: ['50 cables in a bundle', '72 cables in a bundle', '100 cables in a bundle'],
+      question: 'Why are cables labelled?',
+      correct: 'To identify the individual cable',
+      distractors: ['To identify the wire map', 'To identify the length', 'To identify the cost of cable'],
       explanation:
-        'For data cabling the bundle limit referenced is 24 cables. Larger bundles can increase heat, cross-bundle interference and pulling tension.',
+        'With thousands of identical-looking cables, labelling while pulling them in is the only reliable way to identify each individual cable later.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'Which restraint is best for temporarily dressing cables during installation?',
-      correct: 'Hook and loop fastening',
-      distractors: ['150 mm × 7.6 mm nylon cable ties', 'Steel wire ties', '300 mm × 13 mm nylon cable ties'],
+      question: 'What is the best way to secure Cat6a cabling on a horizontal cable tray?',
+      correct: 'Hook and loop fastenings',
+      distractors: ['Cable ties', 'Metal cable ties', 'Nothing'],
       explanation:
-        'Hook and loop fastening can be released and re-applied without crushing the cable. Nylon ties pulled tight risk deforming balanced cable.',
+        'Hook and loop is most suitable: it adjusts easily, puts less pressure on cables and presents less injury risk than nylon or metal ties.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'How should patch cords in a cabinet be managed?',
-      correct: 'Routed so ports remain identifiable and cords are not sharply bent',
+      question: 'On a vertical riser, what is the furthest apart metal cable ties should be?',
+      correct: 'Every 2 m',
+      distractors: ['Every 300 mm', 'Every 1 m', 'Every 3 m'],
+      explanation:
+        'Cables in vertical risers are secured more regularly than on horizontal runs to reduce strain; metal ties should be no more than 2 m apart.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'How tightly should plastic (nylon) cable ties be done up?',
+      correct: 'Mild tension, enough to hold but not to deform the cables',
       distractors: [
-        'Bundled tightly across the front of the panel',
-        'Looped behind the equipment in any direction',
-        'Cut shorter on site to reduce slack',
+        'Tight enough that the cable jacket is squeezed',
+        'Tight, using pliers for extra force',
+        'Loose, leaving cables space to move',
       ],
       explanation:
-        'Patch cord routing affects identification, airflow and reliability. Pre-made cords should not be cut and re-terminated on site.',
+        'Over-tightened nylon ties damage cables and harm performance. Apply only mild tension, enough to hold the bundle without deforming it.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'What is correct practice for dressing fibre patch leads?',
-      correct: 'Use bend-management features and avoid tight loops',
+      question: 'Where might pinch points be found on an installation?',
+      correct: 'On any part of an installation',
       distractors: [
-        'Hang fibre leads from connectors only',
-        'Pull each lead as tight as possible across the door',
-        'Tie fibre leads to copper bundles for support',
+        'Only in cable tray installations',
+        'Only in cable ducting installations',
+        'Only during termination',
       ],
       explanation:
-        'Fibre is more sensitive to bend than copper. Bend-management spools, ducts and trays keep the minimum bend radius without sharp loops.',
+        'Pinch points occur anywhere two surfaces meet or there is a gap that a cable is drawn through, so they can arise on any part of an installation.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'When copper and fibre share a cabinet, how should they be dressed?',
-      correct: 'Each media type is supported and accessible without strain on the other',
+      question: 'Regarding cable labels, which of these statements is correct?',
+      correct: 'All of these statements',
       distractors: [
-        'Mixed into one bundle for a tidy front view',
-        'Fibre laid on top of copper as the highest layer',
-        'Copper laid on top of fibre as the highest layer',
+        'The labels need to match at each end of the cable',
+        'The labels can be a number, letter or both',
+        'Labels can give building/floor/comms details',
       ],
       explanation:
-        'Different media have different handling needs. Separate vertical and horizontal management for each type keeps the installation maintainable.',
+        'Labelling supports easy working, testing, repairs and additions. Labels should match at both ends, can use numbers/letters, and can carry building/floor/comms detail.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'What is the correct approach to service loops left in a cabinet?',
-      correct: 'Provide enough slack for maintenance without creating unmanaged coils',
-      distractors: [
-        'Leave 5 m of slack coiled loosely on the floor',
-        'Leave no slack so maintenance is faster',
-        'Coil the slack tightly around the patch panel',
-      ],
+      question: 'What should you write temporary cable labels with during installation?',
+      correct: 'A permanent marker',
+      distractors: ['A pencil', 'A biro', 'The same colour'],
       explanation:
-        'Service loops should be controlled so they do not block airflow, cross bend-radius limits or create future maintenance hazards.',
+        'A fine-point permanent marker is used so the information does not rub off as the cable is handled and pulled through the building.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'When dressing cable behind an outlet faceplate, what should be avoided?',
-      correct: 'Crushing the cable or exceeding the bend radius',
+      question: 'Once the installation is finished, how should cables be permanently identified?',
+      correct: 'With durably affixed, readable labels resistant to environmental conditions',
       distractors: [
-        'Leaving service slack inside the box',
-        'Using the manufacturer outlet jack',
-        'Recording the cable identifier',
+        'With a handwritten reference in biro on the cable',
+        'With a handwritten reference on electrical tape',
+        'Left to be completed by the customer',
       ],
       explanation:
-        'The last few centimetres of cable still influence the certified link performance. Pinching or kinking behind the plate can fail the test.',
+        'Permanent identification uses durable, readable labels that resist the environment, so the installation can be tested, repaired or extended in an organised way.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'What is the purpose of cable management bars in a rack?',
-      correct: 'To support cables and patch cords so the connector does not carry strain',
+      question: 'Which of these applies to cable labels?',
+      correct: 'All of these statements',
       distractors: [
-        'To hide unused ports from view',
-        'To replace the need for labelling',
-        'To act as the primary cable identification feature',
+        'Labels should be affixed to the cable sheath',
+        'Labels should contain a unique reference',
+        'Labels should be affixed to termination points',
       ],
       explanation:
-        'Management bars take mechanical strain off connectors and keep cords clear of equipment ventilation paths.',
+        'Labels should be on the sheath and at termination points and carry a unique reference — all of these apply.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'What must cable dressing not do in an active equipment cabinet?',
-      correct: 'Obstruct equipment ventilation or airflow paths',
+      question: 'Who decides the style and format of the cable labels?',
+      correct: 'The customer, as specified in the contract',
       distractors: [
-        'Use the cabinet manufacturer cable trays',
-        'Identify cables on both sides of the cabinet',
-        'Provide a service loop for the patching field',
+        'Anyone — they can duplicate existing schemes',
+        'The cable manufacturer',
+        'Whoever owns the labelling machine',
       ],
       explanation:
-        'Blocked airflow leads to higher equipment temperatures and reduced reliability. Cable bundles should never sit across intake or exhaust grilles.',
+        'The installer may suggest a sensible scheme, but the labelling style is ultimately specified by the customer in the contract.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'After dressing a cabinet, what must remain true of the labels?',
-      correct: 'Each label remains readable and associated with the correct cable or port',
-      distractors: [
-        'Labels can be removed once the cables look tidy',
-        'Labels can be reused on different cables to save material',
-        'Labels are only required at the user outlet',
-      ],
+      question: 'What is the largest bundle size allowed for copper data cables?',
+      correct: '24',
+      distractors: ['50', '72', '100'],
       explanation:
-        'A tidy installation is not maintainable if identification is hidden, swapped or destroyed during dressing.',
+        'Oversized bundles cause excess heat and interference, so copper data cable bundles are limited to 24.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'When reworking a dressed cable bundle, what is the right method?',
-      correct: 'Release the restraints and redress the bundle carefully',
+      question: 'What is the main reason to use cable socking?',
+      correct: 'To give a neat presentation',
       distractors: [
-        'Pull individual cables out through the tight bundle',
-        'Cut the bundle in half and rejoin it later',
-        'Add new cables on top without releasing the existing ones',
+        'To protect from heat',
+        'To protect against EMI',
+        'To support the cables along their entire length',
       ],
       explanation:
-        'Dragging individual cables out can abrade sheaths and disturb existing terminations. The bundle should be opened and redressed properly.',
+        'Nylon cable socks, used correctly, make an installation look neater and more manageable; used badly they hinder changes and trap heat.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'How close to a termination should the last cable tie be placed?',
-      correct: 'Far enough away to avoid stressing the connector or the conductor entry',
+      question: 'When socking cables in a cabinet, what should you bear in mind?',
+      correct: 'All of these statements',
       distractors: [
-        'Right against the connector body for grip',
-        'Inside the connector housing for neatness',
-        'Around the conductors above the jacket strip',
+        'Patch panels can be relocated',
+        'Cable IDs can be seen',
+        'Cables from different panels are sleeved separately',
       ],
       explanation:
-        'A restraint too close to a termination can pull the conductors out of position or stress the entry. A small offset keeps the termination stable.',
+        'All apply: allow for panel relocation, keep IDs visible, and sleeve cables from different panels separately.',
       standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'Does Cat 7 or Cat 8 patching change basic dressing discipline?',
-      correct: 'No — bend radius, restraint and labelling still apply',
-      distractors: [
-        'Yes, higher categories are immune to tight bends',
-        'Yes, bundle them more tightly than Cat 5e',
-        'Yes, cable colour replaces the need for testing',
-      ],
-      explanation:
-        'Higher category cables still need correct geometry, restraint and identification. Performance gains are lost quickly if dressing discipline slips.',
-      standardRef: 'BS EN 50173-1 / BS EN 50174-2',
     },
   ],
   'Fire Regulations': [
     {
-      question: 'Which framework sets the reaction-to-fire classification system used for IT cables?',
-      correct: 'Construction Products Regulations 2013 (CPR)',
+      question: "An IT cable's reaction to fire is governed by which set of statutory regulations?",
+      correct: 'The Construction Products Regulations 2013',
       distractors: [
-        'Regulatory Reform (Fire Safety) Order 2005',
-        'Electricity at Work Regulations 1989',
-        'Building Regulations 2010',
+        'The Regulatory Reform (Fire Safety) Order 2005',
+        'The Electricity at Work Regulations 1989',
+        'The Building Regulations 2010',
       ],
       explanation:
-        'The CPR / EuroClass system is the construction-products framework used to classify cable reaction to fire (EN 13501-6). The Fire Safety Order and Building Regs sit at a higher level.',
-      standardRef: 'CPR / EN 13501-6',
+        'The Construction Products Regulations classify cables for flame spread, heat, smoke, droplets and acidity, which tells you where they may be installed.',
+      standardRef: 'Construction Products Regulations 2013',
     },
     {
-      question: 'In the context of cable fire performance, what does CPR stand for?',
+      question: "In the context of an IT cable's fire performance, what does the term CPR mean?",
       correct: 'Construction Products Regulations',
       distractors: ['Cable Products Regulations', 'Cable Products Rules', 'Construction Products Rules'],
       explanation:
-        'CPR is the Construction Products Regulations, which set the harmonised framework for declared product performance, including reaction to fire for cables.',
-      standardRef: 'CPR',
+        'CPR stands for the Construction Products Regulations, which provide a common technical language to assess product performance including data cabling.',
+      standardRef: 'Construction Products Regulations',
     },
     {
-      question:
-        'For a new data-cable installation in a normal building, which EuroClass code is the one to learn?',
+      question: 'New internal data cabling in a building must reach which minimum CPR EuroClass?',
       correct: 'Cca-s1b,d2,a2',
       distractors: ['Dca-s1b,d2,a2', 'Fca', 'Aca'],
       explanation:
-        'Cca-s1b,d2,a2 is the EuroClass code typically used for new fixed data-cable installation. Aca is non-combustible (rare for telecoms) and Fca is the lowest rating.',
-      standardRef: 'CPR / EN 13501-6',
+        'CPR rates cables for flame spread, heat, smoke, droplets and acidity. New internal data cabling must meet at least Cca-s1b,d2,a2.',
+      standardRef: 'CPR / EuroClass',
     },
     {
-      question: 'Where must a cable manufacturer display the CPR EuroClass classification for a data cable?',
-      correct: 'On the CE-marked label on the cable reel, box or spool',
+      question: 'Where is the manufacturer required to show the CPR EuroClass for a data cable?',
+      correct: 'On the CE marked label on the cable reel',
       distractors: [
-        'Only on the manufacturer website',
-        'Only on the manufacturer data sheet',
-        'Only printed directly on the cable jacket',
+        "On the manufacturer's website",
+        "On the manufacturer's data sheet",
+        'On the cable itself',
       ],
       explanation:
-        'The CE-marked label on the packaging is the mandatory location for the EuroClass classification. Websites and data sheets may carry it too, but the label is the controlling reference.',
-      standardRef: 'CPR Article 7',
+        'The manufacturer may also show it on the website, data sheet or cable, but it MUST be on the CE marked label on the packaging (reel, drum or box).',
+      standardRef: 'Construction Products Regulations',
     },
     {
-      question: 'What records should be kept for completed fire-stopping work?',
-      correct: 'Location, product used, installer, rating and date for each seal',
+      question:
+        'Which of these is NOT an acceptable way to reduce separation between unscreened metallic IT cables and power cables where they pass through a fire barrier?',
+      correct: 'Enclosing the cables in a plastic conduit through the structure',
       distractors: [
-        'Only the cost of the materials used',
-        'Only the project reference number',
-        'No records, because fire stopping is verbal sign-off',
+        'Enclosing the cables in separate metal conduit',
+        'Enclosing the cables in separate metal trunking',
+        'Enclosing the cables in separate metal ducts',
       ],
       explanation:
-        'Fire-stopping records support the building fire strategy and demonstrate that compartmentation has been correctly reinstated.',
-      standardRef: 'BS 9999 / Regulatory Reform (Fire Safety) Order 2005',
+        'Correctly installed metallic containment screens data cables; plastic containment does not, so a plastic conduit is not a satisfactory method.',
+      standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'Can different fire-stopping products be mixed in one penetration?',
-      correct: 'No — use only tested systems and combinations specified by the manufacturer',
+      question:
+        'After running an extra cable through a fire-rated wall, when should the fire seal that was removed be put back?',
+      correct: 'As soon as practicable',
       distractors: [
-        'Yes, as long as both are fire-rated for any duration',
-        'Yes, if expanding foam is one of the products',
-        'Yes, when one is the cheaper alternative',
+        'At the end of the working day',
+        'When the system has been fully commissioned',
+        'On completion of the work',
       ],
       explanation:
-        'Fire-stopping performance is based on tested systems. Improvised combinations of products invalidate the tested rating.',
-      standardRef: 'BS EN 1366 / Manufacturer data',
+        'A penetrated fire barrier raises fire-spread risk to an unacceptable level, so the seal must be reinstated as soon as practicable.',
+      standardRef: 'BS 9999 / BS 476',
     },
     {
-      question: 'You notice annular gaps around cables passing through a wall. What is the correct action?',
-      correct: 'Seal the gaps using the specified fire-stopping system',
+      question:
+        'When planning a cable route in a new building, what should apply to openings made in fire-separating structures?',
+      correct: 'All of these statements',
       distractors: [
-        'Ignore the gaps if they are above a ceiling',
-        'Cover them with plastic tape only',
-        'Fill them with general-purpose silicone',
+        'Openings should be as few as possible',
+        'Openings should be as small as possible',
+        'Openings should be fire stopped',
       ],
       explanation:
-        'Even small gaps allow smoke spread and break compartmentation. Sealing must use the specified system, not improvised material.',
+        'Penetrations through fire barriers are inevitable, so openings should be as few and as small as possible and properly fire stopped — all apply.',
       standardRef: 'BS 9999',
     },
     {
-      question: 'How should the reaction-to-fire marking on an installed cable be verified?',
-      correct: 'Check the marking or supplied documentation against the project specification',
-      distractors: [
-        'Trust the cable colour alone',
-        'Trust the reel weight alone',
-        'Ignore the marking once the cable is on site',
-      ],
+      question: 'Which of these materials is NOT suitable for sealing openings in a fire-separating wall?',
+      correct: 'Multi-purpose filler',
+      distractors: ['Cement mortar', 'Mineral fibre', 'Gypsum based plaster'],
       explanation:
-        'The installed cable should be traceable to the project requirement via the EuroClass marking on the packaging or jacket and the supplied DoP.',
-      standardRef: 'CPR / EN 13501-6',
+        'Not all materials are suitable for fire-rated barriers; multi-purpose filler is not. When in doubt, seek advice.',
+      standardRef: 'BS 476 / fire-stopping guidance',
     },
     {
-      question: 'What is the correct practice when routing cables through a protected shaft?',
-      correct: 'Maintain the fire protection and service separation of the shaft',
+      question: 'How do intumescent fire-stopping materials work?',
+      correct: 'They expand when subject to heat',
       distractors: [
-        'Treat the shaft as ordinary containment',
-        'Tape over the access panels permanently',
-        'Use the shaft for additional storage',
+        'They shrink when subject to heat',
+        'They expand when subject to gas and smoke',
+        'They prevent the transmission of sound',
       ],
       explanation:
-        'Protected shafts are part of the building fire strategy. Cabling work must not damage the shaft construction or its compartmentation.',
-      standardRef: 'BS 9999 / Approved Document B',
+        'Fire-stopping can be intumescent, endothermic or ablative. Intumescent materials expand when subject to heat to seal the opening.',
+      standardRef: 'Fire-stopping guidance',
     },
     {
-      question: 'You are working close to live fire-alarm cabling. What is the correct approach?',
-      correct: 'Follow the agreed isolation or permit process and avoid disturbing the system',
+      question:
+        'You find an unsealed hole in a fire-rated wall that has not been fire stopped. What should you do?',
+      correct: 'Report it',
       distractors: [
-        'Disconnect the alarm temporarily without telling anyone',
-        'Tape over alarm sounders for quiet work',
-        'Reroute the alarm to suit the new cable run',
+        'Ignore it',
+        'Find some fire stop material and fill the gap yourself',
+        "Use decorator's sealant to fill the gap",
       ],
       explanation:
-        'Life-safety systems must not be impaired without proper authorisation. A documented isolation procedure protects building occupants and the installer.',
-      standardRef: 'BS 5839-1',
+        'Fire stopping must be installed and checked by a qualified, certified person, so an unsealed hole should be reported.',
+      standardRef: 'Fire-stopping guidance',
     },
     {
-      question: 'What should be done with redundant cabling found during a new installation?',
-      correct: 'Remove or make safe the redundant cable where required by the fire strategy and scope',
+      question:
+        'You need to add IT cables to a pathway that is already sealed with fire-stop material. How should you handle the seal?',
+      correct: 'Carefully remove the firestop material and store it safely for re-installation',
       distractors: [
-        'Leave all redundant cabling in place regardless',
-        'Cut redundant cabling off at the wall only',
-        'Bundle redundant cabling with the new installation',
+        'Remove and dispose of the existing firestop material',
+        'Avoid the existing route and create a new one',
+        'Reroute cables to avoid fire-separating structures',
       ],
       explanation:
-        'Unused cables add fire load and can mislead future workers. Removal or making safe should follow the project scope and fire strategy.',
-      standardRef: 'BS 6701 / BS 9999',
+        'Some firestop systems are designed to be removed, reinstalled and reused. Remove carefully and store for re-installation, knowing your system type.',
+      standardRef: 'Fire-stopping guidance',
     },
     {
-      question: 'What fixings should be used for a fire-stopping system?',
-      correct: 'Fixings and collars that match the tested system',
-      distractors: [
-        'Any general-purpose screw from the van',
-        'Adhesive tape rated for moisture only',
-        'Cable ties used as collar substitutes',
-      ],
+      question:
+        'Below what internal cross-sectional area does a trunking through a fire-rated wall not need internal fire seals?',
+      correct: '710 mm² (32 mm diameter conduit or 25 x 25 trunking permitted)',
+      distractors: ['1070 mm²', '1710 mm²', '7100 mm²'],
       explanation:
-        'Substituting fixings can invalidate the fire-test certification of the seal. The system must be installed as tested.',
-      standardRef: 'BS EN 1366',
+        "BS 7671 advises that internal fire seals are not required where the trunking's internal cross-sectional area is no greater than 710 mm².",
+      standardRef: 'BS 7671',
     },
     {
-      question: 'When should fire-stopping be confirmed complete?',
-      correct: 'Before ceilings, risers or other concealments are closed up',
+      question: 'Which cable support product helps stop cabling collapsing early in a fire?',
+      correct: 'Steel cable ties',
       distractors: [
-        'After handover, during routine maintenance',
-        'After the first fire-alarm test',
-        'Only when a complaint is received',
+        'Wall-mounted plastic trunking',
+        'Plastic cable tray suspended from the ceiling',
+        'Non-metallic cable ties',
       ],
       explanation:
-        'Once concealments close, missing or defective seals are difficult and expensive to find and remediate. Inspection must happen before close-up.',
-      standardRef: 'BS 9999',
+        'Non-metallic supports melt in a fire, collapsing the cabling. Steel cable ties resist this, provided they are fixed to the fabric of the building.',
+      standardRef: 'BS 7671 / BS 6701',
     },
     {
-      question: 'You find incomplete or damaged fire-stopping. What is the correct action?',
-      correct: 'Report it immediately through the project process',
+      question: 'In which situation is temporary sealing of a fire-rated structure acceptable?',
+      correct: 'During the installation process',
       distractors: [
-        'Leave a verbal message for the next shift',
-        'Cover it up to avoid disputes',
-        'Wait until handover and raise it then',
+        'On completion of the cabling system',
+        'On completion and handover of the building',
+        'During the commissioning of services',
       ],
       explanation:
-        'Fire-safety defects must not be left to informal resolution or hidden at handover. A formal report supports remediation and audit trail.',
-      standardRef: 'Regulatory Reform (Fire Safety) Order 2005',
+        'A temporary seal is permissible during installation where access is needed repeatedly; all openings must be permanently sealed once work is complete.',
+      standardRef: 'Fire-stopping guidance',
     },
   ],
   'Safe Cable Installation': [
     {
-      question: 'When pulling cable from a drum, how should the work be staffed?',
-      correct: 'At least two people, one controlling the drum and one pulling',
-      distractors: [
-        'One person pulling directly from the drum',
-        'Three people are always required regardless of route',
-        'Four people are always required regardless of route',
-      ],
+      question: 'What is the fewest people needed to install cable from a drum?',
+      correct: '2 people',
+      distractors: ['1 person', '3 people', '4 people'],
       explanation:
-        'Drum control is a separate task from pulling. One person controls drum speed and overrun; at least one other person manages the pull.',
-      standardRef: 'BS 6701 / BS EN 50174-2',
+        'One person must stay with the drum to control its speed while at least one other pulls the cable, so a minimum of two is required.',
+      standardRef: 'Manual handling / risk assessment',
     },
     {
-      question:
-        'While pulling cable from a box, you notice friction damage to the sheath. What is the correct action?',
-      correct: 'Stop, find and correct the rough point, then replace the damaged length',
+      question: 'You notice friction damage while pulling cable from a box. What is the right action?',
+      correct: 'Stop, trace back along the pathway to find and fix the cause, and replace the damaged cable',
       distractors: [
-        'Cut the cable past the damaged section and continue',
-        'Note the cable number and check the test results later',
-        'Continue because only the sheath is marked',
+        'Stop, cut the cable past the damage and carry on',
+        'Note which cable it is and check the test results later',
+        'Carry on — it is only friction on the sheath',
       ],
       explanation:
-        'Friction damage usually points to a rough or sharp point in the route. Continuing will damage more cable, and sheath damage may be a sign of deeper harm.',
+        'Friction damage usually means a rough surface in the pathway. Stop, find and correct the cause, and replace the damaged cable before continuing.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'A delivered cable drum is damaged enough to expose the cable. What should you do?',
-      correct: 'Do not use the drum and report it to the supervisor',
+      question: 'A cable drum is badly damaged and you can see the cable inside it. What should you do?',
+      correct: 'Do not use it and report it to your supervisor',
       distractors: [
-        'Use the drum while standing clear of it',
-        'Pull the cable off manually without spinning the drum',
-        'Repair the drum on site and use it normally',
+        'Use the drum, but stand clear while it spins',
+        'Use the cable, but unwind it by hand without spinning',
+        'Repair the drum and use it as normal',
       ],
       explanation:
-        'A badly damaged drum means the cable inside cannot be trusted. The drum should not be used for installation and certification.',
-      standardRef: 'BS 6701',
+        "If a drum is heavily damaged you cannot be sure of the cable's quality, so it should not be used and should be reported.",
+      standardRef: 'Manual handling / risk assessment',
     },
     {
-      question: 'A wooden drum is splintered around the rim but the cable seems fine. What is correct?',
-      correct: 'Wear gloves, remove the splinters with a suitable tool, then use the drum',
+      question: 'A cable drum is heavily splintered around its edge. What is the correct action?',
+      correct:
+        'If the cable is unaffected, wear gloves and use a suitable tool to remove the splinters before use',
       distractors: [
-        'Use the drum as found, just stand back',
-        'Never use a splintered drum, in any condition',
-        'Return every splintered drum to stock without checking',
+        'Use it as is, but stand at a distance while it spins',
+        'Do not use it at all',
+        'Return it to stock and use a different drum',
       ],
       explanation:
-        'Splinters are an injury and cable-damage hazard. With the hazard controlled, the drum can be used if the cable itself is undamaged.',
-      standardRef: 'Manual Handling Operations Regulations 1992',
+        'Edge splintering is common; where the cable is unaffected, remove loose splinters with gloves and a suitable tool before using the drum.',
+      standardRef: 'Manual handling / risk assessment',
     },
     {
-      question: 'What is the correct support when paying cable off a wooden drum?',
-      correct: 'A metal A-frame and spindle designed for the drum',
+      question: 'What is the correct way to pay cable off a wooden drum?',
+      correct: 'Mount the drum on a metal A-frame and spindle',
       distractors: [
-        'A tied-off rope between two beams',
-        'Two chairs and a broom handle',
-        'Two chairs and a length of steel conduit',
+        'Hang the drum from a tied-off rope',
+        'Rest the drum between two chairs on a broom handle',
+        'Rest the drum between two chairs on a length of steel conduit',
       ],
       explanation:
-        'Improvised drum supports are unsafe and can collapse during the pull. A proper A-frame and spindle handle the drum weight and allow controlled rotation.',
-      standardRef: 'BS 6701',
+        'Always use the correct equipment: a metal A frame and spindle. Improvising endangers people and the installation quality.',
+      standardRef: 'Manual handling / risk assessment',
     },
     {
-      question: 'How many Cat 6A cable drums should one person carry at a time?',
-      correct: 'Use the task risk assessment to decide',
+      question: 'How is the number of Cat6A drums one person may carry at once decided?',
+      correct: 'By the risk assessment',
       distractors: [
-        'None — it is always a two-person lift',
-        'As many as the person feels able to carry',
-        'No more than three so vision is not blocked',
+        'It is always a 2-person lift, never one',
+        'There is no limit — it depends on the individual',
+        'No more than 3, so vision is not blocked',
       ],
       explanation:
-        'Manual handling depends on drum size, weight, route, distance and the individual. The risk assessment, not a fixed number, drives the decision.',
-      standardRef: 'Manual Handling Operations Regulations 1992',
+        'Carrying drums is a manual-handling task; the safe number is determined by the risk assessment for the conditions and individuals involved.',
+      standardRef: 'Manual handling / risk assessment',
     },
     {
-      question: 'A stack of cable boxes collapses while you are working. What is the correct response?',
-      correct: 'Stop immediately and restack the boxes safely',
+      question: 'A stack of cable boxes topples over. What should you do?',
+      correct: 'Stop work straight away and restack the boxes safely',
       distractors: [
-        'Finish the current cable run first',
-        'Report it but keep pulling cable',
-        'Replace boxes only when they are empty',
+        'Finish the current run, then restack the boxes safely',
+        'Stop the job and report it to your supervisor',
+        'Replace the boxes once the fallen ones are empty',
       ],
       explanation:
-        'Collapsed boxes create trip and pulling hazards and can tangle cable. The work area should be made safe before continuing.',
-      standardRef: 'CDM Regulations 2015',
+        'Fallen boxes tangle easily, risking cable damage or injury, so stop immediately and restack them safely.',
+      standardRef: 'Manual handling / risk assessment',
     },
     {
-      question: 'What is the minimum staffing for pulling cable from boxes?',
-      correct: 'At least two people',
-      distractors: [
-        'One person, if the route is short',
-        'Three people in every case',
-        'Four people in every case',
-      ],
+      question: 'What is the minimum number of people needed to pull cable safely from boxes?',
+      correct: '2 people',
+      distractors: ['1 person', '3 people', '4 people'],
       explanation:
-        'Two people is the minimum: one feeding the box, one pulling. More are added when route obstructions require additional control.',
-      standardRef: 'BS 6701',
+        'One person controls the pull from the boxes and another pulls the cable, so a minimum of two is required; an obstruction may require more.',
+      standardRef: 'Manual handling / risk assessment',
     },
     {
-      question: 'You are loose-laying cable around a 90° corridor corner. What is the correct method?',
-      correct: 'Station someone at the corner to feed and control the cable',
+      question: 'When loose-laying cable around a 90-degree corner in a corridor, what is best practice?',
+      correct: 'Station someone on the corner to feed the cable',
       distractors: [
-        'Pull the entire length around the corner in one movement',
-        'Use a drum at the corner as strain relief',
-        'Put the cable box on the corner and fleet back later',
+        'Pull the whole length round in one go',
+        'Put a drum on the corner for strain relief',
+        'Put the box on the corner, pull one way then fleet back the rest',
       ],
       explanation:
-        'A person at the corner reduces rubbing, controls bend radius and keeps the moving cable visible to the team.',
+        'Someone on the corner keeps the cable in sight and minimises strain, preventing the cable from rubbing on the corner.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'What is the correct rule for using knives during data-cabling work?',
-      correct: 'Avoid knives where a proper specialist tool is available',
+      question: 'When is it acceptable to use a knife during installation work?',
+      correct: 'Knife use should be avoided',
       distractors: [
-        'Use a knife whenever removing sheath',
-        'Use a retractable knife in place of specialist tools',
-        'Use a knife as a screwdriver when convenient',
+        'When stripping the sheath from a cable',
+        'Any time, instead of the proper tool, if it retracts',
+        'When there is no screwdriver to hand',
       ],
       explanation:
-        'Purpose-made stripping and cutting tools reduce both injury risk and cable damage. Knives are a last resort.',
-      standardRef: 'PUWER 1998',
+        'Specialist tools exist for every cabling task, so knives should be avoided — always use the right tool for the job.',
+      standardRef: 'Tooling guidance',
     },
     {
       question:
-        'You are pulling between two offices through a straight false-ceiling route with basket already installed. How many people are needed?',
-      correct: 'Three people',
-      distractors: ['One person', 'Two people', 'Four people'],
+        'Cable is being pulled on basket between two offices, through a wall on a straight run above a false ceiling. How many people are needed to do it correctly?',
+      correct: '3 people',
+      distractors: ['1 person', '2 people', '4 people'],
       explanation:
-        'Three people is the typical minimum: one at the box, one feeding the route, and one at the receiving end.',
-      standardRef: 'BS 6701',
+        'With an obstruction such as a wall between the offices, best practice is one controlling the feed and one each side of the obstruction — three people.',
+      standardRef: 'Manual handling / risk assessment',
     },
     {
-      question: 'Which tool is suitable for pulling a bundle through an enclosed pathway?',
-      correct: 'Nylon cable rods',
-      distractors: ['A trunking lid', 'A straightened wire coat hanger', 'A broom handle'],
-      explanation:
-        'Cable rods are designed to be pushed through pathways and joined as required. Improvised items can damage cable or get stuck in the route.',
-      standardRef: 'PUWER 1998',
+      question: 'What is the right aid for pulling a cable bundle through an enclosed pathway?',
+      correct: 'A nylon cable rod',
+      distractors: ['A trunking lid', 'A stretched-out wire coat hanger', 'A broom handle'],
+      explanation: 'Use the tool designed for the task — a nylon cable rod — rather than improvising.',
+      standardRef: 'Tooling guidance',
     },
     {
-      question: 'You discover suspect asbestos-containing material on the route. What must you do?',
-      correct: 'Stop work and follow the site asbestos procedure',
-      distractors: [
-        'Drill carefully and continue',
-        'Cover it with tape and continue',
-        'Move it out of the route by hand',
-      ],
-      explanation:
-        'Suspect asbestos must not be disturbed without the correct survey and controls. The site procedure determines the next steps.',
-      standardRef: 'Control of Asbestos Regulations 2012',
-    },
-    {
-      question: 'What is the correct tool for cutting the yellow fibrous strength member in a fibre cable?',
-      correct: 'Kevlar (aramid) scissors',
+      question: 'Which tool removes the yellow aramid (Kevlar) layer from a fibre optic cable?',
+      correct: 'Kevlar scissors',
       distractors: ['A utility knife', 'A hacksaw', 'Bolt cutters'],
-      explanation:
-        'Aramid yarn dulls ordinary scissors quickly. Purpose-made Kevlar scissors cut cleanly without slipping or damaging the fibre.',
-      standardRef: 'Manufacturer guidance',
+      explanation: 'The yellow aramid (Kevlar) strength member is cut with purpose-made Kevlar scissors.',
+      standardRef: 'Tooling guidance',
     },
     {
-      question: 'When fitting a new hacksaw blade, which way must the teeth face?',
-      correct: 'Forward, so the saw cuts on the forward stroke',
-      distractors: [
-        'It does not matter which way',
-        'Backwards, so the saw cuts on the return stroke',
-        'Choose direction based on the hacksaw type',
-      ],
-      explanation:
-        'Hacksaw blades are designed to cut on the forward stroke. Fitting them backwards reduces cut efficiency and increases breakage risk.',
-      standardRef: 'PUWER 1998',
+      question: 'When fitting a new hacksaw blade, which way should the teeth point?',
+      correct: 'Forwards',
+      distractors: ["It doesn't matter", 'Backwards', 'It depends on the type of hacksaw'],
+      explanation: 'Hacksaw blades cut on the forward stroke, so the teeth should point forwards.',
+      standardRef: 'Tooling guidance',
     },
     {
-      question: 'Which tool is correct for cutting excess Cat 6 cable?',
+      question: 'How many Cat6a cables will fit in a 20 mm conduit?',
+      correct: '2 cables',
+      distractors: ['6 cables', '12 cables', '24 cables'],
+      explanation:
+        'Fill calculators that account for cable diameter, bend radius and fill ratio show only 2 Cat6a cables fit a 20 mm conduit.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'Which containment best suits running 12 Cat 6 cables along an office wall at desk height?',
+      correct: '50 mm x 50 mm trunking',
+      distractors: ['18 mm conduit', '300 mm steel tray', '100 mm x 54 mm wire basket'],
+      explanation:
+        "Steel tray and wire basket are not suitable at desk height in an office, and 18 mm conduit can't hold 12 cables, so 50 x 50 trunking is best.",
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'What is the best tool for trimming excess Cat 6 cable?',
       correct: 'Side cutters',
       distractors: ['A hacksaw', 'A jigsaw', 'Scissors'],
       explanation:
-        'Side cutters cleanly cut small-diameter copper conductors and the cable jacket. A hacksaw or jigsaw is oversized for the job.',
-      standardRef: 'Manufacturer guidance',
+        'Side cutters are designed to cut small core-size cables, making them the most appropriate tool.',
+      standardRef: 'Tooling guidance',
     },
     {
-      question: 'How should a cable be temporarily marked during pulling?',
-      correct: 'With a fine-point permanent marker',
-      distractors: ['A felt tip pen', 'A ball point pen', 'A chalk pen'],
+      question: 'Which pen is best for temporarily labelling a cable as you pull it in?',
+      correct: 'A fine point permanent marker',
+      distractors: ['A felt tip', 'A ball point', 'A chalk pen'],
       explanation:
-        'A fine-point permanent marker survives handling during pulling. Felt tip, ballpoint and chalk marks rub off too easily.',
+        'A fine-point permanent marker writes neatly and does not rub off while the cable is handled and pulled through the building.',
+      standardRef: 'Tooling guidance',
+    },
+    {
+      question: 'What fastening is best for temporarily dressing cables?',
+      correct: 'Hook and loop',
+      distractors: ['150 mm x 7.6 mm nylon ties', 'Wire ties', '300 mm x 13 mm nylon ties'],
+      explanation: 'Temporary dressing needs frequent adjustment, so hook and loop is most suitable.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'Which restraint is correct for temporarily fastening cables that may need adjustment later?',
-      correct: 'Hook and loop fastening',
-      distractors: ['150 mm × 7.6 mm nylon ties', 'Steel wire ties', '300 mm × 13 mm nylon ties'],
+      question: 'Which tool correctly strips the outer sheath from copper data cable?',
+      correct: 'A cyclops / rotary stripper',
+      distractors: ['A Stanley knife with a fully retractable blade', 'Scissors', 'A sharp pen knife'],
       explanation:
-        'Hook and loop fasteners can be released and reapplied without crushing the cable, which makes them ideal for dressing work that may still be adjusted.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'What tool is correct for stripping the outer sheath of copper data cable?',
-      correct: 'A cyclops / rotary cable stripper',
-      distractors: ['A retractable utility knife', 'Scissors', 'A sharp pen knife'],
-      explanation:
-        'Purpose-made strippers control the cut depth and reduce damage to the inner pairs and foils. Knives and scissors easily cut too deep.',
-      standardRef: 'Manufacturer guidance',
-    },
-    {
-      question: 'Once cabling is installed but not yet handed over, what protection is needed?',
-      correct: 'Protect cables from use as supports and from damage by follow-on trades',
-      distractors: [
-        'No protection is needed until handover',
-        'Only the patch panel side needs protection',
-        'Cables are deemed protected as soon as the lid is fitted',
-      ],
-      explanation:
-        'Installed cable can still be damaged on site before handover. Physical protection and clear signage reduce that risk.',
-      standardRef: 'CDM Regulations 2015',
+        'Use the tool designed for the task: a cyclops/rotary cable stripper, which scores the sheath without nicking the conductors.',
+      standardRef: 'Tooling guidance',
     },
   ],
   'Personal Safety': [
     {
-      question: 'Which gloves should be used when pulling in data cable?',
-      correct: 'Correctly fitting EN 420 compliant work gloves',
-      distractors: [
-        'Heavy leather rigger gloves',
-        'Blue disposable latex gloves',
-        'Light cotton gloves with palm grips',
-      ],
+      question: 'Which gloves should you wear when pulling in data cable?',
+      correct: 'Correctly fitting EN420 compliant gloves',
+      distractors: ['Leather gloves', 'Blue latex gloves', 'Cotton gloves with palm grips'],
       explanation:
-        'EN 420 sets the general requirements for protective gloves. Fit, dexterity and suitability to the task all matter.',
+        'Any safety equipment must comply with the relevant standard — here, correctly fitting EN420 compliant gloves.',
       standardRef: 'EN 420',
     },
     {
-      question: 'Who is PPE primarily designed to protect?',
+      question: 'Who is PPE designed to protect?',
       correct: 'The person wearing it',
-      distractors: ['Everyone in the work area', 'Only the site safety representative', 'Only the client'],
-      explanation:
-        'PPE is personal protective equipment. It is the last line of defence and protects the wearer.',
-      standardRef: 'PPE at Work Regulations 1992 (as amended)',
-    },
-    {
-      question: 'What is the correct base-to-height ratio for a leaning ladder?',
-      correct: '1 : 4 (base out, height up)',
-      distractors: ['1 : 2', '1 : 8', '4 : 1'],
-      explanation:
-        'A leaning ladder should be set so the base is one unit out for every four units of height — about 75°.',
-      standardRef: 'HSE INDG455 / Work at Height Regulations 2005',
-    },
-    {
-      question: 'You need both hands free for a task on a step-ladder. How do you stay safe?',
-      correct: 'Maintain three points of contact using two feet and part of the body against the ladder',
       distractors: [
-        'Keep both feet on the same step',
-        'Use two feet and one hand only',
-        'Wear a fall harness attached to the step-ladder',
+        'The wearer and people in the immediate vicinity',
+        'Everyone in the vicinity of the installation',
+        'The local health & safety representative',
       ],
+      explanation: 'PPE is PERSONAL protective equipment, designed to protect the user wearing it.',
+      standardRef: 'PPE at Work Regulations',
+    },
+    {
+      question: 'What base-to-height ratio gives a safe ladder angle?',
+      correct: '1:4',
+      distractors: ['1:2', '1:8', '4:1'],
       explanation:
-        'When both hands are in use, stability still needs three points of contact. The body, knee or hip can act as the third point.',
+        'The 1:4 base-to-height ratio (one out, four up) minimises the risk of the ladder slipping or falling.',
       standardRef: 'Work at Height Regulations 2005',
     },
     {
-      question: 'You find a material you suspect contains asbestos. What is the immediate action?',
-      correct: 'Stop work, warn others and prevent access to the area',
+      question: 'Working on step-ladders and needing both hands for a task, how do you stay safe?',
+      correct: 'Keep 3 points of contact using two feet and another part of the body',
       distractors: [
-        'Finish the work and sweep up later',
-        'Continue with wet drilling',
-        'Quietly choose another route without controlling the area',
+        'Put both feet on the same step',
+        'Keep 3 points of contact using two feet and one hand',
+        'Wear a safety harness clipped to the step-ladder',
       ],
       explanation:
-        'Suspect asbestos must not be disturbed. The area must be controlled while the site asbestos procedure takes over.',
+        'On steps you must keep 3 points of contact; when both hands are needed you can use two feet plus another part of the body against the steps.',
+      standardRef: 'Work at Height Regulations 2005',
+    },
+    {
+      question: 'You identify or suspect asbestos-containing material. What should you do?',
+      correct: 'Stop work, put up a warning sign and keep others out of the area',
+      distractors: [
+        'For low-grade asbestos, finish the work and sweep up afterwards',
+        "Carry on, using 'wet drilling' where you need penetrations",
+        'Stop work and look for another pathway',
+      ],
+      explanation:
+        'Asbestos can be present in any building built before 2000. Stop work immediately, warn others, keep people out and seek advice.',
       standardRef: 'Control of Asbestos Regulations 2012',
     },
     {
-      question: 'How do you decide whether a given PPE item is suitable?',
-      correct: 'Assess it against the actual risk and the working conditions',
+      question: 'For PPE to be suitable, what must it be?',
+      correct: 'Assessed as appropriate to the risk and suitable for the working conditions',
       distractors: [
-        'Pick whichever is most comfortable',
-        'Pick whichever is most visible',
-        'Use it if it fits and is in date, regardless of risk',
+        'Risk-reducing and comfortable for the wearer',
+        'Risk-reducing and highly visible',
+        'Serviceable, suitable and a correct fit',
       ],
       explanation:
-        'PPE suitability comes from the risk assessment and the conditions on the day. Comfort and brand are not selection criteria.',
-      standardRef: 'PPE at Work Regulations 1992 (as amended)',
+        'The onsite risk assessment identifies the specific PPE needed; PPE must be appropriate to the risk and suitable for the conditions.',
+      standardRef: 'PPE at Work Regulations',
     },
     {
-      question: 'For pulling cable on an active construction site, which PPE should be used?',
-      correct: 'Hard hat, eye protection, gloves, safety boots, hi-vis and a face mask where required',
-      distractors: [
-        'Hard hat and face mask only',
-        'Gloves and safety glasses only',
-        'Safety boots and hi-vis only',
-      ],
+      question: 'Which PPE is required to pull cable on a live construction site?',
+      correct: 'All of these items',
+      distractors: ['Hard hat and facemask', 'Gloves and glasses', 'Safety boots and hi-viz jacket'],
       explanation:
-        'A live construction site has multiple hazards at once. The full PPE set is normally required for cable pulling.',
-      standardRef: 'CDM Regulations 2015',
+        'The minimum on a working site is hard hat, facemask, gloves, goggles, safety boots and hi-viz — all of these items; some sites require more.',
+      standardRef: 'PPE at Work Regulations',
     },
     {
-      question: 'Which standard should a safety helmet meet for general cabling work at height?',
-      correct: 'BS EN 397',
-      distractors: [
-        'A specific company-branded standard',
-        'No standard, helmet colour is enough',
-        'No standard, helmet style is enough',
-      ],
+      question: 'Which safety helmet should you wear when installing cabling at height?',
+      correct: 'A BS EN 397 compliant helmet',
+      distractors: ['A company branded helmet', 'A black helmet', 'A yellow helmet'],
       explanation:
-        'BS EN 397 is the standard for industrial safety helmets. Brand and colour are organisational identifiers, not protection ratings.',
+        'Safety equipment must comply with the relevant standard; head protection should be a BS EN 397 compliant helmet.',
       standardRef: 'BS EN 397',
     },
     {
-      question: 'Who must provide an employee with the PPE required for their work?',
+      question: "Who is responsible for supplying an employee's PPE?",
       correct: 'The employer',
-      distractors: ['The employee', 'The site storeman', 'The site health and safety adviser'],
+      distractors: ['The employee', 'The site storeman', 'The site health and safety advisor'],
       explanation:
-        'Employers must provide suitable PPE free of charge where the risk assessment identifies that PPE is needed.',
-      standardRef: 'PPE at Work Regulations 1992 (as amended)',
+        'Under the Health and Safety at Work Act, the employer is responsible for providing PPE to employees.',
+      standardRef: 'Health and Safety at Work Act 1974',
     },
     {
-      question: 'How often should ladders or step-ladders be inspected before use?',
-      correct: 'Visually inspected by the user before each use, in addition to any formal inspections',
-      distractors: [
-        'Monthly only, by the supervisor',
-        'Weekly only, by the storeman',
-        'After use, not before',
-      ],
-      explanation: 'A pre-use visual check by the user catches obvious defects between formal inspections.',
+      question: 'How often should the ladders or steps you are using be inspected?',
+      correct: 'Daily, before use',
+      distractors: ['Monthly', 'Weekly', 'Daily, after use'],
+      explanation:
+        'The user should carry out a daily pre-use inspection of ladders and platforms before climbing them, whatever the local reporting policy.',
       standardRef: 'Work at Height Regulations 2005',
-    },
-    {
-      question: 'You see a near miss but no injury. What should you do?',
-      correct: 'Report it through the site near-miss process',
-      distractors: [
-        'Ignore it because no one was hurt',
-        'Tell only the people directly involved',
-        'Wait until something similar causes an injury, then report',
-      ],
-      explanation:
-        'Near-miss reporting is the simplest way to prevent repeat incidents before someone is injured.',
-      standardRef: 'RIDDOR 2013 (reporting culture)',
-    },
-    {
-      question: 'When should hearing protection be worn?',
-      correct: 'When the work or area noise assessment requires it',
-      distractors: [
-        'Never, because cabling is quiet work',
-        'Only on outdoor sites',
-        'Only when the wearer chooses',
-      ],
-      explanation:
-        'Noise exposure can come from drilling, cutting or nearby activities. The noise assessment drives the requirement.',
-      standardRef: 'Control of Noise at Work Regulations 2005',
-    },
-    {
-      question: 'How should dust exposure from drilling be controlled?',
-      correct: 'Use extraction, damping or respiratory protection appropriate to the task',
-      distractors: [
-        'Open a window and continue without controls',
-        'Wear a tied bandana over the nose and mouth',
-        'Drill faster so the dust settles quickly',
-      ],
-      explanation:
-        'Dust controls should be designed in before the task starts. The hierarchy is elimination, control at source, then PPE.',
-      standardRef: 'COSHH 2002 / HSG260',
-    },
-    {
-      question: 'Before using a step-up, podium or tower, what must be done?',
-      correct: 'Inspect the access equipment and confirm it is suitable for the task',
-      distractors: [
-        'Use it without inspection if it was used yesterday',
-        'Use it without inspection if it was delivered today',
-        'Use it as long as it is the right colour for the site',
-      ],
-      explanation: 'Access equipment must be in safe condition and suitable for the task and load.',
-      standardRef: 'Work at Height Regulations 2005',
-    },
-    {
-      question: 'You are working near occupied areas of a building. What is the rule?',
-      correct: 'Segregate the work area and protect users from tools, dust and trailing leads',
-      distractors: [
-        'Continue without barriers because users will avoid the area',
-        'Use tape only to indicate the boundary',
-        'Trust users to look out for themselves',
-      ],
-      explanation:
-        'Installers must consider the safety of others, not only their own team. Physical segregation is normally required.',
-      standardRef: 'CDM Regulations 2015',
     },
     {
       question:
-        'You need to use a chemical product such as a cleaner, lubricant or sealant. What is correct?',
-      correct: 'Read the safety data sheet and apply the required controls',
-      distractors: [
-        'Use it as you would any other product',
-        'Use it only if it smells acceptable',
-        'Use it only if its label is the same colour as previous products',
-      ],
+        'What is the best access equipment for pulling cable into an overhead basket at 4.8 m in a large warehouse?',
+      correct: 'A Mobile Elevated Working Platform (MEWP)',
+      distractors: ['Telescopic ladders', 'Mobile steps', 'Extendable ladders'],
       explanation:
-        'Some products require gloves, ventilation, eye protection or special disposal. The safety data sheet (SDS) lists the controls.',
-      standardRef: 'COSHH 2002',
+        'Where space allows, a more stable and secure platform such as a MEWP should be used for working at this height.',
+      standardRef: 'Work at Height Regulations 2005',
     },
     {
-      question: 'What should you know before starting work on a new site?',
-      correct: 'The site first-aid arrangements and emergency procedure',
+      question: 'The stitching on a safety harness is starting to fray. What should you do?',
+      correct: 'Report it, take it out of use and get another set',
       distractors: [
-        'Only the name of the site canteen',
-        'Only the closest car park',
-        'Only the supervisor mobile number',
+        'Report it, use it, and set it aside at the end of the day',
+        'Use it and report it at the end of the day',
+        'Use it, but take extra care',
       ],
       explanation:
-        'Quick access to first aid matters when cuts, eye injuries or falls occur. The site induction should cover these arrangements.',
-      standardRef: 'Health and Safety (First-Aid) Regulations 1981',
+        'Damaged or worn safety equipment must be removed from use and replaced, so quarantine the harness and obtain another.',
+      standardRef: 'Work at Height Regulations 2005',
     },
     {
-      question: 'Conditions on site no longer match the agreed method statement. What is correct?',
-      correct: 'Stop work and escalate before continuing',
+      question: 'You are working at ground level right beside a large, open pit. What is correct?',
+      correct: 'Wear suitable equipment for working at height',
       distractors: [
-        'Continue and adjust the method silently',
-        'Continue if the supervisor is unavailable',
-        'Continue if the change seems small',
+        'Carry on working as normal',
+        'Stop work until the pit is closed',
+        'Just work with extra caution',
       ],
       explanation:
-        'A method statement only remains valid while the actual conditions match the plan. Significant changes require review.',
-      standardRef: 'Management of H&S at Work Regulations 1999',
+        'The HSE definition of working at height includes anywhere a fall could cause injury, so working next to an open pit requires suitable working-at-height equipment.',
+      standardRef: 'Work at Height Regulations 2005',
     },
     {
-      question: 'What is the correct rule for using mobile phones on site?',
-      correct: 'Follow site rules and avoid distraction during safety-critical tasks',
+      question: 'Which of these is NOT advised when lifting or carrying equipment?',
+      correct: 'Carrying items that block your view, without assistance',
       distractors: [
-        'Use phones freely at all times',
-        'Use phones only during cable pulling',
-        'Use phones only while climbing ladders',
+        'Bending your knees rather than your back',
+        'Avoiding twisting or leaning sideways',
+        'Keeping the load close to your waist while moving',
       ],
       explanation:
-        'Phone distraction is a recognised contributor to trips, falls and tool injuries. Site rules normally restrict use to specific areas.',
-      standardRef: 'CDM Regulations 2015',
+        'Safe manual handling keeps loads close and avoids twisting; carrying items that block your view without help is not advised.',
+      standardRef: 'Manual Handling Operations Regulations 1992',
     },
     {
-      question: 'When leaving the work area at the end of a task, what must be done?',
-      correct: 'Clear tools, waste and temporary controls before leaving or handing over',
+      question: 'Which of these should you NOT do while pulling in cables?',
+      correct: 'Push cables through holes without first checking the exit point',
       distractors: [
-        'Leave the area exactly as the work finished',
-        'Leave tools in case they are needed tomorrow',
-        'Leave waste for the cleaner to manage',
+        'Pull several cables at once',
+        'Work in teams or pairs',
+        'Keep a clear view of the area being worked on',
       ],
       explanation:
-        'End-of-task housekeeping prevents hazards for other workers and building users coming into the area later.',
-      standardRef: 'CDM Regulations 2015',
+        'Always survey the route first. Pushing cables through holes without checking the exit point risks damage and injury.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'How should a large communications cabinet be moved?',
+      correct: 'By following the Assess, Plan, Prepare, Move procedure',
+      distractors: ["By 'walking' it from side to side", 'By dragging it', 'By carrying it between 2 people'],
+      explanation:
+        'Moving a large cabinet is a manual-handling task; follow the Assess, Plan, Prepare, Move procedure with safety as the priority.',
+      standardRef: 'Manual Handling Operations Regulations 1992',
+    },
+    {
+      question: 'What is the correct way to move a large cable drum?',
+      correct: 'Use a team and wheel it, with one person acting as banksman',
+      distractors: ['Wheel it on your own', 'Tip it on its side and use trolley jacks', 'Drag it with a 4x4'],
+      explanation:
+        'A large drum is a manual-handling task; use a team and a banksman, keeping safety the primary concern.',
+      standardRef: 'Manual Handling Operations Regulations 1992',
+    },
+    {
+      question:
+        'You arrive on site and nothing is keeping the public out of your work area. What should you do?',
+      correct: 'Section the area off with signage and barriers, then seek guidance once it is secure',
+      distractors: [
+        'Work quickly to keep the risk short-lived',
+        'Tie a rope across to block access',
+        'Make extra noise so people know you are there',
+      ],
+      explanation:
+        'Make the area safe first with signage and barriers — some action is better than none — then confirm the correct arrangements once it is secure.',
+      standardRef: 'Health and safety guidance',
+    },
+    {
+      question:
+        "You start work in a shared office corridor but the proper signage isn't available. What is the correct action?",
+      correct: 'Get hold of the correct signage to properly cordon off the area',
+      distractors: [
+        'Put any available signage in the middle of the work area',
+        'Stay alert and verbally warn anyone who walks in',
+        'Block the access points with tools or materials',
+      ],
+      explanation:
+        'Safety of yourself and others comes first, so obtain the correct signage to properly cordon off the area before working.',
+      standardRef: 'Health and safety guidance',
+    },
+    {
+      question: 'What is the purpose of putting up warning and guarding signs?',
+      correct: 'To protect you, your fellow workers and anyone else affected by the work',
+      distractors: [
+        'To protect the public',
+        'To protect yourself',
+        'To protect workers from legal action after an accident',
+      ],
+      explanation:
+        'Warning and guarding signs protect you, your fellow workers and anyone else who could be affected by the work.',
+      standardRef: 'Health and safety guidance',
     },
   ],
   'Other Services': [
     {
       question:
-        'Where the IT cable specification or application is unknown, what minimum separation should be kept from power cable?',
+        "If the IT cable's specification or use is unknown, what minimum separation from power cable is recommended?",
       correct: '200 mm',
       distractors: ['50 mm', '150 mm', '500 mm'],
       explanation:
-        'Where the IT cable details are unknown, the guide uses 200 mm as the conservative minimum separation from power cable.',
+        'Data performance suffers from EMI near power cables. Where the IT cable is unknown, the recommended minimum separation is 200 mm.',
       standardRef: 'BS EN 50174-2',
     },
     {
       question:
-        'Data cables run alongside screened power cables with no separation. What is the maximum shared run length?',
+        'How far can data cable and screened power cable run alongside each other without separation?',
       correct: '35 m',
       distractors: ['40 m', '45 m', '50 m'],
-      explanation: 'For this no-separation, screened-power scenario, the maximum length is 35 m.',
+      explanation:
+        'Separation depends on the power carried and the distance between cables. Data and screened power cables can run together for up to 35 m.',
       standardRef: 'BS EN 50174-2',
     },
     {
       question:
-        'Screened backbone cabling runs next to unscreened power cabling with no physical divider. What separation should be maintained?',
+        'With no divider in place, what is the minimum gap between screened backbone cabling and unscreened power cable?',
       correct: '50 mm',
       distractors: ['0 mm', '30 mm', '200 mm'],
       explanation:
-        'For screened backbone next to unscreened power with no divider, 50 mm is the minimum separation used.',
+        'With no divider, screened backbone cabling and unscreened power cables should be separated by at least 50 mm to limit EMI.',
       standardRef: 'BS EN 50174-2',
     },
     {
-      question: 'Where a network cable must cross a power cable, what is the correct angle?',
-      correct: 'At right angles (90°)',
+      question: 'Where it has to cross a power cable, how should network cabling cross it?',
+      correct: 'At right angles',
       distractors: [
-        'Only where a metallic divider separates the cables',
-        'Only where screened cables are used on both sides',
-        'Only where an insulated divider separates the cables',
+        'Separated by a metal divider',
+        'Where screened cables are used',
+        'Separated by an insulated divider',
       ],
       explanation:
-        'A right-angle crossing minimises the parallel exposure between cables and the resulting EMI.',
+        'EMI is strongest when cables run parallel; crossing at right angles (90°) reduces induced interference to almost nil.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'How far should metallic IT cable be kept from fluorescent light fittings?',
+      correct: 'At least 130 mm',
+      distractors: ['At least 30 mm', 'At least 50 mm', 'At least 100 mm'],
+      explanation:
+        'Fluorescent fittings create EMI and power flickers that interfere with data frames, so metallic IT cables should be kept at least 130 mm away.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'Why is adequate separation between telecommunication wiring and power cabling needed?',
+      correct: 'To prevent danger to persons from induced voltages',
+      distractors: [
+        'To allow for future expansion of the telecoms system',
+        'To give maintenance staff room to work',
+        'So power and telecoms cable can be told apart',
+      ],
+      explanation:
+        'Where cables run too close, voltages as well as signals can be induced, which can cause damage or injury — separation prevents this danger.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'The 50 mm separation for parallel power and telecoms cabling is based on which two factors?',
+      correct: 'The power flowing in the power cable and the distance from the telecommunications cabling',
+      distractors: [
+        'The power in the power cable and the distance from the containment',
+        'The overall length of the power and telecoms cabling',
+        'The power in the telecoms cable and the distance from the power cable',
+      ],
+      explanation:
+        'Separation is calculated from the power flowing through the power cable and the physical distance between it and the telecommunications cabling.',
+      standardRef: 'BS EN 50174-2',
+    },
+    {
+      question: 'Which of these will NOT help reduce electrical interference on copper data cable?',
+      correct: 'Using unscreened twisted pair cable',
+      distractors: [
+        'Using screened twisted pair cable',
+        'Running cable in mechanically and electrically continuous conduit',
+        'Physically separating the cables',
+      ],
+      explanation:
+        'Screening, continuous metallic conduit and physical separation all reduce EMI; unscreened twisted pair offers no such screening.',
       standardRef: 'BS EN 50174-2',
     },
     {
       question:
-        'What minimum separation should be kept between metallic IT cable and fluorescent luminaires?',
-      correct: '130 mm',
-      distractors: ['30 mm', '50 mm', '100 mm'],
-      explanation:
-        'Fluorescent luminaires can be a significant EMI source. The guide uses 130 mm as the minimum separation.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'Why must telecoms wiring and power cabling be separated?',
-      correct: 'To prevent danger to persons from induced voltages, as well as to protect performance',
-      distractors: [
-        'Only to allow future telecoms expansion',
-        'Only to provide maintenance workspace',
-        'Only to make cable identification easier',
-      ],
-      explanation:
-        'Separation protects both transmission performance and personal safety, because induced voltage on telecoms cable can become a shock hazard.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'Which two factors mainly drive the 50 mm EMI separation recommendation?',
-      correct: 'Current in the power cable and physical distance from the telecoms cabling',
-      distractors: [
-        'Power cable length and telecoms cable length',
-        'Current in the telecoms cable and distance from power',
-        'Current in the power cable and distance from containment',
-      ],
-      explanation:
-        'EMI coupling rises with the current in the power cable and falls with the distance from the telecoms cable. The 50 mm figure assumes typical conditions.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question: 'Which of the following does NOT help reduce electrical interference on copper data cables?',
-      correct: 'Installing unscreened twisted pair (UTP) cable',
-      distractors: [
-        'Installing screened twisted pair (S/FTP, F/FTP) cable',
-        'Installing mechanically and electrically continuous metal conduit',
-        'Increasing the physical separation between cables',
-      ],
-      explanation:
-        'Screening, metallic containment and physical separation all reduce EMI. Plain UTP on its own is not an EMI control method.',
-      standardRef: 'BS EN 50174-2',
-    },
-    {
-      question:
-        'Which HSE guidance covers safe work near underground services such as buried telecoms cable?',
+        'When burying a telecommunication cable, which HSE guidance document helps you meet your legal duties?',
       correct: 'HSG47',
       distractors: ['HSR25', 'GS38', 'HSG85'],
-      explanation: 'HSG47 ("Avoiding danger from underground services") is the relevant HSE guidance.',
-      standardRef: 'HSE HSG47',
+      explanation:
+        "HSG47 ('Avoiding danger from underground services') is the HSE guidance for work involving buried services.",
+      standardRef: 'HSG47',
     },
     {
       question:
-        'Of the following, which legal requirement is normally NOT engaged by ordinary buried telecoms cable work near underground services?',
-      correct: 'Work at Height Regulations 2005',
+        'Which regulation would NOT apply when burying a telecom cable near other underground services?',
+      correct: 'The Work at Height Regulations 2005',
       distractors: [
-        'Construction (Design and Management) Regulations 2007',
-        'Pipelines Safety Regulations 1996',
-        'Management of Health and Safety at Work Regulations 1999',
+        'The Construction (Design and Management) Regulations 2007',
+        'The Pipelines Safety Regulations 1996',
+        'The Management of Health & Safety at Work Regulations 1999',
       ],
       explanation:
-        'Work at Height applies only where falls are a risk (for example deep pits). Ordinary buried-service work primarily engages CDM, PSR and the management regulations.',
-      standardRef: 'HSE HSG47',
+        'Working in an open trench is not normally working at height, so the Work at Height Regulations would not apply (unlike near an open pit/chamber).',
+      standardRef: 'Work at Height Regulations 2005',
     },
     {
-      question: 'Before entering a cable chamber for duct installation work, what must be done?',
+      question:
+        'Before entering a cable chamber to lay cable into ducts, what is the first action you should take?',
       correct: 'Test for explosive and noxious gases with a portable gas detector',
       distractors: [
-        'Pitch a tent to keep weather out',
-        'Remove all chamber lids and start work',
-        'Wear waterproof clothing only',
+        'Put up a tent to shelter from the weather',
+        'Remove the chamber lids and start installing',
+        'Put on waterproof clothing',
       ],
       explanation:
-        'Chambers can contain invisible hazardous gases. Pre-entry gas testing is required, often as part of a confined-space procedure.',
-      standardRef: 'Confined Spaces Regulations 1997',
+        'Underground structures can collect explosive, poisonous and odourless gases, so test with a portable gas detector before entry.',
+      standardRef: 'Confined spaces guidance',
     },
     {
-      question: 'Which of the following buried duct colours is NOT suitable for telecommunications ductwork?',
+      question: 'Which duct colour would be the wrong choice for telecommunications buried in the ground?',
       correct: 'Yellow',
       distractors: ['White', 'Black', 'Grey'],
       explanation:
-        'Yellow is associated with gas and is not used for telecoms ductwork. White, black and grey are typical telecoms duct colours.',
-      standardRef: 'NJUG Guidelines',
+        'The NJUG colour guidance reserves yellow for gas, so a yellow duct would not be suitable for telecommunications.',
+      standardRef: 'NJUG guidance',
     },
     {
       question:
-        'Under BS EN 50174-3, what is the minimum recommended depth for telecoms cable below a footpath?',
+        'What is the minimum recommended burial depth for a telecommunication cable under a footpath?',
       correct: '500 mm',
-      distractors: ['250 mm – 450 mm', '450 mm – 600 mm', '600 mm'],
-      explanation: 'Below a footpath, BS EN 50174-3 Table 3 sets a minimum depth of 500 mm.',
-      standardRef: 'BS EN 50174-3 Table 3',
+      distractors: ['250 mm-450 mm', '450 mm-600 mm', '600 mm'],
+      explanation:
+        'BS EN 50174-3 Table 3 gives minimum recommended bore depths; below a footpath the figure is 500 mm.',
+      standardRef: 'BS EN 50174-3',
     },
     {
-      question:
-        'Which cable management system can act as an earthed screen and help reduce EMI on data cabling?',
+      question: 'Which cable management system can shield data cabling from electromagnetic interference?',
       correct: 'Metallic trunking',
-      distractors: ['Plastic conduit', 'Plastic trunking', 'Non-metallic basket'],
+      distractors: ['Plastic conduit', 'Plastic trunking', 'Non-metallic trunking'],
       explanation:
-        'A correctly bonded metallic containment can act as a screen, reducing the EMI environment around the cabling.',
+        'A correctly installed, earthed metallic trunking acts as a screen, absorbing EMI and feeding it to earth; plastic systems cannot.',
       standardRef: 'BS EN 50174-2',
     },
     {
       question:
-        'Under BS EN 50174-3, what is the minimum recommended depth for telecoms cable below a road or carriageway?',
+        'What is the minimum recommended burial depth for a telecommunication cable under a road or carriageway?',
       correct: '600 mm',
-      distractors: ['250 mm – 350 mm', '750 mm – 1200 mm', '750 mm'],
-      explanation: 'Below a road or carriageway, BS EN 50174-3 Table 3 sets a minimum depth of 600 mm.',
-      standardRef: 'BS EN 50174-3 Table 3',
+      distractors: ['250 mm-350 mm', '750 mm-1200 mm', '750 mm'],
+      explanation:
+        'BS EN 50174-3 Table 3 gives minimum recommended bore depths; below a road or carriageway the figure is 600 mm.',
+      standardRef: 'BS EN 50174-3',
     },
   ],
   'Waste Management': [
     {
-      question: 'Is a site waste-management policy required on a construction site?',
+      question: 'Does a construction site need a waste management policy?',
       correct: 'Yes, and it must be followed',
       distractors: [
-        'Yes, but it is advisory only',
+        'Yes, but it is only advisory',
         'No, but it is good practice',
-        'No — it is the individual worker’s responsibility',
+        'No, it is down to the individual',
       ],
       explanation:
-        'The site waste-management policy is mandatory and controls the disposal route for each waste stream.',
-      standardRef: 'Environmental Protection Act 1990 / EPR 2016',
+        'Site waste management plans are mandatory for construction sites (DEFRA Waste Strategy / Construction Resources and Waste roadmap), so the policy must be followed.',
+      standardRef: 'DEFRA Waste Strategy',
     },
     {
-      question: 'How should empty cable boxes be disposed of on site?',
-      correct: 'According to the company / site waste-management policy',
-      distractors: [
-        'Leave them for the cleaner to deal with',
-        'Place them in any recycling skip available',
-        'Place them in the general skip without checking',
-      ],
+      question: 'How should empty cable boxes be disposed of?',
+      correct: "As directed in your company's waste management policy",
+      distractors: ['Left for the cleaner', 'In the recycling skip', 'In the general skip'],
       explanation:
-        'Even where cardboard looks recyclable, the site policy determines the correct skip or collection route.',
-      standardRef: 'Environmental Protection Act 1990',
+        "Sites have different recycling processes and contracts, so the only sure way is to follow your company's waste management policy.",
+      standardRef: 'Company waste management policy',
     },
     {
-      question: 'How should waste cable left on cable drums be disposed of?',
-      correct: 'According to the company / site waste-management policy',
-      distractors: [
-        'Keep it for personal scrap value',
-        'Put it in the general skip without checking',
-        'Put it in any recycling skip without checking',
-      ],
+      question: 'How should leftover cable still on its drum be disposed of?',
+      correct: "As directed in your company's waste management policy",
+      distractors: ['Kept for its scrap value', 'In the general skip', 'In the recycling skip'],
       explanation:
-        'Waste cable may be recyclable or subject to a site-specific contract. The policy decides the disposal route.',
-      standardRef: 'Environmental Protection Act 1990',
+        "Recycling and metal-waste arrangements vary by site, so dispose of waste cable as directed by your company's waste management policy.",
+      standardRef: 'Company waste management policy',
     },
     {
-      question: 'A fibre sharps bin is full. How should it be disposed of?',
+      question: 'How should a fibre sharps bin be dealt with?',
       correct: 'Sent away for specialist disposal',
       distractors: [
         'Emptied into the general skip',
         'Emptied into the recycling skip',
-        'Sealed in a bag and put in a normal bin',
+        'Bagged up and put in a normal bin',
       ],
       explanation:
-        'Fibre shards are a specialist waste stream. They must not be emptied into general or mixed recycling skips.',
-      standardRef: 'Hazardous Waste Regulations 2005',
+        'Glass fibre shards are a specialist waste and must be sent away for correct disposal by a specialist company.',
+      standardRef: 'Company waste management policy',
     },
     {
-      question: 'How should empty wooden cable drums be dealt with?',
-      correct: 'According to the company / site waste-management policy',
-      distractors: [
-        'Break them down before putting in any recycling skip',
-        'Put them in the general site skip',
-        'Sell them privately for personal gain',
-      ],
+      question: 'How should empty wooden cable drums be disposed of?',
+      correct: "As directed in your company's waste management policy",
+      distractors: ['Broken down and put in the recycling skip', 'Put in the general site skip', 'Sold on'],
       explanation:
-        'Many sites return drums to the supplier for reuse, or use a defined disposal route. Do not improvise outside the policy.',
-      standardRef: 'Waste (England and Wales) Regulations 2011',
-    },
-    {
-      question: 'Cable offcuts contain copper conductors. Which statement applies?',
-      correct: 'They are usually segregated for metal recycling under the site policy',
-      distractors: [
-        'They can go in the general skip if small',
-        'They can be taken home as personal scrap',
-        'They can be burned on site to recover copper',
-      ],
-      explanation:
-        'Copper is a valuable, recoverable material. Site policy normally requires segregation into a metals stream, not the general skip.',
-      standardRef: 'Waste (England and Wales) Regulations 2011',
-    },
-    {
-      question: 'You find unlabelled waste containers in the work area. What is the correct action?',
-      correct: 'Do not add waste to them — report and label them according to site procedure',
-      distractors: [
-        'Use them for any waste because they are empty',
-        'Use them for mixed waste so they are not wasted',
-        'Move them to another location so they are out of the way',
-      ],
-      explanation:
-        'Unlabelled containers can lead to cross-contamination between waste streams and to incorrect disposal. They must be identified before use.',
-      standardRef: 'Environmental Protection (Duty of Care) Regulations 1991',
-    },
-    {
-      question: 'Solvent-based cleaner has been used on site. How is the empty container handled?',
-      correct: 'As hazardous waste, following the site procedure for chemical containers',
-      distractors: [
-        'Place it in the general skip once it is empty',
-        'Rinse it and put it in the recycling skip',
-        'Take it home for personal use',
-      ],
-      explanation:
-        'Containers that held solvents or other chemicals are normally classified as hazardous waste, even when "empty".',
-      standardRef: 'Hazardous Waste Regulations 2005',
-    },
-    {
-      question:
-        'A small amount of cable offcuts falls into the ceiling void during installation. What is correct?',
-      correct: 'Retrieve the offcuts and dispose of them through the waste route',
-      distractors: [
-        'Leave them — they are out of sight',
-        'Push them further into the void to hide them',
-        'Sweep them through to the next room',
-      ],
-      explanation:
-        'Offcuts left in voids increase fire load and can be mistaken later for installed cable. They must be retrieved and disposed of properly.',
-      standardRef: 'Environmental Protection Act 1990 / Fire Strategy',
-    },
-    {
-      question: 'What is the principle behind the waste hierarchy used on site?',
-      correct: 'Prevent, prepare for reuse, recycle, recover, then dispose as a last resort',
-      distractors: [
-        'Dispose first to keep the area clear',
-        'Recycle everything regardless of contamination',
-        'Recover energy before any other option',
-      ],
-      explanation:
-        'The waste hierarchy directs sites to prevent waste first and treat disposal as the last option. It applies to packaging, offcuts and damaged stock.',
-      standardRef: 'Waste (England and Wales) Regulations 2011',
-    },
-    {
-      question:
-        'A reel of cable is damaged but not yet opened. What is the best first step under the waste hierarchy?',
-      correct: 'Check whether the supplier will accept it back for reuse or repair',
-      distractors: [
-        'Put it straight into the general skip',
-        'Cut the cable up to fit it into the bin',
-        'Sell it on personally to recover cost',
-      ],
-      explanation:
-        'Reuse sits above recycling in the waste hierarchy. Returning damaged stock prevents waste in the first place.',
-      standardRef: 'Waste (England and Wales) Regulations 2011',
-    },
-    {
-      question: 'What information is normally required on a waste transfer note?',
-      correct: 'Waste description, quantity, parties involved and EWC code where relevant',
-      distractors: [
-        'Only the driver’s name',
-        'Only the customer’s purchase order',
-        'Only the disposal site postcode',
-      ],
-      explanation:
-        'A waste transfer note records the duty-of-care trail for waste leaving a site. Standard fields include description, quantity and the parties.',
-      standardRef: 'Environmental Protection (Duty of Care) Regulations 1991',
-    },
-    {
-      question: 'Where are WEEE rules relevant on a cabling site?',
-      correct:
-        'When removing or disposing of electrical and electronic equipment such as switches or active hardware',
-      distractors: [
-        'Whenever any packaging is thrown away',
-        'Whenever any wooden drum is disposed of',
-        'Whenever any cardboard is disposed of',
-      ],
-      explanation:
-        'The WEEE Regulations cover waste electrical and electronic equipment, including active network hardware being removed during a refit.',
-      standardRef: 'WEEE Regulations 2013',
-    },
-    {
-      question: 'A spill of cleaning solvent occurs on a hard floor. What is the correct first action?',
-      correct:
-        'Contain the spill, follow the site procedure and treat the absorbent material as hazardous waste',
-      distractors: [
-        'Wash it down the nearest drain',
-        'Sweep it into the general skip',
-        'Cover it with cardboard and continue work',
-      ],
-      explanation:
-        'Solvent spills require containment and proper disposal of the contaminated absorbent. Discharge to drains is normally prohibited and can be a criminal offence.',
-      standardRef: 'COSHH 2002 / Environmental Protection Act 1990',
-    },
-    {
-      question:
-        'A reel of cable is left over at the end of a job but is still in good condition. What is the preferred outcome under the waste hierarchy?',
-      correct: 'Return it to stock for reuse on a future job',
-      distractors: [
-        'Dispose of it in the general skip to clear the van',
-        'Cut it up and bag it as small offcuts',
-        'Keep it personally and decide later',
-      ],
-      explanation:
-        'Reusing usable stock is the preferred outcome. Disposal of usable material is wasteful and may breach duty-of-care expectations.',
-      standardRef: 'Waste (England and Wales) Regulations 2011',
+        "Most policies return drums to the manufacturer for reuse as the most sustainable option, so follow your company's waste management policy.",
+      standardRef: 'Company waste management policy',
     },
   ],
 };
 
 function answerLetterForId(id: string): AnswerChoice {
-  // FNV-1a 32-bit hash → deterministic letter per question ID (not position).
+  // FNV-1a 32-bit hash -> deterministic letter per question ID (not position).
   let hash = 0x811c9dc5;
   for (let i = 0; i < id.length; i += 1) {
     hash ^= id.charCodeAt(i);

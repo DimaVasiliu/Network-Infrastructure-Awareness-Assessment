@@ -3,6 +3,7 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-
 
 import { cableCodes, searchCableCodes } from '../data/cableCodes';
 import type { CableCode } from '../data/cableCodes';
+import { useLanguage, useT } from '../i18n';
 import { colors, spacing } from '../theme';
 
 const CATEGORY_LABELS: Record<CableCode['category'], string> = {
@@ -16,6 +17,8 @@ const CATEGORY_LABELS: Record<CableCode['category'], string> = {
 };
 
 export function DecoderScreen() {
+  const t = useT();
+  const language = useLanguage();
   const [query, setQuery] = useState('');
   const [openId, setOpenId] = useState<string | null>(null);
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
@@ -37,6 +40,12 @@ export function DecoderScreen() {
         Look up cable codes, standards and regulations. Each entry breaks down what every part of the code
         means, then gives 3 quick questions to test you.
       </Text>
+
+      {language !== 'en' ? (
+        <View style={styles.englishNote}>
+          <Text style={styles.englishNoteText}>{t.decoder.englishNote}</Text>
+        </View>
+      ) : null}
 
       <TextInput
         accessibilityLabel="Search cable codes"
@@ -164,6 +173,19 @@ const styles = StyleSheet.create({
     color: colors.muted,
     fontSize: 15,
     lineHeight: 22,
+  },
+  englishNote: {
+    backgroundColor: colors.warningSoft,
+    borderRadius: 8,
+    marginTop: spacing.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  englishNoteText: {
+    color: colors.warning,
+    fontSize: 13,
+    fontWeight: '700',
+    lineHeight: 18,
   },
   search: {
     backgroundColor: colors.surface,

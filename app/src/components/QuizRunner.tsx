@@ -1,3 +1,4 @@
+import * as Haptics from 'expo-haptics';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, BackHandler, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
@@ -187,6 +188,8 @@ export function QuizRunner({
       return;
     }
 
+    void Haptics.selectionAsync();
+
     setAnswers((latestAnswers) => {
       const nextAnswers = {
         ...latestAnswers,
@@ -283,7 +286,18 @@ export function QuizRunner({
         </Text>
         <View style={styles.topRowRight}>
           {remainingSeconds !== undefined ? (
-            <Text style={styles.timer}>{formatTime(remainingSeconds)}</Text>
+            <Text
+              style={[
+                styles.timer,
+                remainingSeconds <= 60
+                  ? styles.timerDanger
+                  : remainingSeconds <= 300
+                    ? styles.timerWarning
+                    : null,
+              ]}
+            >
+              {formatTime(remainingSeconds)}
+            </Text>
           ) : null}
           <Pressable
             accessibilityRole="button"
@@ -537,9 +551,15 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   timer: {
-    color: colors.warning,
+    color: colors.muted,
     fontSize: 16,
     fontWeight: '800',
+  },
+  timerWarning: {
+    color: colors.warning,
+  },
+  timerDanger: {
+    color: colors.danger,
   },
   section: {
     color: colors.muted,

@@ -23,6 +23,9 @@ const en = {
     stats: 'Stats',
     about: 'About',
   },
+  decoder: {
+    englishNote: 'Reference content is in English only.',
+  },
   common: {
     start: 'Start',
     retry: 'Retry',
@@ -224,6 +227,9 @@ const ro: Translations = {
     mock: 'Simulare',
     stats: 'Statistici',
     about: 'Despre',
+  },
+  decoder: {
+    englishNote: 'Conținutul de referință este disponibil doar în limba engleză.',
   },
   common: {
     start: 'Începe',
@@ -429,6 +435,9 @@ const ru: Translations = {
     mock: 'Экзамен',
     stats: 'Статистика',
     about: 'О прил.',
+  },
+  decoder: {
+    englishNote: 'Справочные материалы доступны только на английском языке.',
   },
   common: {
     start: 'Начать',

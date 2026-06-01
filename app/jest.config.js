@@ -1,11 +1,24 @@
 /** @type {import('jest').Config} */
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  testMatch: ['<rootDir>/src/**/*.test.ts'],
-  // Only run tests that don't pull in React Native runtime.
-  // UI components and store (AsyncStorage / Zustand persist) need jest-expo
-  // and a JSDOM-like environment — out of scope for the v1 test suite.
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
+  projects: [
+    {
+      // Pure logic tests (utils / data) — fast, no React Native runtime.
+      displayName: 'node',
+      preset: 'ts-jest',
+      testEnvironment: 'node',
+      testMatch: ['<rootDir>/src/**/*.test.ts'],
+      moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
+    },
+    {
+      // Component / screen tests — need the React Native + Expo transform.
+      displayName: 'components',
+      preset: 'jest-expo',
+      testMatch: ['<rootDir>/src/**/*.test.tsx'],
+      setupFiles: ['<rootDir>/jest.setup.js'],
+      transformIgnorePatterns: [
+        'node_modules/(?!((jest-)?react-native|@react-native(-community)?|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/.*|sentry-expo|native-base|react-native-svg|zustand))',
+      ],
+    },
+  ],
   collectCoverageFrom: ['src/data/**/*.ts', 'src/utils/**/*.ts'],
 };
