@@ -1,10 +1,10 @@
 # Store Listing Copy
 
 The exact text to paste into App Store Connect and Google Play Console for
-the first submission. Disclaimer is in **every** description, by design.
-
-Replace `support@timrx.live`, `{{PRIVACY_URL}}` and `{{LEGAL_NAME}}` with the
-final values before submitting.
+the first submission. Disclaimer is in **every** description, by design. All
+values below are final: support email is `support@timrx.live`, the publisher
+name is Dumitru Vasiliu, and the privacy policy is live at
+`https://timrx.live/legal/nia/privacy`.
 
 ---
 
@@ -126,9 +126,10 @@ network infrastructure,NIA,cabling,JIB exam prep,datacomms,electrician,BS EN 501
 https://timrx.live/nia/support
 ```
 
-A dedicated support page is live at the URL above and links the privacy, terms,
-refund and EULA pages. A bare `mailto:support@timrx.live` is also accepted by
-both stores if the page is ever unavailable.
+Use the support URL above — a dedicated support page is live there and links the
+privacy, terms, refund and EULA pages. Enter `support@timrx.live` in the separate
+contact-email field that both stores also require; do not use a bare `mailto:` as
+the support URL itself.
 
 ## Marketing URL (Apple — optional)
 

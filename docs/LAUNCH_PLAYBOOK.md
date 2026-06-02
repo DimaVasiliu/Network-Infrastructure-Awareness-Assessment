@@ -2,7 +2,7 @@
 
 One-screen, click-through launch checklist. Follow it top to bottom. Cross-references — but does **not** duplicate — the form answers in `LAUNCH_COMPLIANCE.md`, the store copy in `STORE_LISTING.md`, and the Sentry token setup in `SENTRY.md`.
 
-**Status (2026-05-30):** code green, 46/46 Jest tests passing, TypeScript clean, ESLint 0 errors. No build blockers. The work below is paperwork + submission, not engineering.
+**Status (2026-06-01):** code green, 53/53 Jest tests passing, TypeScript clean, ESLint 0 errors. No build blockers. The work below is paperwork + submission, not engineering.
 
 **Identities you will reuse on every form**
 
@@ -261,7 +261,7 @@ These four placeholders are still on the published Cloudflare Pages versions of 
 | International transfers paragraph | privacy §6 | "We use Neo.Space (Namecheap, Inc., USA) for inbound email under the EU–US Data Privacy Framework and the UK extension. Outbound transactional email is sent via Amazon SES in eu-west-2 (London), keeping email content within the UK." |
 | "Last updated" line | all four pages | Today's date when you edit |
 
-Bump the privacy policy "Last updated" date in `app/app.json` `extra.privacyPolicyVersion` so users see a "Privacy policy updated" notice on next launch.
+When you revise any legal page, update its "Last updated" line on the hosted page. (There is no `extra.privacyPolicyVersion` field in `app.json` and no in-app "policy updated" notice; the legal pages are read live from the web, so editing the hosted page is all that is required.)
 
 ---
 

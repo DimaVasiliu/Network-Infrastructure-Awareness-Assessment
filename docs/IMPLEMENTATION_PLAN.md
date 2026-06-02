@@ -238,8 +238,8 @@ Because you're collecting almost nothing, you're in great shape — but you stil
 
 Both stores require you to declare what data you collect, even if it's "none".
 
-- **Apple App Privacy** (App Store Connect → App Privacy) — declare "Data Not Collected" for the mobile app.
-- **Google Play Data Safety** (Play Console → App content → Data safety) — same: declare no data collection for the mobile app.
+- **Apple App Privacy** (App Store Connect → App Privacy) — declare the two data types actually collected: Contact Info → Email (support, linked to user, not used for tracking) and Diagnostics → Crash Data (Sentry, not linked, not tracking). Full answers in `LAUNCH_COMPLIANCE.md` §4.
+- **Google Play Data Safety** (Play Console → App content → Data safety) — same two streams: support email and opt-out crash diagnostics. Full answers in `LAUNCH_COMPLIANCE.md` §5.
 - **Age rating** — choose 4+ / Everyone. No mature content.
 - **EULA / Terms of Use** — Apple has a default EULA you can use, or write your own. Required on both stores.
 
