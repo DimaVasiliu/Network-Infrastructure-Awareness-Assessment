@@ -826,6 +826,111 @@ export const cableCodes: CableCode[] = [
       },
     ],
   },
+  {
+    id: 'mice',
+    category: 'Standard',
+    title: 'MICE — environmental classification',
+    codeExample: 'MICE',
+    summary:
+      'A four-part code from BS EN 50173 that classifies the environment a cabling system has to survive, used to select the right cable and containment.',
+    parts: [
+      { label: 'M', meaning: 'Mechanical — shock, vibration, impact, crush and tensile stress.' },
+      {
+        label: 'I',
+        meaning: 'Ingress — solids and liquids (dust and water), similar in spirit to IP ratings.',
+      },
+      { label: 'C', meaning: 'Climatic / Chemical — temperature, humidity and exposure to chemicals.' },
+      { label: 'E', meaning: 'Electromagnetic — EMI, surges and the electromagnetic environment.' },
+    ],
+    whatItMeans:
+      'Each letter is given a level (1, 2 or 3): 1 = ordinary office-type conditions, 2 = light industrial, 3 = industrial / harsh. You match the cabling and containment to the MICE level of the space.',
+    typicalUse:
+      'Choosing cable construction and pathway systems — BS EN 50174 says the selection of cable management shall take the MICE classification into account.',
+    watchOuts:
+      'MICE is defined in BS EN 50173, not BS EN 50174. The numbers after each letter (e.g. M2 I1 C1 E2) are the severity levels, not a product code.',
+    standardRef: 'BS EN 50173',
+    searchTerms: ['mice', 'environmental classification', 'm i c e', 'm1 i1 c1 e1'],
+    quiz: [
+      {
+        question: 'What do the letters M, I, C and E stand for?',
+        answer: 'Mechanical, Ingress, Climatic/Chemical, Electromagnetic',
+        why: 'MICE classifies the four environmental stresses a cabling system must withstand.',
+      },
+      {
+        question: 'Which standard defines the MICE classification?',
+        answer: 'BS EN 50173',
+        why: 'MICE comes from BS EN 50173; BS EN 50174 then tells you to use it when selecting cable management.',
+      },
+      {
+        question: 'What does a higher MICE level number (e.g. 3) indicate?',
+        answer: 'A harsher environment',
+        why: 'Level 1 is ordinary/office, 2 is light industrial, 3 is harsh/industrial.',
+      },
+    ],
+  },
+  {
+    id: 'bs-en-50174-install-limits',
+    category: 'Standard',
+    title: 'BS EN 50174 install limits — the key numbers',
+    codeExample: 'BS EN 50174 limits',
+    summary:
+      'The practical installation limits from BS EN 50174 that come up most often: clearances, support spacing, conduit bends and bundle size.',
+    parts: [
+      {
+        label: 'Cabinet access',
+        meaning: '1.2 m clearance on cabinet/frame/rack faces where access is required.',
+      },
+      { label: 'Tray clearance', meaning: 'Tray-work sits at least 25 mm off the fixing surface.' },
+      { label: 'Conduit draw access', meaning: 'Draw-box access at least every 12 m on bent conduit runs.' },
+      {
+        label: 'Support spacing',
+        meaning:
+          'Non-continuous supports (basket/ladder/hooks) ≤ 1500 mm apart where the maker gives no figure.',
+      },
+      { label: 'Stacking height', meaning: 'Continuous supports (trays) — cable stacking height ≤ 150 mm.' },
+      {
+        label: 'Conduit bends',
+        meaning: 'No more than two 90° bends, and ≤ 180° cumulative, between pulling points.',
+      },
+      { label: 'Bundle size', meaning: 'Balanced data cable bundles ≤ 24 cables.' },
+      { label: 'Fixings', meaning: 'Pathway fixings rated for twice the combined mass of pathway + cables.' },
+    ],
+    whatItMeans:
+      'These are the "how far / how many / how tight" figures BS EN 50174 sets so cables can be pulled in without damage and pathways stay safely loaded.',
+    typicalUse:
+      'Planning containment routes, conduit runs and cabinet locations; deciding bundle sizes and support spacing on site.',
+    watchOuts:
+      'Risers: lower cables rather than pulling them up. Suspended-ceiling grids are never a pathway support. Manufacturer figures, where they exist, take priority over these defaults.',
+    standardRef: 'BS EN 50174-2',
+    searchTerms: [
+      '50174 limits',
+      '1.2m clearance',
+      '25mm tray',
+      '12m draw box',
+      '1500mm support',
+      '150mm stacking',
+      '24 cables',
+      'conduit bends',
+      'fixings',
+    ],
+    quiz: [
+      {
+        question: 'What clearance is required on cabinet faces where access is needed?',
+        answer: '1.2 m',
+        why: 'BS EN 50174 sets 1.2 m on faces requiring access so equipment can be worked on safely.',
+      },
+      {
+        question: 'How many 90° bends are allowed in a conduit between pulling points?',
+        answer: 'Two (and ≤ 180° cumulative)',
+        why: 'More than two bends, or more than 180° total, makes safe cable pulling impossible.',
+      },
+      {
+        question: 'What is the maximum balanced-data bundle size?',
+        answer: '24 cables',
+        why: 'Larger bundles trap heat and increase interference, so 24 is the limit.',
+      },
+    ],
+  },
 ];
 
 export function searchCableCodes(query: string): CableCode[] {
