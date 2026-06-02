@@ -237,10 +237,10 @@ Template: https://ico.org.uk/for-organisations/sme-web-hub/documentation/
 Run this top-to-bottom on the day you submit the binary.
 
 ```
-[ ] Legal entity registered (Companies House / HMRC) — name in {{LEGAL_NAME}}
-[ ] All placeholders in PRIVACY.md / TERMS.md / REFUND.md / EULA.md replaced
-[ ] Privacy, Terms, Refund, EULA hosted at stable URLs
-[ ] URLs in SettingsScreen.tsx match the hosted URLs
+[x] Legal entity registered — operating as sole trader: Dumitru Vasiliu (name in legal docs)
+[x] All placeholders in PRIVACY.md / TERMS.md / REFUND.md / EULA.md replaced (no {{...}} remain)
+[x] Privacy, Terms, Refund, EULA hosted at stable URLs (verified live 2026-06-01: privacy/terms/refunds/eula at timrx.live/legal/nia/*)
+[x] URLs in SettingsScreen.tsx match the hosted URLs (verified exact match)
 [ ] ICO registration paid; number in {{ICO_NUMBER}}
 [ ] Apple App Privacy form submitted, URL set in App Store Connect
 [ ] Google Play Data Safety form submitted, URL set in Play Console
