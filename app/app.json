@@ -9,7 +9,7 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "uk.networkinfrastructure.trainer",
-      "buildNumber": "1",
+      "buildNumber": "6",
       "supportsTablet": false,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
@@ -17,7 +17,7 @@
     },
     "android": {
       "package": "uk.networkinfrastructure.trainer",
-      "versionCode": 1,
+      "versionCode": 6,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
